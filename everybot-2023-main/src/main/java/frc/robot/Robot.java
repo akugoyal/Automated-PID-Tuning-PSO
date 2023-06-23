@@ -361,9 +361,5 @@ public class Robot extends TimedRobot {
     double pos = driveLeftSparkTwo.getAlternateEncoder(4096).getPosition();
     SmartDashboard.putNumber("magnet health", pos);
     setDriveMotors(-0.5*j.getRawAxis(0) * kSpeed, -turn*kSpeed);
-    
-
-
-    //Finalfinal test
   }
 }
