@@ -4,6 +4,7 @@
 
 package frc.robot;
 
+import com.ctre.phoenix.sensors.CANCoder;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.SparkMaxAbsoluteEncoder;
 import com.revrobotics.SparkMaxAlternateEncoder;
@@ -29,6 +30,7 @@ public class Robot extends TimedRobot {
 
   // CANCoder test = new CANCoder(0)
 
+  // CANCoder leftCoder = new CANCoder(10);
   /*
    * Drive motor controller instances.
    * 
@@ -358,8 +360,8 @@ public class Robot extends TimedRobot {
     if (axis1 < 0) {
       turn *= -1;
     }
-    double pos = driveLeftSparkTwo.getAlternateEncoder(4096).getPosition();
-    SmartDashboard.putNumber("magnet health", pos);
+
+    // leftCoder.getMagnetFieldStrength();
     setDriveMotors(-0.5*j.getRawAxis(0) * kSpeed, -turn*kSpeed);
   }
 }
