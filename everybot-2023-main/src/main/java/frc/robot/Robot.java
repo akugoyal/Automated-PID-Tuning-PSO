@@ -362,5 +362,8 @@ public class Robot extends TimedRobot {
     SmartDashboard.putNumber("magnet health", pos);
     setDriveMotors(-0.5*j.getRawAxis(0) * kSpeed, -turn*kSpeed);
     
+
+
+    //Finalfinal test
   }
 }
