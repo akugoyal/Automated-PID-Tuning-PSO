@@ -4,21 +4,17 @@
 
 package frc.robot;
 
-import com.ctre.phoenix.sensors.CANCoder;
 import com.revrobotics.CANSparkMax;
-import com.revrobotics.SparkMaxAbsoluteEncoder;
-import com.revrobotics.SparkMaxAlternateEncoder;
 import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
-import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
-public class Robot extends TimedRobot {
+public class Robot extends TimedRobot{
   /*
    * Autonomous selection options.
    */
@@ -120,7 +116,7 @@ public class Robot extends TimedRobot {
    */
   static final double AUTO_DRIVE_SPEED = -0.25;
 
-  static double kSpeed = 1;
+  static Speed dtSpeed = new Speed();
   static boolean changeSpeed = false;
 
   /**
@@ -341,16 +337,16 @@ public class Robot extends TimedRobot {
     setIntakeMotor(intakePower, intakeAmps);
 
     if (j.getPOV() == 0 && changeSpeed) {
-      kSpeed = Math.min(kSpeed + 0.1, 1);
+      dtSpeed.setSpeed(Math.min(dtSpeed.getSpeed() + 0.1, 1));
       changeSpeed = false;
     } else if (j.getPOV() == 180 && changeSpeed) {
-      kSpeed = Math.max(kSpeed - 0.1, 0);
+      dtSpeed.setSpeed(Math.max(dtSpeed.getSpeed() - 0.1, 0));
       changeSpeed = false;
     }
     if (j.getPOV() == -1) {
       changeSpeed = true;
     }
-    SmartDashboard.putNumber("kSpeed ", kSpeed);
+    SmartDashboard.putData("kSpeed ", dtSpeed);
     /*
      * Negative signs here because the values from the analog sticks are backwards
      * from what we want. Forward returns a negative when we want it positive.
@@ -362,6 +358,6 @@ public class Robot extends TimedRobot {
     }
 
     // leftCoder.getMagnetFieldStrength();
-    setDriveMotors(-0.5*j.getRawAxis(0) * kSpeed, -turn*kSpeed);
+    setDriveMotors(-0.5*j.getRawAxis(0) * dtSpeed.getSpeed(), -turn*dtSpeed.getSpeed());
   }
 }
