@@ -1,1 +1,27 @@
-{}
+{
+  "NetworkTables": {
+    "Persistent Values": {
+      "open": false
+    },
+    "Retained Values": {
+      "open": false
+    },
+    "transitory": {
+      "SmartDashboard": {
+        "kSpeed ": {
+          "open": true
+        },
+        "open": true
+      }
+    },
+    "types": {
+      "/FMSInfo": "FMSInfo",
+      "/SmartDashboard/Auto choices": "String Chooser"
+    }
+  },
+  "NetworkTables Settings": {
+    "mode": "Client (NT4)",
+    "port4": 5810,
+    "serverTeam": "1072"
+  }
+}

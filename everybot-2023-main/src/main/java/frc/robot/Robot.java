@@ -13,6 +13,7 @@ import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.cameraserver.CameraServer;
 
 public class Robot extends TimedRobot{
   /*
@@ -124,6 +125,7 @@ public class Robot extends TimedRobot{
    */
   @Override
   public void robotInit() {
+    CameraServer.startAutomaticCapture();
     m_chooser.setDefaultOption("do nothing", kNothingAuto);
     m_chooser.addOption("cone and mobility", kConeAuto);
     m_chooser.addOption("cube and mobility", kCubeAuto);
