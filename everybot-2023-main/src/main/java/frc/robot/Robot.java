@@ -49,7 +49,7 @@ public class Robot extends TimedRobot{
    * The arm is a NEO on Everybud.
    * The intake is a NEO 550 on Everybud.
    */
-  //CANSparkMax arm = new CANSparkMax(5, MotorType.kBrushless);
+  CANSparkMax arm = new CANSparkMax(9, MotorType.kBrushed);
   //CANSparkMax intake = new CANSparkMax(6, MotorType.kBrushless);
 
   /**
@@ -75,7 +75,7 @@ public class Robot extends TimedRobot{
   /**
    * Percent output to run the arm up/down at
    */
-  static final double ARM_OUTPUT_POWER = 0.4;
+  static final double ARM_OUTPUT_POWER = 0.2;
 
   /**
    * How many amps the intake can use while picking up
@@ -148,9 +148,9 @@ public class Robot extends TimedRobot{
      * If either one is reversed, change that here too. Arm out is defined
      * as positive, arm in is negative.
      */
-    // arm.setInverted(true);
-    // arm.setIdleMode(IdleMode.kBrake);
-    // arm.setSmartCurrentLimit(ARM_CURRENT_LIMIT_A);
+    arm.setInverted(false);
+    arm.setIdleMode(IdleMode.kBrake);
+    arm.setSmartCurrentLimit(ARM_CURRENT_LIMIT_A);
     // intake.setInverted(false);
     // intake.setIdleMode(IdleMode.kBrake);
   }
@@ -196,10 +196,10 @@ public class Robot extends TimedRobot{
    * @param percent
    */
   public void setArmMotor(double percent) {
-    //arm.set(percent);
-    //SmartDashboard.putNumber("arm power (%)", percent);
-    //SmartDashboard.putNumber("arm motor current (amps)", arm.getOutputCurrent());
-    //SmartDashboard.putNumber("arm motor temperature (C)", arm.getMotorTemperature());
+    arm.set(percent);
+    SmartDashboard.putNumber("arm power (%)", percent);
+    SmartDashboard.putNumber("arm motor current (amps)", arm.getOutputCurrent());
+    SmartDashboard.putNumber("arm motor temperature (C)", arm.getMotorTemperature());
   }
 
   /**
@@ -302,7 +302,7 @@ public class Robot extends TimedRobot{
   @Override
   public void teleopPeriodic() {
     double armPower;
-    if (j.getRawButton(7)) {
+    if (j.getRawButton(6)) {
       // lower the arm
       armPower = -ARM_OUTPUT_POWER;
     } else if (j.getRawButton(5)) {
