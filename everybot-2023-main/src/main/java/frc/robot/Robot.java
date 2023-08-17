@@ -4,6 +4,9 @@
 
 package frc.robot;
 
+import com.ctre.phoenix.motorcontrol.NeutralMode;
+import com.ctre.phoenix.motorcontrol.TalonSRXControlMode;
+import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
@@ -49,8 +52,8 @@ public class Robot extends TimedRobot{
    * The arm is a NEO on Everybud.
    * The intake is a NEO 550 on Everybud.
    */
-  CANSparkMax arm = new CANSparkMax(9, MotorType.kBrushed);
-  //CANSparkMax intake = new CANSparkMax(6, MotorType.kBrushless);
+  CANSparkMax intake = new CANSparkMax(9, MotorType.kBrushless);
+  TalonSRX arm = new TalonSRX(14);
 
   /**
    * The starter code uses the most generic joystick class.
@@ -75,7 +78,7 @@ public class Robot extends TimedRobot{
   /**
    * Percent output to run the arm up/down at
    */
-  static final double ARM_OUTPUT_POWER = 0.2;
+  static final double ARM_OUTPUT_POWER = 1;
 
   /**
    * How many amps the intake can use while picking up
@@ -149,10 +152,10 @@ public class Robot extends TimedRobot{
      * as positive, arm in is negative.
      */
     arm.setInverted(false);
-    arm.setIdleMode(IdleMode.kBrake);
-    arm.setSmartCurrentLimit(ARM_CURRENT_LIMIT_A);
-    // intake.setInverted(false);
-    // intake.setIdleMode(IdleMode.kBrake);
+    arm.setNeutralMode(NeutralMode.Brake);
+    arm.configPeakCurrentLimit(ARM_CURRENT_LIMIT_A);
+    intake.setInverted(false);
+    intake.setIdleMode(IdleMode.kBrake);
   }
 
   /**
@@ -196,10 +199,8 @@ public class Robot extends TimedRobot{
    * @param percent
    */
   public void setArmMotor(double percent) {
-    arm.set(percent);
+    arm.set(TalonSRXControlMode.PercentOutput, percent);;
     SmartDashboard.putNumber("arm power (%)", percent);
-    SmartDashboard.putNumber("arm motor current (amps)", arm.getOutputCurrent());
-    SmartDashboard.putNumber("arm motor temperature (C)", arm.getMotorTemperature());
   }
 
   /**
@@ -209,11 +210,11 @@ public class Robot extends TimedRobot{
    * @param amps current limit
    */
   public void setIntakeMotor(double percent, int amps) {
-    //intake.set(percent);
-    //intake.setSmartCurrentLimit(amps);
-    //SmartDashboard.putNumber("intake power (%)", percent);
-    //SmartDashboard.putNumber("intake motor current (amps)", intake.getOutputCurrent());
-    //SmartDashboard.putNumber("intake motor temperature (C)", intake.getMotorTemperature());
+    intake.set(percent);
+    intake.setSmartCurrentLimit(amps);
+    SmartDashboard.putNumber("intake power (%)", percent);
+    SmartDashboard.putNumber("intake motor current (amps)", intake.getOutputCurrent());
+    SmartDashboard.putNumber("intake motor temperature (C)", intake.getMotorTemperature());
   }
 
   /**
@@ -301,8 +302,8 @@ public class Robot extends TimedRobot{
 
   @Override
   public void teleopPeriodic() {
-    double armPower;
-    if (j.getRawButton(6)) {
+    double armPower = -j.getRawAxis(5);
+    /**if (j.getRawButton(6)) {
       // lower the arm
       armPower = -ARM_OUTPUT_POWER;
     } else if (j.getRawButton(5)) {
@@ -311,12 +312,12 @@ public class Robot extends TimedRobot{
     } else {
       // do nothing and let it sit where it is
       armPower = 0.0;
-    }
-    setArmMotor(armPower);
+    }*/
+    setArmMotor(armPower*dtSpeed.getSpeed());
   
     double intakePower;
     int intakeAmps;
-    if (j.getRawButton(8)) {
+    if (j.getRawButton(5)) {
       // cube in or cone out
       intakePower = INTAKE_OUTPUT_POWER;
       intakeAmps = INTAKE_CURRENT_LIMIT_A;
@@ -326,17 +327,17 @@ public class Robot extends TimedRobot{
       intakePower = -INTAKE_OUTPUT_POWER;
       intakeAmps = INTAKE_CURRENT_LIMIT_A;
       lastGamePiece = CONE;
-    } else if (lastGamePiece == CUBE) {
+    } /**else if (lastGamePiece == CUBE) {
       intakePower = INTAKE_HOLD_POWER;
       intakeAmps = INTAKE_HOLD_CURRENT_LIMIT_A;
     } else if (lastGamePiece == CONE) {
       intakePower = -INTAKE_HOLD_POWER;
       intakeAmps = INTAKE_HOLD_CURRENT_LIMIT_A;
-    } else {
+    } */else {
       intakePower = 0.0;
       intakeAmps = 0;
     }
-    setIntakeMotor(intakePower, intakeAmps);
+    setIntakeMotor(intakePower * dtSpeed.getSpeed(), INTAKE_CURRENT_LIMIT_A);
 
     if (j.getPOV() == 0 && changeSpeed) {
       dtSpeed.setSpeed(Math.min(dtSpeed.getSpeed() + 0.1, 1));
