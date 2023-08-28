@@ -4,6 +4,7 @@
 
 package frc.robot;
 
+import com.ctre.phoenix6.hardware.*;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.TalonSRXControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
@@ -30,7 +31,7 @@ public class Robot extends TimedRobot{
 
   // CANCoder test = new CANCoder(0)
 
-  // CANCoder leftCoder = new CANCoder(10);
+  CANcoder leftCoder = new CANcoder(35, "rio");
   /*
    * Drive motor controller instances.
    * 
@@ -360,7 +361,7 @@ public class Robot extends TimedRobot{
       turn *= -1;
     }
 
-    // leftCoder.getMagnetFieldStrength();
+    SmartDashboard.putNumber("encoder", leftCoder.getVelocity().getValue());
     setDriveMotors(-0.5*j.getRawAxis(0) * dtSpeed.getSpeed(), -turn*dtSpeed.getSpeed());
   }
 }

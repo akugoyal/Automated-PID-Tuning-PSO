@@ -7,6 +7,11 @@
       "open": false
     },
     "transitory": {
+      "CameraPublisher": {
+        "USB Camera 0": {
+          "open": true
+        }
+      },
       "SmartDashboard": {
         "kSpeed ": {
           "open": true
