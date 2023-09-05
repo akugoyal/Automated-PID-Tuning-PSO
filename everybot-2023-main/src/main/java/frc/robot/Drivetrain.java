@@ -13,8 +13,18 @@ public class Drivetrain {
     private CANSparkMax driveLeftSparkTwo = new CANSparkMax(6, MotorType.kBrushed);
     private CANSparkMax driveRightSparkTwo = new CANSparkMax(8, MotorType.kBrushed);
     private CANcoder leftCoder = new CANcoder(35, "rio");
-    static Speed dtSpeed = new Speed();
-    static boolean changeSpeed = false;
+    private CANcoder rightCoder = new CANcoder(36, "rio");
+    private static Speed dtSpeed;
+    private static boolean changeSpeed;
+
+    public Drivetrain() {
+        driveLeftSpark.setIdleMode(IdleMode.kBrake);
+        driveLeftSparkTwo.setIdleMode(IdleMode.kBrake);
+        driveRightSpark.setIdleMode(IdleMode.kBrake);
+        driveRightSparkTwo.setIdleMode(IdleMode.kBrake);
+        dtSpeed = new Speed();
+        changeSpeed = true;
+    }
 
     /**
    * Calculate and set the power to apply to the left and right
@@ -49,5 +59,17 @@ public class Drivetrain {
     driveLeftSparkTwo.set(left);
     driveRightSpark.set(right);
     driveRightSparkTwo.set(right);
-}
+    }
+
+    public boolean incrementSpeed(int POV) {
+        if (POV == -1) {
+            changeSpeed = true;
+        }
+        else if (POV == 0 && changeSpeed) {
+            dtSpeed.increaseSpeed();
+        } else if (POV == 180 && changeSpeed) {
+            dtSpeed.decreaseSpeed();
+        }
+        return true;
+    }
 }
