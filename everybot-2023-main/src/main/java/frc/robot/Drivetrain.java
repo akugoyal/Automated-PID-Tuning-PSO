@@ -8,11 +8,11 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class Drivetrain {
-    CANSparkMax driveLeftSpark = new CANSparkMax(7, MotorType.kBrushed);
-    CANSparkMax driveRightSpark = new CANSparkMax(5, MotorType.kBrushed);
-    CANSparkMax driveLeftSparkTwo = new CANSparkMax(6, MotorType.kBrushed);
-    CANSparkMax driveRightSparkTwo = new CANSparkMax(8, MotorType.kBrushed);
-    CANcoder leftCoder = new CANcoder(35, "rio");
+    private CANSparkMax driveLeftSpark = new CANSparkMax(7, MotorType.kBrushed);
+    private CANSparkMax driveRightSpark = new CANSparkMax(5, MotorType.kBrushed);
+    private CANSparkMax driveLeftSparkTwo = new CANSparkMax(6, MotorType.kBrushed);
+    private CANSparkMax driveRightSparkTwo = new CANSparkMax(8, MotorType.kBrushed);
+    private CANcoder leftCoder = new CANcoder(35, "rio");
     static Speed dtSpeed = new Speed();
     static boolean changeSpeed = false;
 
