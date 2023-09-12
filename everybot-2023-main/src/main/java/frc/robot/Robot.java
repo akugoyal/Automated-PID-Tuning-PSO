@@ -255,7 +255,7 @@ public class Robot extends TimedRobot{
     if (m_autoSelected == kNothingAuto) {
       setArmMotor(0.0);
       setIntakeMotor(0.0, INTAKE_CURRENT_LIMIT_A);
-      dt.setDriveMotors(0.0, 0.0);
+      dt.setDt(0.0, 0.0);
       return;
     }
 
@@ -264,23 +264,23 @@ public class Robot extends TimedRobot{
     if (timeElapsed < ARM_EXTEND_TIME_S) {
       setArmMotor(ARM_OUTPUT_POWER);
       setIntakeMotor(0.0, INTAKE_CURRENT_LIMIT_A);
-      dt.setDriveMotors(0.0, 0.0);
+      dt.setDt(0.0, 0.0);
     } else if (timeElapsed < ARM_EXTEND_TIME_S + AUTO_THROW_TIME_S) {
       setArmMotor(0.0);
       setIntakeMotor(autonomousIntakePower, INTAKE_CURRENT_LIMIT_A);
-      dt.setDriveMotors(0.0, 0.0);
+      dt.setDt(0.0, 0.0);
     } else if (timeElapsed < ARM_EXTEND_TIME_S + AUTO_THROW_TIME_S + ARM_EXTEND_TIME_S) {
       setArmMotor(-ARM_OUTPUT_POWER);
       setIntakeMotor(0.0, INTAKE_CURRENT_LIMIT_A);
-      dt.setDriveMotors(0.0, 0.0);
+      dt.setDt(0.0, 0.0);
     } else if (timeElapsed < ARM_EXTEND_TIME_S + AUTO_THROW_TIME_S + ARM_EXTEND_TIME_S + AUTO_DRIVE_TIME) {
       setArmMotor(0.0);
       setIntakeMotor(0.0, INTAKE_CURRENT_LIMIT_A);
-      dt.setDriveMotors(AUTO_DRIVE_SPEED, 0.0);
+      dt.setDt(AUTO_DRIVE_SPEED, 0.0);
     } else {
       setArmMotor(0.0);
       setIntakeMotor(0.0, INTAKE_CURRENT_LIMIT_A);
-      dt.setDriveMotors(0.0, 0.0);
+      dt.setDt(0.0, 0.0);
     }
   }
 
@@ -349,6 +349,6 @@ public class Robot extends TimedRobot{
      */
 
     SmartDashboard.putNumber("encoder", leftCoder.getVelocity().getValue());
-    dt.setDriveMotors(j.getRawAxis(0), j.getRawAxis(3)-j.getRawAxis(2));
+    dt.setDt(j.getRawAxis(0), j.getRawAxis(3)-j.getRawAxis(2));
   }
 }

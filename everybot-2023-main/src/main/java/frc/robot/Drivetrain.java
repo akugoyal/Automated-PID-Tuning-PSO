@@ -27,7 +27,7 @@ public class Drivetrain {
         driveLeftSparkTwo.setInverted(false);
         driveRightSpark.setInverted(false);
         driveRightSparkTwo.setInverted(false);
-        dtSpeed = new Speed();
+        dtSpeed = new Speed(1, 0.1);
         changeSpeed = true;
     }
 
@@ -39,7 +39,7 @@ public class Drivetrain {
    * @param forward    Desired turning speed. Positive is counter clockwise from
    *                above.
    */
-  public void setDriveMotors(double turn, double forward) {
+  private void setDriveMotors(double turn, double forward) {
     if (turn == 0 && forward == 0) {
       driveLeftSpark.setIdleMode(IdleMode.kBrake);
       driveLeftSparkTwo.setIdleMode(IdleMode.kBrake);
@@ -72,8 +72,10 @@ public class Drivetrain {
         }
         else if (POV == 0 && changeSpeed) {
             dtSpeed.increaseSpeed();
+            changeSpeed = false;
         } else if (POV == 180 && changeSpeed) {
             dtSpeed.decreaseSpeed();
+            changeSpeed = false;
         }
         return true;
     }

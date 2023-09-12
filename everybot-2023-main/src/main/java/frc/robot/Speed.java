@@ -35,10 +35,10 @@ public class Speed implements Sendable{
     }
 
     public void increaseSpeed() {
-        Math.min(getSpeed() + increment, 1);
+        kSpeed = Math.min(getSpeed() + increment, 1);
     }
 
     public void decreaseSpeed() {
-        Math.max(getSpeed() - increment, 0);
+        kSpeed = Math.max(getSpeed() - increment, 0);
     }
 }
