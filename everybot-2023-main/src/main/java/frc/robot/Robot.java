@@ -28,6 +28,7 @@ public class Robot extends TimedRobot{
   private static final String kCubeAuto = "cube";
   private String m_autoSelected;
   private final SendableChooser<String> m_chooser = new SendableChooser<>();
+  Drivetrain dt = new Drivetrain();
 
   // CANCoder test = new CANCoder(0)
 
@@ -39,10 +40,10 @@ public class Robot extends TimedRobot{
    * Change kBrushed to kBrushless if you are using NEO's.
    * Use the appropriate other class if you are using different controllers.
    */
-  CANSparkMax driveLeftSpark = new CANSparkMax(7, MotorType.kBrushed);
-  CANSparkMax driveRightSpark = new CANSparkMax(5, MotorType.kBrushed);
-  CANSparkMax driveLeftSparkTwo = new CANSparkMax(6, MotorType.kBrushed);
-  CANSparkMax driveRightSparkTwo = new CANSparkMax(8, MotorType.kBrushed);
+  // CANSparkMax driveLeftSpark = new CANSparkMax(7, MotorType.kBrushed);
+  // CANSparkMax driveRightSpark = new CANSparkMax(5, MotorType.kBrushed);
+  // CANSparkMax driveLeftSparkTwo = new CANSparkMax(6, MotorType.kBrushed);
+  // CANSparkMax driveRightSparkTwo = new CANSparkMax(8, MotorType.kBrushed);
   /*
    * Mechanism motor controller instances.
    * 
@@ -121,8 +122,8 @@ public class Robot extends TimedRobot{
    */
   static final double AUTO_DRIVE_SPEED = -0.25;
 
-  static Speed dtSpeed = new Speed();
-  static boolean changeSpeed = false;
+  // static Speed dtSpeed = new Speed();
+  // static boolean changeSpeed = false;
 
   /**
    * This method is run once when the robot is first started up.
@@ -141,11 +142,11 @@ public class Robot extends TimedRobot{
      * In the setDriveMotors method, comment out all but 1 of the 4 calls
      * to the set() methods. Push the joystick forward. Reverse the motor
      * if it is going the wrong way. Repeat for the other 3 motors.
-     */
-    driveLeftSpark.setInverted(false);
-    driveLeftSparkTwo.setInverted(false);
-    driveRightSpark.setInverted(false);
-    driveRightSparkTwo.setInverted(false);
+    //  */
+    // driveLeftSpark.setInverted(false);
+    // driveLeftSparkTwo.setInverted(false);
+    // driveRightSpark.setInverted(false);
+    // driveRightSparkTwo.setInverted(false);
 
     /*
      * Set the arm and intake to brake mode to help hold position.
@@ -167,32 +168,32 @@ public class Robot extends TimedRobot{
    * @param forward    Desired turning speed. Positive is counter clockwise from
    *                above.
    */
-  public void setDriveMotors(double turn, double forward) {
-    if (turn == 0 && forward == 0) {
-      driveLeftSpark.setIdleMode(IdleMode.kBrake);
-      driveLeftSparkTwo.setIdleMode(IdleMode.kBrake);
-      driveRightSpark.setIdleMode(IdleMode.kBrake);
-      driveRightSparkTwo.setIdleMode(IdleMode.kBrake);
-    }
-    SmartDashboard.putNumber("drive forward power (%)", forward);
-    SmartDashboard.putNumber("drive turn power (%)", turn);
+//   public void setDriveMotors(double turn, double forward) {
+//     if (turn == 0 && forward == 0) {
+//       driveLeftSpark.setIdleMode(IdleMode.kBrake);
+//       driveLeftSparkTwo.setIdleMode(IdleMode.kBrake);
+//       driveRightSpark.setIdleMode(IdleMode.kBrake);
+//       driveRightSparkTwo.setIdleMode(IdleMode.kBrake);
+//     }
+//     SmartDashboard.putNumber("drive forward power (%)", forward);
+//     SmartDashboard.putNumber("drive turn power (%)", turn);
 
-    /*
-     * positive turn = counter clockwise, so the left side goes backwards
-     */
-    double left = turn - forward;
-    double right = turn + forward;
+//     /*
+//      * positive turn = counter clockwise, so the left side goes backwards
+//      */
+//     double left = turn - forward;
+//     double right = turn + forward;
 
-    SmartDashboard.putNumber("drive left power (%)", left);
-    SmartDashboard.putNumber("drive right power (%)", -right);
+//     SmartDashboard.putNumber("drive left power (%)", left);
+//     SmartDashboard.putNumber("drive right power (%)", -right);
 
-    // see note above in robotInit about commenting these out one by one to set
-    // directions.
-    driveLeftSpark.set(left);
-    driveLeftSparkTwo.set(left);
-    driveRightSpark.set(right);
-    driveRightSparkTwo.set(right);
-}
+//     // see note above in robotInit about commenting these out one by one to set
+//     // directions.
+//     driveLeftSpark.set(left);
+//     driveLeftSparkTwo.set(left);
+//     driveRightSpark.set(right);
+//     driveRightSparkTwo.set(right);
+// }
 
   /**
    * Set the arm output power. Positive is out, negative is in.
@@ -232,10 +233,10 @@ public class Robot extends TimedRobot{
 
   @Override
   public void autonomousInit() {
-    driveLeftSpark.setIdleMode(IdleMode.kBrake);
-    driveLeftSparkTwo.setIdleMode(IdleMode.kBrake);
-    driveRightSpark.setIdleMode(IdleMode.kBrake);
-    driveRightSparkTwo.setIdleMode(IdleMode.kBrake);
+    // driveLeftSpark.setIdleMode(IdleMode.kBrake);
+    // driveLeftSparkTwo.setIdleMode(IdleMode.kBrake);
+    // driveRightSpark.setIdleMode(IdleMode.kBrake);
+    // driveRightSparkTwo.setIdleMode(IdleMode.kBrake);
 
     m_autoSelected = m_chooser.getSelected();
     System.out.println("Auto selected: " + m_autoSelected);
@@ -254,7 +255,7 @@ public class Robot extends TimedRobot{
     if (m_autoSelected == kNothingAuto) {
       setArmMotor(0.0);
       setIntakeMotor(0.0, INTAKE_CURRENT_LIMIT_A);
-      setDriveMotors(0.0, 0.0);
+      dt.setDriveMotors(0.0, 0.0);
       return;
     }
 
@@ -263,23 +264,23 @@ public class Robot extends TimedRobot{
     if (timeElapsed < ARM_EXTEND_TIME_S) {
       setArmMotor(ARM_OUTPUT_POWER);
       setIntakeMotor(0.0, INTAKE_CURRENT_LIMIT_A);
-      setDriveMotors(0.0, 0.0);
+      dt.setDriveMotors(0.0, 0.0);
     } else if (timeElapsed < ARM_EXTEND_TIME_S + AUTO_THROW_TIME_S) {
       setArmMotor(0.0);
       setIntakeMotor(autonomousIntakePower, INTAKE_CURRENT_LIMIT_A);
-      setDriveMotors(0.0, 0.0);
+      dt.setDriveMotors(0.0, 0.0);
     } else if (timeElapsed < ARM_EXTEND_TIME_S + AUTO_THROW_TIME_S + ARM_EXTEND_TIME_S) {
       setArmMotor(-ARM_OUTPUT_POWER);
       setIntakeMotor(0.0, INTAKE_CURRENT_LIMIT_A);
-      setDriveMotors(0.0, 0.0);
+      dt.setDriveMotors(0.0, 0.0);
     } else if (timeElapsed < ARM_EXTEND_TIME_S + AUTO_THROW_TIME_S + ARM_EXTEND_TIME_S + AUTO_DRIVE_TIME) {
       setArmMotor(0.0);
       setIntakeMotor(0.0, INTAKE_CURRENT_LIMIT_A);
-      setDriveMotors(AUTO_DRIVE_SPEED, 0.0);
+      dt.setDriveMotors(AUTO_DRIVE_SPEED, 0.0);
     } else {
       setArmMotor(0.0);
       setIntakeMotor(0.0, INTAKE_CURRENT_LIMIT_A);
-      setDriveMotors(0.0, 0.0);
+      dt.setDriveMotors(0.0, 0.0);
     }
   }
 
@@ -293,10 +294,10 @@ public class Robot extends TimedRobot{
 
   @Override
   public void teleopInit() {
-    driveLeftSpark.setIdleMode(IdleMode.kCoast);
-    driveLeftSparkTwo.setIdleMode(IdleMode.kCoast);
-    driveRightSpark.setIdleMode(IdleMode.kCoast);
-    driveRightSparkTwo.setIdleMode(IdleMode.kCoast);
+    // driveLeftSpark.setIdleMode(IdleMode.kCoast);
+    // driveLeftSparkTwo.setIdleMode(IdleMode.kCoast);
+    // driveRightSpark.setIdleMode(IdleMode.kCoast);
+    // driveRightSparkTwo.setIdleMode(IdleMode.kCoast);
 
     lastGamePiece = NOTHING;
   }
@@ -314,7 +315,7 @@ public class Robot extends TimedRobot{
       // do nothing and let it sit where it is
       armPower = 0.0;
     }*/
-    setArmMotor(armPower*dtSpeed.getSpeed());
+    setArmMotor(armPower*dt.getSpeed().getSpeed());
   
     double intakePower;
     int intakeAmps;
@@ -338,30 +339,16 @@ public class Robot extends TimedRobot{
       intakePower = 0.0;
       intakeAmps = 0;
     }
-    setIntakeMotor(intakePower * dtSpeed.getSpeed(), INTAKE_CURRENT_LIMIT_A);
+    setIntakeMotor(intakePower * dt.getSpeed().getSpeed(), INTAKE_CURRENT_LIMIT_A);
 
-    if (j.getPOV() == 0 && changeSpeed) {
-      dtSpeed.setSpeed(Math.min(dtSpeed.getSpeed() + 0.1, 1));
-      changeSpeed = false;
-    } else if (j.getPOV() == 180 && changeSpeed) {
-      dtSpeed.setSpeed(Math.max(dtSpeed.getSpeed() - 0.1, 0));
-      changeSpeed = false;
-    }
-    if (j.getPOV() == -1) {
-      changeSpeed = true;
-    }
-    SmartDashboard.putData("kSpeed ", dtSpeed);
+    dt.incrementSpeed(j.getPOV());
+    SmartDashboard.putData("kSpeed ", dt.getSpeed());
     /*
      * Negative signs here because the values from the analog sticks are backwards
      * from what we want. Forward returns a negative when we want it positive.
      */
-    double axis1 = j.getRawAxis(3)-j.getRawAxis(2);
-    double turn = axis1 * axis1;
-    if (axis1 < 0) {
-      turn *= -1;
-    }
 
     SmartDashboard.putNumber("encoder", leftCoder.getVelocity().getValue());
-    setDriveMotors(-0.5*j.getRawAxis(0) * dtSpeed.getSpeed(), -turn*dtSpeed.getSpeed());
+    dt.setDriveMotors(j.getRawAxis(0), j.getRawAxis(3)-j.getRawAxis(2));
   }
 }

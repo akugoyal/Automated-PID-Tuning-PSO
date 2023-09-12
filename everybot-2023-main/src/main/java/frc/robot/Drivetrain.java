@@ -16,12 +16,17 @@ public class Drivetrain {
     private CANcoder rightCoder = new CANcoder(36, "rio");
     private static Speed dtSpeed;
     private static boolean changeSpeed;
+    private static final double KTURN = 0.5;
 
     public Drivetrain() {
         driveLeftSpark.setIdleMode(IdleMode.kBrake);
         driveLeftSparkTwo.setIdleMode(IdleMode.kBrake);
         driveRightSpark.setIdleMode(IdleMode.kBrake);
         driveRightSparkTwo.setIdleMode(IdleMode.kBrake);
+        driveLeftSpark.setInverted(false);
+        driveLeftSparkTwo.setInverted(false);
+        driveRightSpark.setInverted(false);
+        driveRightSparkTwo.setInverted(false);
         dtSpeed = new Speed();
         changeSpeed = true;
     }
@@ -71,5 +76,17 @@ public class Drivetrain {
             dtSpeed.decreaseSpeed();
         }
         return true;
+    }
+
+    public void setDt(double turn, double forward) {
+        double frwd = forward * forward;
+        if (forward < 0) {
+            frwd *= -1;
+        }
+        setDriveMotors(-0.5 * turn * dtSpeed.getSpeed(), -frwd * dtSpeed.getSpeed());
+    }
+
+    public Speed getSpeed() {
+        return dtSpeed;
     }
 }
