@@ -3,11 +3,14 @@ import com.ctre.phoenix6.hardware.*;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
+
+import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj2.command.PIDSubsystem;
 
-public class Drivetrain {
+public class Drivetrain extends PIDSubsystem{
     private CANSparkMax driveLeftSpark = new CANSparkMax(7, MotorType.kBrushed);
     private CANSparkMax driveRightSpark = new CANSparkMax(5, MotorType.kBrushed);
     private CANSparkMax driveLeftSparkTwo = new CANSparkMax(6, MotorType.kBrushed);
@@ -16,9 +19,12 @@ public class Drivetrain {
     private CANcoder rightCoder = new CANcoder(36, "rio");
     private static Speed dtSpeed;
     private static boolean changeSpeed;
-    private static final double KTURN = 0.5;
+    private static final double kP= 0.5;
+    private static final double kI= 0.5;
+    private static final double kD= 0.5;
 
     public Drivetrain() {
+        super(new PIDController(kP, kI, kD));
         driveLeftSpark.setIdleMode(IdleMode.kBrake);
         driveLeftSparkTwo.setIdleMode(IdleMode.kBrake);
         driveRightSpark.setIdleMode(IdleMode.kBrake);
@@ -90,5 +96,17 @@ public class Drivetrain {
 
     public Speed getSpeed() {
         return dtSpeed;
+    }
+
+    @Override
+    protected void useOutput(double output, double setpoint) {
+        // TODO Auto-generated method stub
+        driveLeftSpark.set(output);
+        driveLeftSparkTwo.set(output);
+    }
+
+    @Override
+    protected double getMeasurement() {
+        return leftCoder.getAbsolutePosition().getValue();
     }
 }
