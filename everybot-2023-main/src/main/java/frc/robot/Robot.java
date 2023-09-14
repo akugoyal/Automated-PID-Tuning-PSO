@@ -341,6 +341,8 @@ public class Robot extends TimedRobot{
     }
     setIntakeMotor(intakePower * dt.getSpeed().getSpeed(), INTAKE_CURRENT_LIMIT_A);
 
+    dt.enable();
+    dt.setSetpoint(50);
     dt.incrementSpeed(j.getPOV());
     SmartDashboard.putData("kSpeed ", dt.getSpeed());
     /*

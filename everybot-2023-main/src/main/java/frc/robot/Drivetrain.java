@@ -101,6 +101,7 @@ public class Drivetrain extends PIDSubsystem{
     @Override
     protected void useOutput(double output, double setpoint) {
         // TODO Auto-generated method stub
+        System.out.println(output);
         driveLeftSpark.set(output);
         driveLeftSparkTwo.set(output);
     }
