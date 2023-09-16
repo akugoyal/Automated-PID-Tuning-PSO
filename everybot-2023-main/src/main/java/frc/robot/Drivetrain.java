@@ -20,7 +20,7 @@ public class Drivetrain extends PIDSubsystem{
     private static Speed dtSpeed;
     private static boolean changeSpeed;
     private static final double kP= 1;
-    private static final double kI= 0.5;
+    private static final double kI= 1;
     private static final double kD= 1;
 
     public Drivetrain() {
