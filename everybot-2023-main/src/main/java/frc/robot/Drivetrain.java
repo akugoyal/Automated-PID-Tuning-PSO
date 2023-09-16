@@ -16,15 +16,16 @@ public class Drivetrain extends PIDSubsystem{
     private CANSparkMax driveLeftSparkTwo = new CANSparkMax(6, MotorType.kBrushed);
     private CANSparkMax driveRightSparkTwo = new CANSparkMax(8, MotorType.kBrushed);
     private CANcoder leftCoder = new CANcoder(35, "rio");
-    private CANcoder rightCoder = new CANcoder(36, "rio");
+    //private CANcoder rightCoder = new CANcoder(36, "rio");
     private static Speed dtSpeed;
     private static boolean changeSpeed;
-    private static final double kP= 0.5;
+    private static final double kP= 1;
     private static final double kI= 0.5;
-    private static final double kD= 0.5;
+    private static final double kD= 1;
 
     public Drivetrain() {
         super(new PIDController(kP, kI, kD));
+        enable();
         driveLeftSpark.setIdleMode(IdleMode.kBrake);
         driveLeftSparkTwo.setIdleMode(IdleMode.kBrake);
         driveRightSpark.setIdleMode(IdleMode.kBrake);
@@ -102,12 +103,16 @@ public class Drivetrain extends PIDSubsystem{
     protected void useOutput(double output, double setpoint) {
         // TODO Auto-generated method stub
         System.out.println(output);
-        driveLeftSpark.set(output);
-        driveLeftSparkTwo.set(output);
+        driveLeftSpark.setVoltage(output);
+        driveLeftSparkTwo.setVoltage(output);
     }
 
     @Override
     protected double getMeasurement() {
-        return leftCoder.getAbsolutePosition().getValue();
+        return leftCoder.getPosition().getValue();
+    }
+
+    public CANcoder getLeftCoder() {
+        return leftCoder;
     }
 }

@@ -32,7 +32,7 @@ public class Robot extends TimedRobot{
 
   // CANCoder test = new CANCoder(0)
 
-  CANcoder leftCoder = new CANcoder(35, "rio");
+  //CANcoder leftCoder = new CANcoder(35, "rio");
   /*
    * Drive motor controller instances.
    * 
@@ -299,7 +299,6 @@ public class Robot extends TimedRobot{
     // driveRightSpark.setIdleMode(IdleMode.kCoast);
     // driveRightSparkTwo.setIdleMode(IdleMode.kCoast);
 
-    dt.enable();
     lastGamePiece = NOTHING;
   }
 
@@ -342,7 +341,9 @@ public class Robot extends TimedRobot{
     }
     setIntakeMotor(intakePower * dt.getSpeed().getSpeed(), INTAKE_CURRENT_LIMIT_A);
 
+    System.out.println(dt.getController().getPositionTolerance());
     dt.setSetpoint(50);
+    dt.periodic();
     dt.incrementSpeed(j.getPOV());
     SmartDashboard.putData("kSpeed ", dt.getSpeed());
     /*
@@ -350,7 +351,7 @@ public class Robot extends TimedRobot{
      * from what we want. Forward returns a negative when we want it positive.
      */
 
-    SmartDashboard.putNumber("encoder", leftCoder.getVelocity().getValue());
+    SmartDashboard.putNumber("encoder", dt.getLeftCoder().getPosition().getValue());
     dt.setDt(j.getRawAxis(0), j.getRawAxis(3)-j.getRawAxis(2));
   }
 }
