@@ -341,17 +341,21 @@ public class Robot extends TimedRobot{
     }
     setIntakeMotor(intakePower * dt.getSpeed().getSpeed(), INTAKE_CURRENT_LIMIT_A);
 
-    System.out.println(dt.getController().getPositionTolerance());
-    dt.setSetpoint(50);
-    dt.periodic();
-    dt.incrementSpeed(j.getPOV());
+    //System.out.println(dt.getController().getVelocityTolerance());
+    //dt.incrementSpeed(j.getPOV());
     SmartDashboard.putData("kSpeed ", dt.getSpeed());
     /*
      * Negative signs here because the values from the analog sticks are backwards
      * from what we want. Forward returns a negative when we want it positive.
      */
 
-    SmartDashboard.putNumber("encoder", dt.getLeftCoder().getPosition().getValue());
-    dt.setDt(j.getRawAxis(0), j.getRawAxis(3)-j.getRawAxis(2));
+    SmartDashboard.putNumber("encoder", dt.getMeasurement());
+    if (j.getAButton()) {
+      dt.setDt(j.getRawAxis(0), j.getRawAxis(3)-j.getRawAxis(2));
+    } else {   
+      dt.setSetpoint(3);
+      System.out.println(dt.getController().getPositionTolerance() + " " + dt.getController().getPositionError());
+      dt.periodic();
+    }
   }
 }

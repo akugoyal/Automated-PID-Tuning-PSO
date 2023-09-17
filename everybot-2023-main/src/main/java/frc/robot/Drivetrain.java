@@ -19,13 +19,14 @@ public class Drivetrain extends PIDSubsystem{
     //private CANcoder rightCoder = new CANcoder(36, "rio");
     private static Speed dtSpeed;
     private static boolean changeSpeed;
-    private static final double kP= 1;
-    private static final double kI= 1;
-    private static final double kD= 1;
+    private static final double kP= 2.35;
+    private static final double kI= 0.25;
+    private static final double kD= 0.05;
 
     public Drivetrain() {
         super(new PIDController(kP, kI, kD));
         enable();
+        getController().setTolerance(0.1, 0.2);
         driveLeftSpark.setIdleMode(IdleMode.kBrake);
         driveLeftSparkTwo.setIdleMode(IdleMode.kBrake);
         driveRightSpark.setIdleMode(IdleMode.kBrake);
@@ -102,9 +103,11 @@ public class Drivetrain extends PIDSubsystem{
     @Override
     protected void useOutput(double output, double setpoint) {
         // TODO Auto-generated method stub
-        System.out.println(output);
-        driveLeftSpark.setVoltage(output);
-        driveLeftSparkTwo.setVoltage(output);
+        SmartDashboard.putNumber("output", output);
+        if (!getController().atSetpoint()) {
+            setDriveMotors(output, 0);
+        }
+        //driveLeftSparkTwo.setVoltage(output);
     }
 
     @Override
