@@ -4,8 +4,6 @@
 
 package frc.robot;
 
-import edu.wpi.first.math.geometry.Pose2d;
-import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
@@ -16,20 +14,10 @@ import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-// import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
-import frc.robot.auton.Autons;
 import frc.robot.commands.CommandGroups;
-// import frc.robot.commands.CommandGroups;
-//import frc.robot.commands.CommandGroups;
-// import frc.robot.commands.drivetrain.SwerveManual;
 import frc.robot.subsystems.Pivot;
-// import frc.robot.commands.shooter.ShooterManual;
-// import frc.robot.subsystems.Intake;
-// import frc.robot.subsystems.Shooter;
-// import frc.robot.subsystems.swerve.Drivetrain;
-// import frc.robot.util.Flip;
-// import frc.robot.util.Limelight;
 import frc.robot.util.Telemetry;
 
 /**
@@ -57,7 +45,6 @@ public class Robot extends TimedRobot {
     // DataLogManager.start();
     // DriverStation.startDataLog(DataLogManager.getLog());
 
-    SmartDashboard.putData(RobotMap.Field.FIELD);
     // Limelight.setCameraPose(RobotMap.Camera.FORWARD, RobotMap.Camera.UP, RobotMap.Camera.PITCH);
     
     // CommandScheduler.getInstance().setDefaultCommand(Drivetrain.getInstance(), new SwerveManual());
@@ -74,13 +61,13 @@ public class Robot extends TimedRobot {
 
     telemetry = new Telemetry();
     // telemetry.startServer();
-    telemetry.swerveStates();
+    // telemetry.swerveStates();
 
-    autonChooser = new SendableChooser<String>();
-    autonChooser.setDefaultOption("Four Note Path", "Four Note Path");
-    autonChooser.addOption("Six Note Path", "Six Note Path");
-    autonChooser.addOption("Three Note Path", "Three Note Path");
-    SmartDashboard.putData("Auton Chooser", autonChooser);
+    // autonChooser = new SendableChooser<String>();
+    // autonChooser.setDefaultOption("Four Note Path", "Four Note Path");
+    // autonChooser.addOption("Six Note Path", "Six Note Path");
+    // autonChooser.addOption("Three Note Path", "Three Note Path");
+    // SmartDashboard.putData("Auton Chooser", autonChooser);
   }
 
   @Override
@@ -88,7 +75,7 @@ public class Robot extends TimedRobot {
     CommandScheduler.getInstance().run();
     // RobotMap.Field.FIELD.setRobotPose(Drivetrain.getInstance().getPoseEstimatorPose2d());
 
-    telemetry.autons("Current Auton", autonChooser.getSelected());
+    // telemetry.autons("Current Auton", autonChooser.getSelected());
 
     telemetry.publish();
 
@@ -133,7 +120,9 @@ public class Robot extends TimedRobot {
     // Intake.getInstance().setRollerPower(RobotMap.Intake.ROLLER_SPEED);
     // Shooter.getInstance().setShooter(RobotMap.Shooter.SHOOTING_SPEED);
     Telemetry.putBoolean("pivot", "Is Stalling", Pivot.getInstance().isStalling());
-    if (Pivot.getInstance().isStalling()) System.out.println("pivot stallinggggg");
+    if (Pivot.getInstance().isStalling()) {
+      System.out.println("pivot stallinggggg");
+    }
   }
 
   @Override
