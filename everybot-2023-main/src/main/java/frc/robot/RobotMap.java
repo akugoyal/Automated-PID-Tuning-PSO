@@ -68,6 +68,7 @@ public class RobotMap {
         public static final double MAX_CRUISE_VElOCITY = 344.53125; //$$
 
         public static enum Goal {
+            ZERO
         }
     }
 }

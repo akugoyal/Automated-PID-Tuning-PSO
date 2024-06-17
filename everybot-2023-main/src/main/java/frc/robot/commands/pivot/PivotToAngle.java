@@ -7,10 +7,10 @@ import frc.robot.subsystems.swerve.Drivetrain;
 import frc.robot.util.MathUtil;
 
 public class PivotToAngle extends Command {
-    private RobotMap.Pivot.Goal setpoint;
+    private RobotMap.Arm.Goal setpoint;
     private double ref;
 
-    public PivotToAngle(RobotMap.Pivot.Goal goal) {
+    public PivotToAngle(RobotMap.Arm.Goal goal) {
         setpoint = goal;
         addRequirements(Pivot.getInstance());
     }
