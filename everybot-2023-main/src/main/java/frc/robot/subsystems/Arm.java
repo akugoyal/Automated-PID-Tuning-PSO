@@ -3,25 +3,15 @@ package frc.robot.subsystems;
 import static edu.wpi.first.units.MutableMeasure.mutable;
 import static edu.wpi.first.units.Units.Degrees;
 import static edu.wpi.first.units.Units.DegreesPerSecond;
-import static edu.wpi.first.units.Units.Meters;
-import static edu.wpi.first.units.Units.MetersPerSecond;
 import static edu.wpi.first.units.Units.Volts;
 
-
-import com.ctre.phoenix6.controls.DutyCycleOut;
-import com.ctre.phoenix6.controls.Follower;
-import com.ctre.phoenix6.controls.MotionMagicVoltage;
 import com.ctre.phoenix6.hardware.CANcoder;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkBase.IdleMode;
 import com.revrobotics.CANSparkLowLevel;
-import com.ctre.phoenix6.signals.GravityTypeValue;
-import com.ctre.phoenix6.signals.NeutralModeValue;
-
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.interpolation.InterpolatingDoubleTreeMap;
 import edu.wpi.first.units.Angle;
-import edu.wpi.first.units.Distance;
 import edu.wpi.first.units.Measure;
 import edu.wpi.first.units.MutableMeasure;
 import edu.wpi.first.units.Velocity;
@@ -34,8 +24,8 @@ import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine;
 import frc.robot.RobotMap;
 import frc.robot.util.Telemetry;
 
-public class Pivot extends PIDSubsystem {
-    private static Pivot instance; 
+public class Arm extends PIDSubsystem {
+    private static Arm instance; 
     
     private CANSparkMax master; 
 
@@ -53,13 +43,13 @@ public class Pivot extends PIDSubsystem {
     // reallocation.
     private final MutableMeasure<Velocity<Angle>> _velocity = mutable(DegreesPerSecond.of(0));
 
-    private Pivot() {
+    private Arm() {
         
-        super(new PIDController(RobotMap.Pivot.PIVOT_kP, RobotMap.Pivot.PIVOT_kI, RobotMap.Pivot.PIVOT_kD));
+        super(new PIDController(RobotMap.Arm.PIVOT_kP, RobotMap.Arm.PIVOT_kI, RobotMap.Arm.PIVOT_kD));
 
-        master = new CANSparkMax(RobotMap.Pivot.MASTER_ID, CANSparkLowLevel.MotorType.kBrushed);
+        master = new CANSparkMax(RobotMap.Arm.MASTER_ID, CANSparkLowLevel.MotorType.kBrushed);
         
-        leftCoder = new CANcoder(RobotMap.Pivot.CANCODER_ID, "rio");
+        leftCoder = new CANcoder(RobotMap.Arm.CANCODER_ID, "rio");
 
         // speakerAngles = new InterpolatingDoubleTreeMap();
         // speakerAngles.put(0.0, 0.0); // TODO
@@ -109,18 +99,18 @@ public class Pivot extends PIDSubsystem {
      * Get pivot angle in degrees
      */
     public double getPosition() {
-        return leftCoder.getPosition().getValue() * RobotMap.Pivot.PIVOT_ROT_TO_ANGLE;
+        return leftCoder.getPosition().getValue() * RobotMap.Arm.PIVOT_ROT_TO_ANGLE;
     }
 
     public boolean isStalling() {
-        return master.getOutputCurrent() > RobotMap.Pivot.STALLING_CURRENT;
+        return master.getOutputCurrent() > RobotMap.Arm.STALLING_CURRENT;
     }
 
     /*
      * Get pivot angle in degrees per second
      */
     public double getVelocity() {
-        return leftCoder.getVelocity().getValue() * RobotMap.Pivot.PIVOT_ROT_TO_ANGLE;
+        return leftCoder.getVelocity().getValue() * RobotMap.Arm.PIVOT_ROT_TO_ANGLE;
     }
 
     public double getVoltage() {
@@ -183,9 +173,9 @@ public class Pivot extends PIDSubsystem {
         return _sysId.dynamic(direction);
     }
 
-    public static Pivot getInstance() {
+    public static Arm getInstance() {
         if(instance == null) {
-            instance = new Pivot();
+            instance = new Arm();
         }
         return instance; 
     }

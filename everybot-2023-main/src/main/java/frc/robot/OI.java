@@ -2,7 +2,7 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import frc.robot.commands.pivot.ZeroPivot;
-import frc.robot.subsystems.Pivot;
+import frc.robot.subsystems.Arm;
 import frc.robot.util.XboxGamepad;
 
 public class OI {
@@ -22,8 +22,8 @@ public class OI {
     private void initBindings() {
         driver.getButtonB().whileTrue(new ZeroPivot());
         // driver.getButtonA().whileTrue(new PivotToAngle(RobotMap.Arm.Goal.ZERO));
-        driver.getButtonA().whileTrue(new InstantCommand(() -> Pivot.getInstance().setPercentOutput(1)));
-        driver.getButtonA().whileFalse(new InstantCommand(() -> Pivot.getInstance().setPercentOutput(0)));
+        driver.getButtonA().whileTrue(new InstantCommand(() -> Arm.getInstance().setPercentOutput(1)));
+        driver.getButtonA().whileFalse(new InstantCommand(() -> Arm.getInstance().setPercentOutput(0)));
     }
 
     public static OI getInstance() {

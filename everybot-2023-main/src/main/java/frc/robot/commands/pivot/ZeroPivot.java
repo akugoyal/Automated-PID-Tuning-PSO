@@ -2,24 +2,24 @@ package frc.robot.commands.pivot;
 
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.RobotMap;
-import frc.robot.subsystems.Pivot;
+import frc.robot.subsystems.Arm;
 
 public class ZeroPivot extends Command {
     public ZeroPivot() {
-        addRequirements(Pivot.getInstance());
+        addRequirements(Arm.getInstance());
     }
 
     public void execute() {
-        Pivot.getInstance().setPercentOutput(RobotMap.Pivot.ZERO_SPEED);
+        Arm.getInstance().setPercentOutput(RobotMap.Arm.ZERO_SPEED);
     }
 
     public boolean isFinished() {
-        return Pivot.getInstance().isLimitHit() || Pivot.getInstance().isStalling();
+        return Arm.getInstance().isLimitHit() || Arm.getInstance().isStalling();
     }
 
     public void end(boolean interrupted) {
-        Pivot.getInstance().setPercentOutput(0);
-        Pivot.getInstance().setSensorPosition(0);
+        Arm.getInstance().setPercentOutput(0);
+        Arm.getInstance().setSensorPosition(0);
     }
     
 }

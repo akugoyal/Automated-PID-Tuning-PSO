@@ -1,16 +1,10 @@
 package frc.robot.util;
 
-import edu.wpi.first.math.kinematics.SwerveModuleState;
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
-import edu.wpi.first.networktables.StructArrayPublisher;
 import frc.robot.OI;
-import frc.robot.subsystems.Elevator;
-import frc.robot.subsystems.Intake;
-import frc.robot.subsystems.Pivot;
-import frc.robot.subsystems.Shooter;
-import frc.robot.subsystems.swerve.Drivetrain;
+import frc.robot.subsystems.Arm;
 
 public class Telemetry {
     // private NetworkTable table;
@@ -25,7 +19,7 @@ public class Telemetry {
     private NetworkTable _controls;
     private NetworkTable _driver;
 
-    private Pivot pivot = Pivot.getInstance();
+    private Arm pivot = Arm.getInstance();
 
     private XboxGamepad oiDriver = OI.getInstance().getDriver();
 

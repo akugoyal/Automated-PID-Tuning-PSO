@@ -17,7 +17,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.robot.commands.CommandGroups;
-import frc.robot.subsystems.Pivot;
+import frc.robot.subsystems.Arm;
 import frc.robot.util.Telemetry;
 
 /**
@@ -119,8 +119,8 @@ public class Robot extends TimedRobot {
   public void teleopPeriodic() {
     // Intake.getInstance().setRollerPower(RobotMap.Intake.ROLLER_SPEED);
     // Shooter.getInstance().setShooter(RobotMap.Shooter.SHOOTING_SPEED);
-    Telemetry.putBoolean("pivot", "Is Stalling", Pivot.getInstance().isStalling());
-    if (Pivot.getInstance().isStalling()) {
+    Telemetry.putBoolean("pivot", "Is Stalling", Arm.getInstance().isStalling());
+    if (Arm.getInstance().isStalling()) {
       System.out.println("pivot stallinggggg");
     }
   }
