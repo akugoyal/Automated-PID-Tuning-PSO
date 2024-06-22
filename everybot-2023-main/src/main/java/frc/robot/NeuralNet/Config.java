@@ -1,4 +1,6 @@
-import activationFunctions.*;
+package frc.robot.NeuralNet;
+
+import frc.robot.NeuralNet.activationFunctions.*;
 import java.util.Arrays;
 
 /**

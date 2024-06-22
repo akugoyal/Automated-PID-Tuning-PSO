@@ -1,4 +1,4 @@
-package activationFunctions;
+package frc.robot.NeuralNet.activationFunctions;
 
 /**
  * This class represents the linear function and extends the Function abstract class.

@@ -1,8 +1,8 @@
-package PSO;
+package frc.robot.PSO;
 
 import java.util.Random;
 
-import PSO.Particle.FunctionType;
+import frc.robot.PSO.Particle.FunctionType;
 
 /**
  * Represents a swarm of particles from the Particle Swarm Optimization algorithm.

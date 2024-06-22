@@ -1,4 +1,4 @@
-package activationFunctions;
+package frc.robot.NeuralNet.activationFunctions;
 
 /**
  * Abstract class for a function and its derivative.

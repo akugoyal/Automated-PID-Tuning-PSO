@@ -1,4 +1,4 @@
-package activationFunctions;
+package frc.robot.NeuralNet.activationFunctions;
 
 /**
  * This class represents the ReLU function and extends the LeakyReLU class.

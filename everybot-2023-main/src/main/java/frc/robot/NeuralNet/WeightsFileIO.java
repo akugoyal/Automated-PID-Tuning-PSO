@@ -1,3 +1,5 @@
+package frc.robot.NeuralNet;
+
 import java.io.*;
 import java.nio.ByteOrder;
 import java.util.Arrays;

@@ -1,4 +1,4 @@
-package PSO;
+package frc.robot.PSO;
 
 import java.util.Scanner;
 
