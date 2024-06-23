@@ -83,8 +83,6 @@ public class Telemetry {
     }
 
     public void pivot() {
-        NetworkTableEntry pivotLimitSwitchHit = _pivot.getEntry("Pivot Limit Switch Hit");
-        pivotLimitSwitchHit.setBoolean(pivot.isLimitHit());
 
         NetworkTableEntry pivotSensorPosition = _pivot.getEntry("Pivot Sensor Position");
         pivotSensorPosition.setDouble(pivot.getPosition());

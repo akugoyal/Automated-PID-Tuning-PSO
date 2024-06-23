@@ -31,8 +31,6 @@ public class Arm extends PIDSubsystem {
 
     private CANcoder leftCoder;
 
-    private DigitalInput limitSwitch;
-
     private InterpolatingDoubleTreeMap speakerAngles;
     // Mutable holder for unit-safe voltage values, persisted to avoid reallocation.
     private final MutableMeasure<Voltage> _appliedVoltage = mutable(Volts.of(0));
@@ -139,38 +137,8 @@ public class Arm extends PIDSubsystem {
         leftCoder.getConfigurator().setPosition(degrees);
     }
 
-    public boolean isLimitHit() {
-        return !limitSwitch.get();
-    }
-
     public double getPivotSetpoint(double distance) {
         return speakerAngles.get(distance);
-    }
-
-    private final SysIdRoutine _sysId = new SysIdRoutine(
-            new SysIdRoutine.Config(),
-            new SysIdRoutine.Mechanism(
-                    (Measure<Voltage> volts) -> {
-                        master.setVoltage(volts.in(Volts));
-                    },
-                    log -> {
-                        log.motor("pivot-master")
-                                .voltage(
-                                        _appliedVoltage.mut_replace(
-                                               getVoltage(), Volts))
-                                .angularPosition(
-                                        _angle.mut_replace(getPosition(), Degrees))
-                                .angularVelocity(
-                                        _velocity.mut_replace(getVelocity(), DegreesPerSecond));
-                    },
-                    this));
-
-    public Command sysIdQuasistatic(SysIdRoutine.Direction direction) {
-        return _sysId.quasistatic(direction);
-    }
-
-    public Command sysIdDynamic(SysIdRoutine.Direction direction) {
-        return _sysId.dynamic(direction);
     }
 
     public static Arm getInstance() {
