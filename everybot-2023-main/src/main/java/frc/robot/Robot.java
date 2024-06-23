@@ -19,6 +19,7 @@ import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.robot.commands.CommandGroups;
 import frc.robot.subsystems.Arm;
 import frc.robot.util.Telemetry;
+import frc.robot.PSO.*;
 
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
@@ -33,6 +34,8 @@ public class Robot extends TimedRobot {
    */
   private SendableChooser<String> autonChooser;
   private Telemetry telemetry;
+
+  frc.robot.PSO.Main pso;
 
   @Override
   public void robotInit() {
@@ -113,6 +116,8 @@ public class Robot extends TimedRobot {
     // Autons.threeNotePath.cancel();
     // Autons.sixNotePath.cancel();
     // Drivetrain.getInstance().setYaw(0);
+
+    pso = new frc.robot.PSO.Main();
   }
 
   @Override

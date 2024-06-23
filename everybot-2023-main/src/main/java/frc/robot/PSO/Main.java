@@ -2,7 +2,10 @@ package frc.robot.PSO;
 
 import java.util.Scanner;
 
-public class Main {
+import edu.wpi.first.wpilibj2.command.CommandScheduler;
+
+
+public class Main implements Runnable {
 
     public static void main (String[] args) {
         if (args.length == 1 && args[0].equals("-p")) {
@@ -119,6 +122,12 @@ public class Main {
         else if (input == 4)    return Particle.FunctionType.ThreeHumpCamel;
         System.out.println("Invalid Input.");
         return null;
+    }
+
+    public void run() { //TODO
+
+        CommandScheduler sched = CommandScheduler.getInstance();
+
     }
 
 }

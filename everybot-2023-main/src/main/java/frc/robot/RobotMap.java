@@ -46,7 +46,17 @@ public class RobotMap {
         public static double PIVOT_kI = 0;
         public static double PIVOT_kD = 0;
 
+<<<<<<< Updated upstream
         public static final double PIVOT_GEAR_RATIO = 64;
+=======
+        public static void setPID(double kP, double kI, double kD) { // not really useful
+            PIVOT_kP = kP;
+            PIVOT_kI = kI;
+            PIVOT_kD = kD;
+        }
+
+        public static final double PIVOT_GEAR_RATIO = 106.0 + 2.0/3.0; //$$
+>>>>>>> Stashed changes
         public static final double PIVOT_ROT_TO_ANGLE = 360; // motor rotations to degrees
 
         public static final double STALLING_CURRENT = 40; //$$

@@ -1,4 +1,9 @@
 package frc.robot.PSO;
+<<<<<<< Updated upstream
+=======
+
+import edu.wpi.first.wpilibj2.command.CommandScheduler;
+>>>>>>> Stashed changes
 
 class Function {
 
@@ -52,6 +57,13 @@ class Function {
         double p2 = 1.05*Math.pow(x, 4);
         double p3 = Math.pow(x, 6) / 6;
         return p1 - p2 + p3 + x*y + y*y;
+    }
+
+    static double errorFunction(double kP, double kI, double kD) {
+        
+        CommandScheduler sched = CommandScheduler.getInstance();
+
+        
     }
 
 }
