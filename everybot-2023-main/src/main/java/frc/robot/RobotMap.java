@@ -35,18 +35,18 @@ public class RobotMap {
     }
 
     public static class Arm {
-        public static final int MASTER_ID = 24; //TODO
-        public static final int CANCODER_ID = 0; //TODO
+        public static final int MASTER_ID = 9;
+        public static final int CANCODER_ID = 37;
 
-        public static final InvertedValue MASTER_INVERT = InvertedValue.CounterClockwise_Positive;
+        public static final boolean MASTER_INVERT = true;
         
-        public static final double ZERO_SPEED = -0.08; //$$
+        public static final double ZERO_SPEED = -0.5; //$$
 
         public static double PIVOT_kP = 1; //TODO implement access/modify functions
         public static double PIVOT_kI = 0;
         public static double PIVOT_kD = 0;
 
-        public static final double PIVOT_GEAR_RATIO = 64; //$$
+        public static final double PIVOT_GEAR_RATIO = 64;
         public static final double PIVOT_ROT_TO_ANGLE = 360; // motor rotations to degrees
 
         public static final double STALLING_CURRENT = 40; //$$

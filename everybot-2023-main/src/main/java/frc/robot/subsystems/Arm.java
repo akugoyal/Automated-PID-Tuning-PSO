@@ -21,6 +21,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.PIDSubsystem;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine;
+import frc.robot.Robot;
 import frc.robot.RobotMap;
 import frc.robot.util.Telemetry;
 
@@ -31,7 +32,6 @@ public class Arm extends PIDSubsystem {
 
     private CANcoder leftCoder;
 
-    private InterpolatingDoubleTreeMap speakerAngles;
     // Mutable holder for unit-safe voltage values, persisted to avoid reallocation.
     private final MutableMeasure<Voltage> _appliedVoltage = mutable(Volts.of(0));
     // Mutable holder for unit-safe linear distance values, persisted to avoid
@@ -61,7 +61,7 @@ public class Arm extends PIDSubsystem {
 
         
         master.setIdleMode(IdleMode.kBrake);
-        master.setInverted(false);
+        master.setInverted(RobotMap.Arm.MASTER_INVERT);
 
         // master.clearStickyFaults();
 
@@ -138,7 +138,7 @@ public class Arm extends PIDSubsystem {
     }
 
     public double getPivotSetpoint(double distance) {
-        return speakerAngles.get(distance);
+        return 0;
     }
 
     public static Arm getInstance() {
