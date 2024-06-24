@@ -120,10 +120,11 @@ public class Robot extends TimedRobot {
     // Autons.sixNotePath.cancel();
     // Drivetrain.getInstance().setYaw(0);
 
-    pso = new frc.robot.PSO.Main();
-    Thread thread = new Thread(pso);
+    // pso = new frc.robot.PSO.Main();
+    // Thread thread = new Thread(pso);
 
-    thread.start();
+    // thread.start();
+    CommandScheduler.getInstance().cancelAll();
   }
 
   @Override

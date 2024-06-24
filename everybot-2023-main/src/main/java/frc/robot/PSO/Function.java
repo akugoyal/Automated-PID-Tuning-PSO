@@ -87,9 +87,9 @@ public class Function {
         double error = 0.0;
         double sum = 0.0;
         
-        CommandScheduler.getInstance().schedule(new ZeroPivot());
+        // CommandScheduler.getInstance().schedule(new ZeroPivot());
 
-        CommandScheduler.getInstance().schedule(new ZeroPivot());
+        // CommandScheduler.getInstance().schedule(new ZeroPivot());
 
         // round 1
         // PivotToAngleTimed pivotCommand = new PivotToAngleTimed(RobotMap.Arm.Goal.SETPOINT1);
