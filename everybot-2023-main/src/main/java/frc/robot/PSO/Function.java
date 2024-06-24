@@ -7,6 +7,7 @@ import edu.wpi.first.wpilibj2.command.CommandScheduler;
 // import frc.robot.commands.pivot.PivotToAngle;
 import frc.robot.commands.pivot.PivotToAngleTimed;
 import frc.robot.commands.pivot.ZeroPivot;
+import frc.robot.subsystems.Arm;
 import frc.robot.RobotMap;
 
 public class Function {
@@ -98,6 +99,8 @@ public class Function {
 
         error += sum / encoderDump.size();
         
+        Arm.getInstance().getController().reset();
+
 
         // round 2
         encoderDump.clear();
@@ -118,6 +121,7 @@ public class Function {
 
         error += sum / encoderDump.size();
 
+        Arm.getInstance().getController().reset();
 
         // round 3
         encoderDump.clear();

@@ -11,6 +11,8 @@ import frc.robot.PSO.Function;
 
 public class PivotToAngleTimed extends Command {
     private RobotMap.Arm.Goal setpoint;
+
+    private int counter;
     private double ref;
 
     public PivotToAngleTimed(RobotMap.Arm.Goal goal) {
@@ -19,6 +21,9 @@ public class PivotToAngleTimed extends Command {
     }
 
     public void execute() {
+       
+      counter += 20;
+
         switch (setpoint) {
             case ZERO:
                 ref = 0;
@@ -37,17 +42,14 @@ public class PivotToAngleTimed extends Command {
         Timer timer = new Timer();
 
         Arm.getInstance().moveToPosition(ref);
-        timer.schedule(new TimerTask() {
-           @Override
-           public void run() {
-              Function.encoderDump.add(Arm.getInstance().getPosition());
-           }
-        }, 2500);
+
+
+        
 
     }
 
     public boolean isFinished() {
-        return MathUtil.compareSetpoint(Arm.getInstance().getPosition(), ref, RobotMap.Arm.MAX_ERROR);
+        return MathUtil.compareSetpoint(Arm.getInstance().getPosition(), ref, RobotMap.Arm.MAX_ERROR) || (counter > 2500);
     }
 
     // public void end(boolean interrupted) {
