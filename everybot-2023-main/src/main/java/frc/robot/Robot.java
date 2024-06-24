@@ -35,6 +35,7 @@ public class Robot extends TimedRobot {
   private SendableChooser<String> autonChooser;
   private Telemetry telemetry;
 
+
   frc.robot.PSO.Main pso;
 
   @Override
@@ -63,6 +64,8 @@ public class Robot extends TimedRobot {
     // test.setDouble(1072);
 
     telemetry = new Telemetry();
+
+    // CommandScheduler.getInstance().setDefaultCommand(Arm.getInstance(), )
     // telemetry.startServer();
     // telemetry.swerveStates();
 
@@ -118,6 +121,9 @@ public class Robot extends TimedRobot {
     // Drivetrain.getInstance().setYaw(0);
 
     pso = new frc.robot.PSO.Main();
+    Thread thread = new Thread(pso);
+
+    thread.start();
   }
 
   @Override

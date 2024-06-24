@@ -1,11 +1,17 @@
 package frc.robot.PSO;
-<<<<<<< Updated upstream
-=======
 
+import java.util.ArrayList;
+
+import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
->>>>>>> Stashed changes
+// import frc.robot.commands.pivot.PivotToAngle;
+import frc.robot.commands.pivot.PivotToAngleTimed;
+import frc.robot.commands.pivot.ZeroPivot;
+import frc.robot.RobotMap;
 
-class Function {
+public class Function {
+
+    public static ArrayList<Double> encoderDump;
 
     /**
      * Calculate the result of (x^4)-2(x^3).
@@ -60,10 +66,81 @@ class Function {
     }
 
     static double errorFunction(double kP, double kI, double kD) {
-        
-        CommandScheduler sched = CommandScheduler.getInstance();
 
+        RobotMap.Arm.PIVOT_kP = kP;
+        RobotMap.Arm.PIVOT_kI = kI;
+        RobotMap.Arm.PIVOT_kD = kD;
         
+    /**
+     * Setpoints (can be modified to suit your needs)
+     */
+        double sp1 = 30.0;
+        double sp2 = 60.0;
+        double sp3 = 90.0;
+
+        double error = 0.0;
+        double sum = 0.0;
+
+
+        // round 1
+        PivotToAngleTimed pivotCommand = new PivotToAngleTimed(RobotMap.Arm.Goal.SETPOINT1);
+        ZeroPivot zeroCommand = new ZeroPivot();
+
+        Command zeroThenPivot = pivotCommand.andThen(zeroCommand);
+
+        CommandScheduler.getInstance().schedule(zeroThenPivot);
+
+        while(!zeroThenPivot.isFinished()) {}; //TODO not sure if this works
+
+        for(double x : encoderDump) {
+            sum += Math.abs(sp1 - x);
+        }
+
+        error += sum / encoderDump.size();
+        
+
+        // round 2
+        encoderDump.clear();
+        sum = 0.0;
+
+        pivotCommand = new PivotToAngleTimed(RobotMap.Arm.Goal.SETPOINT2); //TODO not sure if this is necessary or i can just make a group
+        zeroCommand = new ZeroPivot(); 
+
+        zeroThenPivot = pivotCommand.andThen(zeroCommand);
+
+        CommandScheduler.getInstance().schedule(zeroThenPivot);
+
+        while(!zeroThenPivot.isFinished()) {}; //TODO not sure if this works
+
+        for(double x : encoderDump) {
+            sum += Math.abs(sp2 - x);
+        }
+
+        error += sum / encoderDump.size();
+
+
+        // round 3
+        encoderDump.clear();
+        sum = 0.0;
+
+        pivotCommand = new PivotToAngleTimed(RobotMap.Arm.Goal.SETPOINT3); //TODO not sure if this is necessary or i can just make a group
+        zeroCommand = new ZeroPivot(); 
+
+        zeroThenPivot = pivotCommand.andThen(zeroCommand);
+
+        CommandScheduler.getInstance().schedule(zeroThenPivot);
+
+        while(!zeroThenPivot.isFinished()) {}; //TODO not sure if this works
+
+        for(double x : encoderDump) {
+            sum += Math.abs(sp3 - x);
+        }
+
+        error += sum / encoderDump.size();
+
+
+        return error;
     }
+    
 
 }

@@ -23,6 +23,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine;
 import frc.robot.Robot;
 import frc.robot.RobotMap;
+import frc.robot.commands.pivot.ZeroPivot;
 import frc.robot.util.Telemetry;
 
 public class Arm extends PIDSubsystem {
@@ -31,6 +32,8 @@ public class Arm extends PIDSubsystem {
     private CANSparkMax master; 
 
     private CANcoder leftCoder;
+
+    private ZeroPivot zeroCmd;
 
     // Mutable holder for unit-safe voltage values, persisted to avoid reallocation.
     private final MutableMeasure<Voltage> _appliedVoltage = mutable(Volts.of(0));
@@ -60,7 +63,7 @@ public class Arm extends PIDSubsystem {
     private void configMotors() {
 
         
-        master.setIdleMode(IdleMode.kBrake);
+        master.setIdleMode(IdleMode.kBrake); //TODO set current/voltage limits + soft position limits
         master.setInverted(RobotMap.Arm.MASTER_INVERT);
 
         // master.clearStickyFaults();
@@ -99,6 +102,12 @@ public class Arm extends PIDSubsystem {
     public double getPosition() {
         return leftCoder.getPosition().getValue() * RobotMap.Arm.PIVOT_ROT_TO_ANGLE;
     }
+
+    @Override
+    public void periodic() {
+        
+    }
+
 
     public boolean isStalling() {
         return master.getOutputCurrent() > RobotMap.Arm.STALLING_CURRENT;

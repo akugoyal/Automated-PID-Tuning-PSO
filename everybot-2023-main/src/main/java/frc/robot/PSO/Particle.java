@@ -46,8 +46,10 @@ class Particle {
             return Function.ackleysFunction(positionArr[0], positionArr[1]);
         } else if (function == FunctionType.Booths) {
             return Function.boothsFunction(positionArr[0], positionArr[1]);
-        } else {
+        } else if (function == FunctionType.ThreeHumpCamel) {
             return Function.threeHumpCamelFunction(positionArr[0], positionArr[1]);
+        } else { // will be error
+            return Function.errorFunction(positionArr[0], positionArr[1], positionArr[2]);
         }
     }
 
@@ -135,7 +137,8 @@ class Particle {
         FunctionA,
         Ackleys,
         Booths,
-        ThreeHumpCamel
+        ThreeHumpCamel,
+        Error
     }
 
 }

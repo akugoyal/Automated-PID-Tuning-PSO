@@ -21,6 +21,24 @@ public class Main implements Runnable {
         }
     }
 
+    public void run() {
+        Swarm swarm;
+        Particle.FunctionType function;
+        int particles, epochs, dimensionNumber;
+        double inertia, cognitive, social;
+
+        function = Particle.FunctionType.Error; //TODO check if vals work, modify if dont
+        dimensionNumber = 3;
+        
+        // change here
+        particles = 10;
+        epochs = 100;
+        //TODO determine if we need to tune inertia, cognitive, social
+        
+        swarm = new Swarm(function, dimensionNumber, particles, epochs);
+        swarm.run();
+    }
+
     private static void menu (boolean flag) {
         Swarm swarm;
         Particle.FunctionType function;
@@ -124,10 +142,5 @@ public class Main implements Runnable {
         return null;
     }
 
-    public void run() { //TODO
-
-        CommandScheduler sched = CommandScheduler.getInstance();
-
-    }
 
 }

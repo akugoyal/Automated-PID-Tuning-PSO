@@ -2,11 +2,14 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.RobotMap;
-import frc.robot.commands.pivot.PivotToAngle;
+// import frc.robot.commands.pivot.PivotToAngle;
+import frc.robot.commands.pivot.PivotToAngleTimed;
 import frc.robot.commands.pivot.ZeroPivot;
 
 public class CommandGroups {
         // public static final Command FULL_ZERO = new ZeroPivot().alongWith(new ZeroElevator(), new ZeroIntake());
+
+        // public static final Command RUN_ZERO = new ZeroPivot().andThen(new PivotToAngleTimed(RobotMap.Arm.Goal.SETPOINT)); //TODO figure out if this is correct
     
         // public static final Command FULL_INTAKE = new MoveNoteToShooter().raceWith(new IndexToShooter().alongWith(new IntakeNote(), new ZeroPivot()));
     

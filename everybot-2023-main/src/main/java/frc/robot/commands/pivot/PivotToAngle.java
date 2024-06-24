@@ -19,6 +19,15 @@ public class PivotToAngle extends Command {
             case ZERO:
                 ref = 0;
                 break;
+            case SETPOINT1:
+                ref = 30.0;
+                break;
+            case SETPOINT2:
+                ref = 60.0;
+                break;
+            case SETPOINT3:
+                ref = 90.0;
+                break;
         }
         Arm.getInstance().moveToPosition(ref);
 
