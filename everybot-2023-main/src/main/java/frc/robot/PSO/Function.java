@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import edu.wpi.first.wpilibj2.command.Commands;
 // import frc.robot.commands.pivot.PivotToAngle;
 import frc.robot.commands.pivot.PivotToAngleTimed;
 import frc.robot.commands.pivot.ZeroPivot;
@@ -86,65 +87,66 @@ public class Function {
         double error = 0.0;
         double sum = 0.0;
 
+        CommandScheduler.getInstance().schedule(new ZeroPivot());
 
         // round 1
-        PivotToAngleTimed pivotCommand = new PivotToAngleTimed(RobotMap.Arm.Goal.SETPOINT1);
-        ZeroPivot zeroCommand = new ZeroPivot();
+        // PivotToAngleTimed pivotCommand = new PivotToAngleTimed(RobotMap.Arm.Goal.SETPOINT1);
+        // ZeroPivot zeroCommand = new ZeroPivot();
 
-        Command zeroThenPivot = pivotCommand.andThen(zeroCommand);
+        // Command zeroThenPivot = pivotCommand.andThen(zeroCommand);
 
-        CommandScheduler.getInstance().schedule(zeroThenPivot);
+        // CommandScheduler.getInstance().schedule(zeroThenPivot);
 
-        while(!zeroThenPivot.isFinished()) {}; //TODO not sure if this works
+        // while(!zeroThenPivot.isFinished()) {}; //TODO not sure if this works
 
-        for(double x : encoderDump) {
-            sum += Math.abs(sp1 - x);
-        }
+        // for(double x : encoderDump) {
+        //     sum += Math.abs(sp1 - x);
+        // }
 
-        error += sum / encoderDump.size();
+        // error += sum / encoderDump.size();
         
-        Arm.getInstance().getController().reset();
+        // Arm.getInstance().getController().reset();
 
 
-        // round 2
-        encoderDump.clear();
-        sum = 0.0;
+        // // round 2
+        // encoderDump.clear();
+        // sum = 0.0;
 
-        pivotCommand = new PivotToAngleTimed(RobotMap.Arm.Goal.SETPOINT2); //TODO not sure if this is necessary or i can just make a group
-        zeroCommand = new ZeroPivot(); 
+        // pivotCommand = new PivotToAngleTimed(RobotMap.Arm.Goal.SETPOINT2); //TODO not sure if this is necessary or i can just make a group
+        // zeroCommand = new ZeroPivot(); 
 
-        zeroThenPivot = pivotCommand.andThen(zeroCommand);
+        // zeroThenPivot = pivotCommand.andThen(zeroCommand);
 
-        CommandScheduler.getInstance().schedule(zeroThenPivot);
+        // CommandScheduler.getInstance().schedule(zeroThenPivot);
 
-        while(!zeroThenPivot.isFinished()) {}; //TODO not sure if this works
+        // while(!zeroThenPivot.isFinished()) {}; //TODO not sure if this works
 
-        for(double x : encoderDump) {
-            sum += Math.abs(sp2 - x);
-        }
+        // for(double x : encoderDump) {
+        //     sum += Math.abs(sp2 - x);
+        // }
 
-        error += sum / encoderDump.size();
+        // error += sum / encoderDump.size();
 
-        Arm.getInstance().getController().reset();
+        // Arm.getInstance().getController().reset();
 
-        // round 3
-        encoderDump.clear();
-        sum = 0.0;
+        // // round 3
+        // encoderDump.clear();
+        // sum = 0.0;
 
-        pivotCommand = new PivotToAngleTimed(RobotMap.Arm.Goal.SETPOINT3); //TODO not sure if this is necessary or i can just make a group
-        zeroCommand = new ZeroPivot(); 
+        // pivotCommand = new PivotToAngleTimed(RobotMap.Arm.Goal.SETPOINT3); //TODO not sure if this is necessary or i can just make a group
+        // zeroCommand = new ZeroPivot(); 
 
-        zeroThenPivot = pivotCommand.andThen(zeroCommand);
+        // zeroThenPivot = pivotCommand.andThen(zeroCommand);
 
-        CommandScheduler.getInstance().schedule(zeroThenPivot);
+        // CommandScheduler.getInstance().schedule(zeroThenPivot);
 
-        while(!zeroThenPivot.isFinished()) {}; //TODO not sure if this works
+        // while(!zeroThenPivot.isFinished()) {}; //TODO not sure if this works
 
-        for(double x : encoderDump) {
-            sum += Math.abs(sp3 - x);
-        }
+        // for(double x : encoderDump) {
+        //     sum += Math.abs(sp3 - x);
+        // }
 
-        error += sum / encoderDump.size();
+        // error += sum / encoderDump.size();
 
 
         return error;

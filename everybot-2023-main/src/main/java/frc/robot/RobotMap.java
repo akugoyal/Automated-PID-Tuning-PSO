@@ -27,7 +27,7 @@ public class RobotMap {
 
         public static final boolean MASTER_INVERT = true;
         
-        public static final double ZERO_SPEED = -0.2; //$$
+        public static final double ZERO_SPEED = -0.5; //$$
 
         public static double PIVOT_kP = 0; //TODO implement access/modify functions
         public static double PIVOT_kI = 0;

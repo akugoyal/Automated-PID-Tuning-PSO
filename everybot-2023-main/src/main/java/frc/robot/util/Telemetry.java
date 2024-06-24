@@ -5,6 +5,7 @@ import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import frc.robot.OI;
 import frc.robot.subsystems.Arm;
+import frc.robot.RobotMap;
 
 public class Telemetry {
     // private NetworkTable table;
@@ -95,6 +96,15 @@ public class Telemetry {
 
         NetworkTableEntry setPivotAngle = _pivot.getEntry("Pivot Angle");
         setPivotAngle.setDouble(pivot.getPivotSetpoint(0));
+
+        NetworkTableEntry pivotkP = _pivot.getEntry("Pivot kP");
+        pivotkP.setDouble(RobotMap.Arm.PIVOT_kP);
+
+        NetworkTableEntry pivotkI = _pivot.getEntry("Pivot kI");
+        pivotkI.setDouble(RobotMap.Arm.PIVOT_kI);
+
+        NetworkTableEntry pivotkD = _pivot.getEntry("Pivot kD");
+        pivotkD.setDouble(RobotMap.Arm.PIVOT_kD);
     }
 
     public static void putNumber(String system, String entry, double number) {
