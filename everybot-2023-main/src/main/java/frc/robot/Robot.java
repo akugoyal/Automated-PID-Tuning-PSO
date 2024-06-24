@@ -115,6 +115,9 @@ public class Robot extends TimedRobot {
 
   @Override
   public void teleopInit() {
+
+    CommandScheduler.getInstance().cancelAll();
+
     // Autons.fourNotePath.cancel();
     // Autons.threeNotePath.cancel();
     // Autons.sixNotePath.cancel();
