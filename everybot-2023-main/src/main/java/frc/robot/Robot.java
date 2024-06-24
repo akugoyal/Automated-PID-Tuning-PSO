@@ -35,6 +35,8 @@ public class Robot extends TimedRobot {
   private SendableChooser<String> autonChooser;
   private Telemetry telemetry;
 
+  private boolean ranYet = false;
+
 
   frc.robot.PSO.Main pso;
 
@@ -78,6 +80,11 @@ public class Robot extends TimedRobot {
 
   @Override
   public void robotPeriodic() {
+    if(ranYet == false) {
+      CommandScheduler.getInstance().cancelAll();
+    }
+    ranYet = true;
+
     CommandScheduler.getInstance().run();
     // RobotMap.Field.FIELD.setRobotPose(Drivetrain.getInstance().getPoseEstimatorPose2d());
 
