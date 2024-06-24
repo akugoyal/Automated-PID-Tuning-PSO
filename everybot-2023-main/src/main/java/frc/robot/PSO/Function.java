@@ -85,6 +85,8 @@ public class Function {
 
         double error = 0.0;
         double sum = 0.0;
+        
+        CommandScheduler.getInstance().schedule(new ZeroPivot());
 
 
         // round 1
