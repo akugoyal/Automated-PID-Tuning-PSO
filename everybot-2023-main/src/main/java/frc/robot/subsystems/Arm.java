@@ -133,9 +133,9 @@ public class Arm extends PIDSubsystem {
     @Override
     protected void useOutput(double output, double setpoint) { // manual voltage limiting
         if(output < 0.0) {
-            output = 0.0;
+            master.setVoltage(0.0);
         } else if(output > RobotMap.Arm.VOLTAGE_LIMIT) {
-            output = RobotMap.Arm.VOLTAGE_LIMIT;
+            master.setVoltage(RobotMap.Arm.VOLTAGE_LIMIT);
         } else {
             master.setVoltage(output);
         }
