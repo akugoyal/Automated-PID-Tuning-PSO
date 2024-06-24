@@ -102,7 +102,7 @@ public class Arm extends PIDSubsystem {
      * Get pivot angle in degrees
      */
     public double getPosition() {
-        return leftCoder.getPosition().getValue() * RobotMap.Arm.PIVOT_ROT_TO_ANGLE;
+        return getMeasurement() * RobotMap.Arm.PIVOT_ROT_TO_ANGLE;
     }
 
     @Override
@@ -143,7 +143,7 @@ public class Arm extends PIDSubsystem {
 
     @Override
     protected double getMeasurement() {
-        return leftCoder.getPosition().getValue();
+        return leftCoder.getPosition().getValue() * RobotMap.Arm.CANCODER_INVERT;
     }
     
     public void setPercentOutput(double power) {
