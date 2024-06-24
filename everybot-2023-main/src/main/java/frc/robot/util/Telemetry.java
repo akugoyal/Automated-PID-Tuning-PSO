@@ -105,6 +105,12 @@ public class Telemetry {
 
         NetworkTableEntry pivotkD = _pivot.getEntry("Pivot kD");
         pivotkD.setDouble(RobotMap.Arm.PIVOT_kD);
+
+        NetworkTableEntry isStalling = _pivot.getEntry("Pivot Is Stalling");
+        isStalling.setBoolean(Arm.getInstance().isStalling());
+        
+        NetworkTableEntry pivotCurrent = _pivot.getEntry("Pivot Current");
+        pivotCurrent.setDouble(Arm.getInstance().getOutputCurrent());
     }
 
     public static void putNumber(String system, String entry, double number) {

@@ -98,6 +98,10 @@ public class Arm extends PIDSubsystem {
 
     }
 
+    public double getOutputCurrent() {
+        return master.getOutputCurrent();
+    }
+
     /*
      * Get pivot angle in degrees
      */

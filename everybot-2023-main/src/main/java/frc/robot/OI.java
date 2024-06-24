@@ -21,7 +21,7 @@ public class OI {
     }
 
     private void initBindings() {
-        driver.getButtonB().whileTrue(new ZeroPivot());
+        driver.getButtonB().onTrue(new ZeroPivot());
         // driver.getButtonA().whileTrue(new PivotToAngle(RobotMap.Arm.Goal.ZERO));
         driver.getButtonA().whileTrue(new InstantCommand(() -> Arm.getInstance().setPercentOutput(1)));
         driver.getButtonA().whileFalse(new InstantCommand(() -> Arm.getInstance().setPercentOutput(0)));
