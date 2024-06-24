@@ -66,6 +66,8 @@ public class Arm extends PIDSubsystem {
         master.setIdleMode(IdleMode.kBrake); //TODO set current/voltage limits + soft position limits
         master.setInverted(RobotMap.Arm.MASTER_INVERT);
 
+        master.setSecondaryCurrentLimit(RobotMap.Arm.CURRENT_LIMIT);
+
         // master.clearStickyFaults();
 
         // TalonFXConfiguration masterConfig = new TalonFXConfiguration();
@@ -129,8 +131,14 @@ public class Arm extends PIDSubsystem {
     }
 
     @Override
-    protected void useOutput(double output, double setpoint) {
-        master.setVoltage(output);
+    protected void useOutput(double output, double setpoint) { // manual voltage limiting
+        if(output < 0.0) {
+            output = 0.0;
+        } else if(output > RobotMap.Arm.VOLTAGE_LIMIT) {
+            output = RobotMap.Arm.VOLTAGE_LIMIT;
+        } else {
+            master.setVoltage(output);
+        }
     }
 
     @Override

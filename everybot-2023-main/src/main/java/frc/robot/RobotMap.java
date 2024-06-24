@@ -39,6 +39,9 @@ public class RobotMap {
         public static final double STALLING_CURRENT = 40; //$$
         
         public static final double MAX_ERROR = 1; // $$
+
+        public static final double CURRENT_LIMIT = 40.0;
+        public static final double VOLTAGE_LIMIT = 12.0; //TODO
     
         public static final double PIVOT_FORWARD_SOFT_LIMIT = 65; //$$
         public static final double PIVOT_REVERSE_SOFT_LIMIT = 0; //$$

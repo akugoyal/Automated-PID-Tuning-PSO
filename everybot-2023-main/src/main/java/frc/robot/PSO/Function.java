@@ -68,9 +68,13 @@ public class Function {
 
     static double errorFunction(double kP, double kI, double kD) {
 
-        RobotMap.Arm.PIVOT_kP = kP;
-        RobotMap.Arm.PIVOT_kI = kI;
-        RobotMap.Arm.PIVOT_kD = kD;
+        // RobotMap.Arm.PIVOT_kP = kP;
+        // RobotMap.Arm.PIVOT_kI = kI;
+        // RobotMap.Arm.PIVOT_kD = kD;
+
+        Arm.getInstance().getController().setP(kP);
+        Arm.getInstance().getController().setI(kI);
+        Arm.getInstance().getController().setD(kD);
         
     /**
      * Setpoints (can be modified to suit your needs)
