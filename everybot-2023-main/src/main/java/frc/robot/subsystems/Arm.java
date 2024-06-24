@@ -135,13 +135,17 @@ public class Arm extends PIDSubsystem {
     }
 
     @Override
-    protected void useOutput(double output, double setpoint) { // manual voltage limiting
-        if(output < 0.0) {
-            master.setVoltage(0.0);
-        } else if(output > RobotMap.Arm.VOLTAGE_LIMIT) {
-            master.setVoltage(RobotMap.Arm.VOLTAGE_LIMIT);
+    protected void useOutput(double output, double setpoint) { // manual voltage limiting and manual forward soft limit
+        if (getInstance().getPosition() < RobotMap.Arm.PIVOT_FORWARD_SOFT_LIMIT) {
+            if(output < 0.0) {
+                master.setVoltage(0.0);
+            } else if(output > RobotMap.Arm.VOLTAGE_LIMIT) {
+                master.setVoltage(RobotMap.Arm.VOLTAGE_LIMIT);
+            } else {
+                master.setVoltage(output);
+            }
         } else {
-            master.setVoltage(output);
+            master.setVoltage(0);
         }
     }
 
@@ -150,6 +154,10 @@ public class Arm extends PIDSubsystem {
         return leftCoder.getPosition().getValue() * RobotMap.Arm.CANCODER_INVERT;
     }
     
+    public void setUseOutput(double output, double setpoint) {
+        useOutput(output, setpoint);
+    }
+
     public void setPercentOutput(double power) {
         master.set(power);
     }

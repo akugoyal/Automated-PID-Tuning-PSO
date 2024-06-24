@@ -3,12 +3,13 @@ package frc.robot.commands.pivot;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.RobotMap;
 import frc.robot.subsystems.Arm;
+import frc.robot.util.Telemetry;
 import frc.robot.PSO.Function;
 
 public class PivotToAngleTimed extends Command {
     private RobotMap.Arm.Goal setpoint;
 
-    private int counter;
+    private double counter;
     private double ref;
 
     public PivotToAngleTimed(RobotMap.Arm.Goal goal) {
@@ -17,7 +18,7 @@ public class PivotToAngleTimed extends Command {
     }
 
     public void execute() {
-       
+        System.out.println("exectuning ctr: " + counter);
       counter += RobotMap.ROBOT_LOOP;
 
         switch (setpoint) {
@@ -36,7 +37,6 @@ public class PivotToAngleTimed extends Command {
         }
 
         Function.encoderDump.add(Arm.getInstance().getPosition());
-
         Arm.getInstance().moveToPosition(ref);
     }
 

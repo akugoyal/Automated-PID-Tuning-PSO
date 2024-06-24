@@ -35,7 +35,7 @@ public class Robot extends TimedRobot {
   private SendableChooser<String> autonChooser;
   private Telemetry telemetry;
 
-  private boolean ranYet = false;
+  private boolean firstPeriodic = false;
 
 
   frc.robot.PSO.Main pso;
@@ -80,11 +80,6 @@ public class Robot extends TimedRobot {
 
   @Override
   public void robotPeriodic() {
-    if(ranYet == false) {
-      CommandScheduler.getInstance().cancelAll();
-    }
-    ranYet = true;
-
     CommandScheduler.getInstance().run();
     // RobotMap.Field.FIELD.setRobotPose(Drivetrain.getInstance().getPoseEstimatorPose2d());
 
@@ -130,15 +125,18 @@ public class Robot extends TimedRobot {
     // Autons.sixNotePath.cancel();
     // Drivetrain.getInstance().setYaw(0);
 
-    // pso = new frc.robot.PSO.Main();
-    // Thread thread = new Thread(pso);
+    pso = new frc.robot.PSO.Main();
+    Thread thread = new Thread(pso);
 
-    // thread.start();
-    CommandScheduler.getInstance().cancelAll();
+    thread.start();
   }
 
   @Override
   public void teleopPeriodic() {
+    if (firstPeriodic) {
+      CommandScheduler.getInstance().cancelAll();
+      firstPeriodic = false;
+    }
     // Intake.getInstance().setRollerPower(RobotMap.Intake.ROLLER_SPEED);
     // Shooter.getInstance().setShooter(RobotMap.Shooter.SHOOTING_SPEED);
     Telemetry.putBoolean("pivot", "Is Stalling", Arm.getInstance().isStalling());

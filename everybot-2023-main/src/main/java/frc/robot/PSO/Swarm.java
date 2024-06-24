@@ -25,8 +25,8 @@ public class Swarm {
      * value will be between 0 (inclusive) and 10 (exclusive).
      */
     private int beginRange, endRange;
-    private static final int DEFAULT_BEGIN_RANGE = -100;
-    private static final int DEFAULT_END_RANGE = 101;
+    private static final int DEFAULT_BEGIN_RANGE = -1;
+    private static final int DEFAULT_END_RANGE = 1;
 
     /**
      * Construct the Swarm with default values.

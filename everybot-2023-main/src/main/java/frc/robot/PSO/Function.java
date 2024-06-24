@@ -73,6 +73,7 @@ public class Function {
         // RobotMap.Arm.PIVOT_kI = kI;
         // RobotMap.Arm.PIVOT_kD = kD;
 
+        encoderDump = new ArrayList<>();
         Arm.getInstance().getController().setP(kP);
         Arm.getInstance().getController().setI(kI);
         Arm.getInstance().getController().setD(kD);
@@ -87,68 +88,81 @@ public class Function {
         double error = 0.0;
         double sum = 0.0;
         
-        // CommandScheduler.getInstance().schedule(new ZeroPivot());
+        ZeroPivot zeroCommand = new ZeroPivot();
+        CommandScheduler.getInstance().schedule(zeroCommand);
+        while(!zeroCommand.isFinished()) {
 
-        // CommandScheduler.getInstance().schedule(new ZeroPivot());
+        }
 
-        // round 1
-        // PivotToAngleTimed pivotCommand = new PivotToAngleTimed(RobotMap.Arm.Goal.SETPOINT1);
-        // ZeroPivot zeroCommand = new ZeroPivot();
 
-        // Command zeroThenPivot = pivotCommand.andThen(zeroCommand);
+        //round 1
+        System.out.println("\n\n\n\n\nRound 1");
+        PivotToAngleTimed pivotCommand = new PivotToAngleTimed(RobotMap.Arm.Goal.SETPOINT1);
+        zeroCommand = new ZeroPivot();
 
-        // CommandScheduler.getInstance().schedule(zeroThenPivot);
+        Command zeroThenPivot = pivotCommand;
 
-        // while(!zeroThenPivot.isFinished()) {}; //TODO not sure if this works
+        CommandScheduler.getInstance().schedule(zeroThenPivot);
 
-        // for(double x : encoderDump) {
-        //     sum += Math.abs(sp1 - x);
-        // }
+        System.out.println("Starting pivot");
+        while(!zeroThenPivot.isFinished()) {
+            try {
+                Thread.sleep(20);
+            } catch (InterruptedException e) {
+            }
+        }; //TODO not sure if this works
 
-        // error += sum / encoderDump.size();
+        for(double x : encoderDump) {
+            sum += Math.abs(sp1 - x);
+        }
+
+        error += sum / encoderDump.size();
         
-        // Arm.getInstance().getController().reset();
+        Arm.getInstance().getController().reset();
 
 
-        // // round 2
-        // encoderDump.clear();
-        // sum = 0.0;
+        // round 2
+        System.out.println("\n\n\n\n\n\n\n\n\n\n\n\nRound 2");
+        encoderDump.clear();
+        sum = 0.0;
 
-        // pivotCommand = new PivotToAngleTimed(RobotMap.Arm.Goal.SETPOINT2); //TODO not sure if this is necessary or i can just make a group
-        // zeroCommand = new ZeroPivot(); 
+        pivotCommand = new PivotToAngleTimed(RobotMap.Arm.Goal.SETPOINT2); //TODO not sure if this is necessary or i can just make a group
+        zeroCommand = new ZeroPivot(); 
 
-        // zeroThenPivot = pivotCommand.andThen(zeroCommand);
+        zeroThenPivot = pivotCommand;
 
-        // CommandScheduler.getInstance().schedule(zeroThenPivot);
+        CommandScheduler.getInstance().schedule(zeroThenPivot);
 
-        // while(!zeroThenPivot.isFinished()) {}; //TODO not sure if this works
+        while(!zeroThenPivot.isFinished()) {}; //TODO not sure if this works
 
-        // for(double x : encoderDump) {
-        //     sum += Math.abs(sp2 - x);
-        // }
+        System.out.println("\n\n\n\n\n\n\n\nDONE MOVING");
+        for(double x : encoderDump) {
+            sum += Math.abs(sp2 - x);
+        }
 
-        // error += sum / encoderDump.size();
+        error += sum / encoderDump.size();
 
-        // Arm.getInstance().getController().reset();
+        Arm.getInstance().getController().reset();
 
-        // // round 3
-        // encoderDump.clear();
-        // sum = 0.0;
+        // round 3
+        System.out.println("Round 3");
+        encoderDump.clear();
+        sum = 0.0;
 
-        // pivotCommand = new PivotToAngleTimed(RobotMap.Arm.Goal.SETPOINT3); //TODO not sure if this is necessary or i can just make a group
-        // zeroCommand = new ZeroPivot(); 
+        pivotCommand = new PivotToAngleTimed(RobotMap.Arm.Goal.SETPOINT3); //TODO not sure if this is necessary or i can just make a group
+        zeroCommand = new ZeroPivot(); 
 
-        // zeroThenPivot = pivotCommand.andThen(zeroCommand);
+        zeroThenPivot = pivotCommand;
 
-        // CommandScheduler.getInstance().schedule(zeroThenPivot);
+        CommandScheduler.getInstance().schedule(zeroThenPivot);
 
-        // while(!zeroThenPivot.isFinished()) {}; //TODO not sure if this works
+        while(!zeroThenPivot.isFinished()) {}; //TODO not sure if this works
 
-        // for(double x : encoderDump) {
-        //     sum += Math.abs(sp3 - x);
-        // }
+        for(double x : encoderDump) {
+            sum += Math.abs(sp3 - x);
+        }
 
-        // error += sum / encoderDump.size();
+        error += sum / encoderDump.size();
 
 
         return error;
