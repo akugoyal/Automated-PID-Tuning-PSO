@@ -36,7 +36,7 @@ public class PivotToAngleTimed extends Command {
                 break;
         }
 
-        // Function.encoderDump.add(Arm.getInstance().getPosition());
+        Function.encoderDump.add(Arm.getInstance().getPosition());
         Arm.getInstance().moveToPosition(ref);
     }
 
