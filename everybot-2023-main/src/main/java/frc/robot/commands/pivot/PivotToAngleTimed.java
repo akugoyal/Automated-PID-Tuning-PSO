@@ -11,15 +11,24 @@ public class PivotToAngleTimed extends Command {
 
     private double counter;
     private double ref;
+    private boolean first;
+    private double lastTime;
 
     public PivotToAngleTimed(RobotMap.Arm.Goal goal) {
         counter = 0;
         setpoint = goal;
+        first = true;
         addRequirements(Arm.getInstance());
     }
 
     public void execute() {
-      counter += RobotMap.ROBOT_LOOP;
+        if (first) {
+            lastTime = System.currentTimeMillis();
+            first = false;
+        } else {
+            counter += (System.currentTimeMillis() - lastTime);
+            lastTime = System.currentTimeMillis();
+        }
 
         switch (setpoint) {
             case ZERO:
@@ -36,6 +45,7 @@ public class PivotToAngleTimed extends Command {
                 break;
         }
 
+        Telemetry.putNumber("pivot", "counter", counter);
         Function.encoderDump.add(Arm.getInstance().getPosition());
         Arm.getInstance().moveToPosition(ref);
     }
@@ -45,8 +55,21 @@ public class PivotToAngleTimed extends Command {
     }
 
     public void end(boolean interrupted) {
-        counter = 0;
         Arm.getInstance().setPercentOutput(0);
     }
 
+    public String getName() {
+        switch (setpoint) {
+            case ZERO:
+                return "Zero";
+            case SETPOINT1:
+                return "30";
+            case SETPOINT2:
+                return "60";
+            case SETPOINT3:
+                return "90";
+            default:
+                return "Error";
+        }
+    }
 }

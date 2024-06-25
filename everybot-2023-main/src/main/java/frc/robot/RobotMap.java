@@ -11,7 +11,7 @@ public class RobotMap {
     public static final String CAN_CHAIN = "rio";
 
     public static final class PSO {
-        public static final double TEST_LENGTH = 15.5;
+        public static final double TEST_LENGTH = 5;
     }
 
     public static final class OI {

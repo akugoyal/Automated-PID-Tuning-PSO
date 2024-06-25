@@ -3,6 +3,7 @@ package frc.robot.util;
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
+import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.robot.OI;
 import frc.robot.subsystems.Arm;
 import frc.robot.RobotMap;
@@ -98,19 +99,22 @@ public class Telemetry {
         setPivotAngle.setDouble(pivot.getPivotSetpoint(0));
 
         NetworkTableEntry pivotkP = _pivot.getEntry("Pivot kP");
-        pivotkP.setDouble(RobotMap.Arm.PIVOT_kP);
+        // pivotkP.setDouble(RobotMap.Arm.PIVOT_kP);
 
         NetworkTableEntry pivotkI = _pivot.getEntry("Pivot kI");
-        pivotkI.setDouble(RobotMap.Arm.PIVOT_kI);
+        // pivotkI.setDouble(RobotMap.Arm.PIVOT_kI);
 
         NetworkTableEntry pivotkD = _pivot.getEntry("Pivot kD");
-        pivotkD.setDouble(RobotMap.Arm.PIVOT_kD);
+        // pivotkD.setDouble(RobotMap.Arm.PIVOT_kD);
 
         NetworkTableEntry isStalling = _pivot.getEntry("Pivot Is Stalling");
         isStalling.setBoolean(Arm.getInstance().isStalling());
         
         NetworkTableEntry pivotCurrent = _pivot.getEntry("Pivot Current");
         pivotCurrent.setDouble(Arm.getInstance().getOutputCurrent());
+
+        NetworkTableEntry cmdBool = _pivot.getEntry("Schedule Command");
+        cmdBool.setBoolean(RobotMap.Arm.scheduleCmd);
     }
 
     public static void putNumber(String system, String entry, double number) {
