@@ -97,12 +97,12 @@ public class Function {
 
         //round 1
         System.out.println("\n\n\n\n\nRound 1");
-        PivotToAngleTimed pivotCommand = new PivotToAngleTimed(RobotMap.Arm.Goal.SETPOINT1);
-        zeroCommand = new ZeroPivot();
+        // PivotToAngleTimed pivotCommand = new PivotToAngleTimed(RobotMap.Arm.Goal.SETPOINT1);
+        // zeroCommand = new ZeroPivot();
 
-        Command zeroThenPivot = pivotCommand;
+        // Command zeroThenPivot = pivotCommand;
 
-        CommandScheduler.getInstance().schedule(zeroThenPivot);
+        CommandScheduler.getInstance().schedule(new PivotToAngleTimed(RobotMap.Arm.Goal.SETPOINT1));
 
         System.out.println("Starting pivot");
         // while(!zeroThenPivot.isFinished()) {
@@ -131,12 +131,13 @@ public class Function {
         encoderDump.clear();
         sum = 0.0;
 
-        pivotCommand = new PivotToAngleTimed(RobotMap.Arm.Goal.SETPOINT2); //TODO not sure if this is necessary or i can just make a group
-        zeroCommand = new ZeroPivot(); 
+        // pivotCommand = new PivotToAngleTimed(RobotMap.Arm.Goal.SETPOINT2); //TODO not sure if this is necessary or i can just make a group
+        // zeroCommand = new ZeroPivot(); 
 
-        zeroThenPivot = pivotCommand;
+        // zeroThenPivot = pivotCommand;
 
-        CommandScheduler.getInstance().schedule(zeroThenPivot);
+        // CommandScheduler.getInstance().schedule(zeroThenPivot);
+        CommandScheduler.getInstance().schedule(new PivotToAngleTimed(RobotMap.Arm.Goal.SETPOINT2));
 
         // while(!zeroThenPivot.isFinished()) {}; //TODO not sure if this works
         try {
@@ -159,12 +160,13 @@ public class Function {
         encoderDump.clear();
         sum = 0.0;
 
-        pivotCommand = new PivotToAngleTimed(RobotMap.Arm.Goal.SETPOINT3); //TODO not sure if this is necessary or i can just make a group
-        zeroCommand = new ZeroPivot(); 
+        // pivotCommand = new PivotToAngleTimed(RobotMap.Arm.Goal.SETPOINT3); //TODO not sure if this is necessary or i can just make a group
+        // zeroCommand = new ZeroPivot(); 
 
-        zeroThenPivot = pivotCommand;
+        // zeroThenPivot = pivotCommand;
 
-        CommandScheduler.getInstance().schedule(zeroThenPivot);
+        // CommandScheduler.getInstance().schedule(zeroThenPivot);
+        CommandScheduler.getInstance().schedule(new PivotToAngleTimed(RobotMap.Arm.Goal.SETPOINT3));
 
         // while(!zeroThenPivot.isFinished()) {}; //TODO not sure if this works
         try {
@@ -172,7 +174,7 @@ public class Function {
         } catch (InterruptedException e) {
 
         }
-        
+
         for(double x : encoderDump) {
             sum += Math.abs(sp3 - x);
         }
