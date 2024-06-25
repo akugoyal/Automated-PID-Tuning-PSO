@@ -105,12 +105,17 @@ public class Function {
         CommandScheduler.getInstance().schedule(zeroThenPivot);
 
         System.out.println("Starting pivot");
-        while(!zeroThenPivot.isFinished()) {
-            try {
-                Thread.sleep(20);
-            } catch (InterruptedException e) {
-            }
-        }; //TODO not sure if this works
+        // while(!zeroThenPivot.isFinished()) {
+        //     try {
+        //         Thread.sleep(20);
+        //     } catch (InterruptedException e) {
+        //     }
+        // }; //TODO not sure if this works
+        try {
+            Thread.sleep((long)RobotMap.PSO.TEST_LENGTH * 1000 + 1000);
+        } catch (InterruptedException e) {
+
+        }
 
         for(double x : encoderDump) {
             sum += Math.abs(sp1 - x);
@@ -133,7 +138,12 @@ public class Function {
 
         CommandScheduler.getInstance().schedule(zeroThenPivot);
 
-        while(!zeroThenPivot.isFinished()) {}; //TODO not sure if this works
+        // while(!zeroThenPivot.isFinished()) {}; //TODO not sure if this works
+        try {
+            Thread.sleep((long)RobotMap.PSO.TEST_LENGTH * 1000 + 1000);
+        } catch (InterruptedException e) {
+
+        }
 
         System.out.println("\n\n\n\n\n\n\n\nDONE MOVING");
         for(double x : encoderDump) {
@@ -156,8 +166,13 @@ public class Function {
 
         CommandScheduler.getInstance().schedule(zeroThenPivot);
 
-        while(!zeroThenPivot.isFinished()) {}; //TODO not sure if this works
+        // while(!zeroThenPivot.isFinished()) {}; //TODO not sure if this works
+        try {
+            Thread.sleep((long)RobotMap.PSO.TEST_LENGTH * 1000 + 1000);
+        } catch (InterruptedException e) {
 
+        }
+        
         for(double x : encoderDump) {
             sum += Math.abs(sp3 - x);
         }
