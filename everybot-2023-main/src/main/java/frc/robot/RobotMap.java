@@ -1,6 +1,7 @@
 package frc.robot;
 
 import edu.wpi.first.math.util.Units;
+import edu.wpi.first.wpilibj2.command.Command;
 
 public class RobotMap {
 
@@ -33,6 +34,9 @@ public class RobotMap {
         public static double PIVOT_kP = 0; //TODO implement access/modify functions
         public static double PIVOT_kI = 0;
         public static double PIVOT_kD = 0;
+
+        public static boolean scheduleCmd = false;
+        public static Command cmdToSchedule;
 
         public static final double PIVOT_GEAR_RATIO = 64;
         public static final double PIVOT_ROT_TO_ANGLE = 360; // motor rotations to degrees

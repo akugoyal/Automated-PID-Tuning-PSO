@@ -89,42 +89,45 @@ public class Function {
         double error = 0.0;
         double sum = 0.0;
         
-        ZeroPivot zeroCommand = new ZeroPivot();
-        CommandScheduler.getInstance().schedule(zeroCommand);
+        // ZeroPivot zeroCommand = new ZeroPivot();
+        // CommandScheduler.getInstance().schedule(zeroCommand);
         
-        Arm.getInstance().getController().reset();
-        while(!zeroCommand.isFinished()) {
+        // Arm.getInstance().getController().reset();
+        // while(!zeroCommand.isFinished()) {
 
-        }
+        // }
 
 
         //round 1
         System.out.println("\n\n\n\n\nRound 1");
-        // PivotToAngleTimed pivotCommand = new PivotToAngleTimed(RobotMap.Arm.Goal.SETPOINT1);
-        // zeroCommand = new ZeroPivot();
+        PivotToAngleTimed pivotCommand = new PivotToAngleTimed(RobotMap.Arm.Goal.SETPOINT1);
+        ZeroPivot zeroCommand = new ZeroPivot();
 
-        // Command zeroThenPivot = pivotCommand;
+        Command zeroThenPivot = zeroCommand.andThen(pivotCommand);
 
-        CommandScheduler.getInstance().schedule(new PivotToAngleTimed(RobotMap.Arm.Goal.SETPOINT1));
+        // CommandScheduler.getInstance().schedule(zeroThenPivot);
+        
+        RobotMap.Arm.scheduleCmd = true;
+        RobotMap.Arm.cmdToSchedule = zeroThenPivot;
 
         System.out.println("R1 cmd scheduled");
 
-        // while(!zeroThenPivot.isFinished()) {
-        //     try {
-        //         Thread.sleep(20);
-        //     } catch (InterruptedException e) {
-        //     }
-        // }; //TODO not sure if this works
-        try {
+         while(!zeroThenPivot.isFinished()) {
+             try {
+                 Thread.sleep(20);
+             } catch (InterruptedException e) {
+                 System.out.println("WEE WOO");
+             }
+         }; //TODO not sure if this works
+        // try {
             
-            Thread.sleep((long)RobotMap.PSO.TEST_LENGTH * 1000 + 1000);
-        } catch (InterruptedException e) {
-            System.out.println("R1 INTERRUPTED");
-        }
+        //     Thread.sleep((long)RobotMap.PSO.TEST_LENGTH * 1000 + 1000);
+        // } catch (InterruptedException e) {
+        //     System.out.println("R1 INTERRUPTED");
+        // }
 
         System.out.println("R1 thread slept");
 
-        encoderDump.add(10.0); //DEBUG
 
         for(double x : encoderDump) {
             sum += Math.abs(sp1 - x);
@@ -145,30 +148,28 @@ public class Function {
 
         encoderDump.clear();
 
-        System.out.println("R2 arr cleared");
-
         sum = 0.0;
 
-        // pivotCommand = new PivotToAngleTimed(RobotMap.Arm.Goal.SETPOINT2); //TODO not sure if this is necessary or i can just make a group
-        // zeroCommand = new ZeroPivot(); 
+        pivotCommand = new PivotToAngleTimed(RobotMap.Arm.Goal.SETPOINT2);
+        zeroCommand = new ZeroPivot();
 
-        // zeroThenPivot = pivotCommand;
+        zeroThenPivot = zeroCommand.andThen(pivotCommand);
 
         // CommandScheduler.getInstance().schedule(zeroThenPivot);
-        CommandScheduler.getInstance().schedule(new PivotToAngleTimed(RobotMap.Arm.Goal.SETPOINT2));
+        
+        RobotMap.Arm.scheduleCmd = true;
+        RobotMap.Arm.cmdToSchedule = zeroThenPivot;
 
         System.out.println("R2 cmd scheduled");
 
-        // while(!zeroThenPivot.isFinished()) {}; //TODO not sure if this works
-        try {
-            Thread.sleep((long)RobotMap.PSO.TEST_LENGTH * 1000 + 1000);
-        } catch (InterruptedException e) {
-            System.out.println("R2 INTERRUPTED");
-        }
+         while(!zeroThenPivot.isFinished()) {
+             try {
+                 Thread.sleep(20);
+             } catch (InterruptedException e) {
+                 System.out.println("WEE WOO");
+             }
+         }; //TODO not sure if this works
 
-        System.out.println("R2 thread slept");
-
-        encoderDump.add(10.0); //DEBUG
 
         for(double x : encoderDump) {
             sum += Math.abs(sp2 - x);
@@ -191,27 +192,30 @@ public class Function {
         System.out.println("R3 encoderdump cleared");
         sum = 0.0;
 
-        // pivotCommand = new PivotToAngleTimed(RobotMap.Arm.Goal.SETPOINT3); //TODO not sure if this is necessary or i can just make a group
-        // zeroCommand = new ZeroPivot(); 
+        pivotCommand = new PivotToAngleTimed(RobotMap.Arm.Goal.SETPOINT3);
+        zeroCommand = new ZeroPivot();
 
-        // zeroThenPivot = pivotCommand;
+        zeroThenPivot = zeroCommand.andThen(pivotCommand);
 
         // CommandScheduler.getInstance().schedule(zeroThenPivot);
-        CommandScheduler.getInstance().schedule(new PivotToAngleTimed(RobotMap.Arm.Goal.SETPOINT3));
+        
+        RobotMap.Arm.scheduleCmd = true;
+        RobotMap.Arm.cmdToSchedule = zeroThenPivot;
 
-        System.out.println("r3 cmd sched");
+        System.out.println("R2 cmd scheduled");
 
-        // while(!zeroThenPivot.isFinished()) {}; //TODO not sure if this works
-        try {
-            Thread.sleep((long)RobotMap.PSO.TEST_LENGTH * 1000 + 1000);
-        } catch (InterruptedException e) {
-            System.out.println("R3 INTERRUPT");
-        }
+         while(!zeroThenPivot.isFinished()) {
+             try {
+                 Thread.sleep(20);
+             } catch (InterruptedException e) {
+                 System.out.println("WEE WOO");
+             }
+         }; //TODO not sure if this works
+
 
         System.out.println("R3 Thread slept");
 
 
-        encoderDump.add(10.0); //DEBUG
 
         for(double x : encoderDump) {
             sum += Math.abs(sp3 - x);

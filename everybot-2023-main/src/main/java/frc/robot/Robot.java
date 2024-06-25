@@ -138,6 +138,12 @@ public class Robot extends TimedRobot {
       firstPeriodic = false;
       System.out.println("Canceled");
     }
+
+    if(RobotMap.Arm.scheduleCmd) {
+      RobotMap.Arm.scheduleCmd = false;
+      CommandScheduler.getInstance().schedule(RobotMap.Arm.cmdToSchedule);
+    }
+    
     // Intake.getInstance().setRollerPower(RobotMap.Intake.ROLLER_SPEED);
     // Shooter.getInstance().setShooter(RobotMap.Shooter.SHOOTING_SPEED);
     Telemetry.putBoolean("pivot", "Is Stalling", Arm.getInstance().isStalling());
