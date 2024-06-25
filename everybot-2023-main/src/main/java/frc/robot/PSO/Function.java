@@ -116,6 +116,7 @@ public class Function {
         //     }
         // }; //TODO not sure if this works
         try {
+            
             Thread.sleep((long)RobotMap.PSO.TEST_LENGTH * 1000 + 1000);
         } catch (InterruptedException e) {
             System.out.println("R1 INTERRUPTED");
