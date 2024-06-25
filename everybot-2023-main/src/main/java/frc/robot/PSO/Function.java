@@ -107,6 +107,8 @@ public class Function {
 
         CommandScheduler.getInstance().schedule(new PivotToAngleTimed(RobotMap.Arm.Goal.SETPOINT1));
 
+        System.out.println("R1 cmd scheduled");
+
         // while(!zeroThenPivot.isFinished()) {
         //     try {
         //         Thread.sleep(20);
@@ -116,21 +118,32 @@ public class Function {
         try {
             Thread.sleep((long)RobotMap.PSO.TEST_LENGTH * 1000 + 1000);
         } catch (InterruptedException e) {
-            System.out.println("INTERRUPTED");
+            System.out.println("R1 INTERRUPTED");
         }
+
+        System.out.println("R1 thread slept");
 
         for(double x : encoderDump) {
             sum += Math.abs(sp1 - x);
         }
 
+        System.out.println("R1 sum calculated");
+
         error += sum / encoderDump.size();
+
+        System.out.println("R1 error added");
         
         Arm.getInstance().getController().reset();
 
+        System.out.println("R1 controller reset");
 
         // round 2
         System.out.println("\n\n\n\n\n\n\n\n\n\n\n\nRound 2");
+
         encoderDump.clear();
+
+        System.out.println("R2 arr cleared");
+
         sum = 0.0;
 
         // pivotCommand = new PivotToAngleTimed(RobotMap.Arm.Goal.SETPOINT2); //TODO not sure if this is necessary or i can just make a group
@@ -141,24 +154,36 @@ public class Function {
         // CommandScheduler.getInstance().schedule(zeroThenPivot);
         CommandScheduler.getInstance().schedule(new PivotToAngleTimed(RobotMap.Arm.Goal.SETPOINT2));
 
+        System.out.println("R2 cmd scheduled");
+
         // while(!zeroThenPivot.isFinished()) {}; //TODO not sure if this works
         try {
             Thread.sleep((long)RobotMap.PSO.TEST_LENGTH * 1000 + 1000);
         } catch (InterruptedException e) {
-
+            System.out.println("R2 INTERRUPTED");
         }
+
+        System.out.println("R2 thread slept");
 
         for(double x : encoderDump) {
             sum += Math.abs(sp2 - x);
         }
 
+        System.out.println("R2 sum summed");
+
         error += sum / encoderDump.size();
 
+        System.out.println("R2 error calculated");
+
         Arm.getInstance().getController().reset();
+
+        System.out.println("R2 controller reset");
 
         // round 3
         System.out.println("Round 3");
         encoderDump.clear();
+
+        System.out.println("R3 encoderdump cleared");
         sum = 0.0;
 
         // pivotCommand = new PivotToAngleTimed(RobotMap.Arm.Goal.SETPOINT3); //TODO not sure if this is necessary or i can just make a group
@@ -169,18 +194,26 @@ public class Function {
         // CommandScheduler.getInstance().schedule(zeroThenPivot);
         CommandScheduler.getInstance().schedule(new PivotToAngleTimed(RobotMap.Arm.Goal.SETPOINT3));
 
+        System.out.println("r3 cmd sched");
+
         // while(!zeroThenPivot.isFinished()) {}; //TODO not sure if this works
         try {
             Thread.sleep((long)RobotMap.PSO.TEST_LENGTH * 1000 + 1000);
         } catch (InterruptedException e) {
-
+            System.out.println("R3 INTERRUPT");
         }
+
+        System.out.println("R3 Thread slept");
 
         for(double x : encoderDump) {
             sum += Math.abs(sp3 - x);
         }
 
+        System.out.println("R3 sum summed");
+
         error += sum / encoderDump.size();
+
+        System.out.println("R3 error added");
 
         Telemetry.putNumber("pivot", "Particle error", error);
         return error;
