@@ -70,9 +70,8 @@ class Particle {
      * @param endRange      the maximum value (exclusive)
      * @return              the randomly generated value
      */
-    private static int rand (int beginRange, int endRange) {
-        Random r = new java.util.Random();
-        return r.nextInt(endRange - beginRange) + beginRange;
+    private static double rand (int low, int high) {
+        return (Math.random()*(high - low)) + low;
     }
 
     /**

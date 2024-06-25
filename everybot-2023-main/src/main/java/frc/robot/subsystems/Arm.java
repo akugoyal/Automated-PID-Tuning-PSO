@@ -55,7 +55,7 @@ public class Arm extends PIDSubsystem {
         // speakerAngles = new InterpolatingDoubleTreeMap();
         // speakerAngles.put(0.0, 0.0); // TODO
 
-        getController().setTolerance(0.1, 0.2);
+        getController().setTolerance(0.1, 0.0);
 
         configMotors();
     }
@@ -131,14 +131,16 @@ public class Arm extends PIDSubsystem {
     }
 
     public void moveToPosition(double angle) {
+        getController().setSetpoint(angle);
         useOutput(getController().calculate(getPosition()), angle);
     }
 
     @Override
     protected void useOutput(double output, double setpoint) { // manual voltage limiting and manual forward soft limit
-        if (getInstance().getPosition() < RobotMap.Arm.PIVOT_FORWARD_SOFT_LIMIT) {
-            if(output < 0.0) {
-                master.setVoltage(0.0);
+        Telemetry.putNumber("pivot", "Output", output);
+        if (getInstance().getPosition() < RobotMap.Arm.PIVOT_FORWARD_SOFT_LIMIT && !getInstance().isStalling()) {
+            if(output < -RobotMap.Arm.VOLTAGE_LIMIT) {
+                master.setVoltage(-RobotMap.Arm.VOLTAGE_LIMIT);
             } else if(output > RobotMap.Arm.VOLTAGE_LIMIT) {
                 master.setVoltage(RobotMap.Arm.VOLTAGE_LIMIT);
             } else {

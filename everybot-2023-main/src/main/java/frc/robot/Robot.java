@@ -136,6 +136,7 @@ public class Robot extends TimedRobot {
     if (firstPeriodic) {
       CommandScheduler.getInstance().cancelAll();
       firstPeriodic = false;
+      System.out.println("Canceled");
     }
     // Intake.getInstance().setRollerPower(RobotMap.Intake.ROLLER_SPEED);
     // Shooter.getInstance().setShooter(RobotMap.Shooter.SHOOTING_SPEED);

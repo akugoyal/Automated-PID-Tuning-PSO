@@ -9,6 +9,7 @@ import edu.wpi.first.wpilibj2.command.Commands;
 import frc.robot.commands.pivot.PivotToAngleTimed;
 import frc.robot.commands.pivot.ZeroPivot;
 import frc.robot.subsystems.Arm;
+import frc.robot.util.Telemetry;
 import frc.robot.RobotMap;
 
 public class Function {
@@ -68,7 +69,7 @@ public class Function {
     }
 
     static double errorFunction(double kP, double kI, double kD) {
-
+        System.out.println("kP: " + kP + "\tkI: " + kI + "\tkD: " + kD);
         // RobotMap.Arm.PIVOT_kP = kP;
         // RobotMap.Arm.PIVOT_kI = kI;
         // RobotMap.Arm.PIVOT_kD = kD;
@@ -90,6 +91,8 @@ public class Function {
         
         ZeroPivot zeroCommand = new ZeroPivot();
         CommandScheduler.getInstance().schedule(zeroCommand);
+        
+        Arm.getInstance().getController().reset();
         while(!zeroCommand.isFinished()) {
 
         }
@@ -104,7 +107,6 @@ public class Function {
 
         CommandScheduler.getInstance().schedule(new PivotToAngleTimed(RobotMap.Arm.Goal.SETPOINT1));
 
-        System.out.println("Starting pivot");
         // while(!zeroThenPivot.isFinished()) {
         //     try {
         //         Thread.sleep(20);
@@ -114,7 +116,7 @@ public class Function {
         try {
             Thread.sleep((long)RobotMap.PSO.TEST_LENGTH * 1000 + 1000);
         } catch (InterruptedException e) {
-
+            System.out.println("INTERRUPTED");
         }
 
         for(double x : encoderDump) {
@@ -146,7 +148,6 @@ public class Function {
 
         }
 
-        System.out.println("\n\n\n\n\n\n\n\nDONE MOVING");
         for(double x : encoderDump) {
             sum += Math.abs(sp2 - x);
         }
@@ -181,7 +182,7 @@ public class Function {
 
         error += sum / encoderDump.size();
 
-
+        Telemetry.putNumber("pivot", "Particle error", error);
         return error;
     }
     

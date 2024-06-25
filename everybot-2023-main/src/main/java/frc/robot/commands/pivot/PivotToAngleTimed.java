@@ -13,12 +13,12 @@ public class PivotToAngleTimed extends Command {
     private double ref;
 
     public PivotToAngleTimed(RobotMap.Arm.Goal goal) {
+        counter = 0;
         setpoint = goal;
         addRequirements(Arm.getInstance());
     }
 
     public void execute() {
-        System.out.println("exectuning ctr: " + counter);
       counter += RobotMap.ROBOT_LOOP;
 
         switch (setpoint) {
@@ -45,6 +45,7 @@ public class PivotToAngleTimed extends Command {
     }
 
     public void end(boolean interrupted) {
+        counter = 0;
         Arm.getInstance().setPercentOutput(0);
     }
 

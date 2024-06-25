@@ -11,7 +11,7 @@ public class RobotMap {
     public static final String CAN_CHAIN = "rio";
 
     public static final class PSO {
-        public static final double TEST_LENGTH = 2.5;
+        public static final double TEST_LENGTH = 15.5;
     }
 
     public static final class OI {
@@ -31,7 +31,7 @@ public class RobotMap {
         
         public static final double ZERO_SPEED = -0.3; //$$
 
-        public static double PIVOT_kP = 00; //TODO implement access/modify functions
+        public static double PIVOT_kP = 0; //TODO implement access/modify functions
         public static double PIVOT_kI = 0;
         public static double PIVOT_kD = 0;
 
