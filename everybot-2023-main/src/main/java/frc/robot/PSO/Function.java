@@ -123,6 +123,8 @@ public class Function {
 
         System.out.println("R1 thread slept");
 
+        encoderDump.add(10.0); //DEBUG
+
         for(double x : encoderDump) {
             sum += Math.abs(sp1 - x);
         }
@@ -165,6 +167,8 @@ public class Function {
 
         System.out.println("R2 thread slept");
 
+        encoderDump.add(10.0); //DEBUG
+
         for(double x : encoderDump) {
             sum += Math.abs(sp2 - x);
         }
@@ -204,6 +208,9 @@ public class Function {
         }
 
         System.out.println("R3 Thread slept");
+
+
+        encoderDump.add(10.0); //DEBUG
 
         for(double x : encoderDump) {
             sum += Math.abs(sp3 - x);
