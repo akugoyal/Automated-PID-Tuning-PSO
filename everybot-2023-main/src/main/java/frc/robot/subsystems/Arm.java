@@ -146,22 +146,7 @@ public class Arm extends PIDSubsystem {
     @Override
     protected void useOutput(double output, double setpoint) { // manual voltage limiting and manual forward soft limit
         Telemetry.putNumber("pivot", "Output", output);
-        if (!getInstance().isStalling()) {
-            if ((getInstance().getPosition() < RobotMap.Arm.PIVOT_FORWARD_SOFT_LIMIT && 
-            getInstance().getPosition() > RobotMap.Arm.PIVOT_REVERSE_SOFT_LIMIT) ||
-            (getInstance().getPosition() >= RobotMap.Arm.PIVOT_FORWARD_SOFT_LIMIT && output < 0) ||
-            (getInstance().getPosition() <= RobotMap.Arm.PIVOT_REVERSE_SOFT_LIMIT && output > 0)) {
-                if(output < -RobotMap.Arm.VOLTAGE_LIMIT) {
-                    master.setVoltage(-RobotMap.Arm.VOLTAGE_LIMIT);
-                } else if(output > RobotMap.Arm.VOLTAGE_LIMIT) {
-                    master.setVoltage(RobotMap.Arm.VOLTAGE_LIMIT);
-                } else {
-                    master.setVoltage(output);
-                }
-            } else {
-                master.setVoltage(0);
-            }
-        }
+        master.setVoltage(output);
     }
 
     @Override
