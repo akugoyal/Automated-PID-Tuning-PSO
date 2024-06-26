@@ -67,8 +67,8 @@ public class Arm extends PIDSubsystem {
         master.enableSoftLimit(CANSparkBase.SoftLimitDirection.kForward, true);
         master.enableSoftLimit(CANSparkBase.SoftLimitDirection.kReverse, true);
 
-        master.setSoftLimit(CANSparkBase.SoftLimitDirection.kForward, (float) RobotMap.Arm.PIVOT_FORWARD_SOFT_LIMIT);
-        master.setSoftLimit(CANSparkBase.SoftLimitDirection.kReverse, (float) RobotMap.Arm.PIVOT_REVERSE_SOFT_LIMIT);
+        master.setSoftLimit(CANSparkBase.SoftLimitDirection.kForward, (float) (RobotMap.Arm.PIVOT_FORWARD_SOFT_LIMIT / 360.0));
+        master.setSoftLimit(CANSparkBase.SoftLimitDirection.kReverse, (float) (RobotMap.Arm.PIVOT_REVERSE_SOFT_LIMIT / 360.0));
 
 
         master.setIdleMode(IdleMode.kBrake); //TODO set current/voltage limits + soft position limits
