@@ -8,6 +8,7 @@ import static edu.wpi.first.units.Units.Volts;
 import com.ctre.phoenix6.hardware.CANcoder;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkBase.IdleMode;
+import com.revrobotics.CANSparkBase;
 import com.revrobotics.CANSparkLowLevel;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.interpolation.InterpolatingDoubleTreeMap;
@@ -63,6 +64,13 @@ public class Arm extends PIDSubsystem {
     private void configMotors() {
 
         
+        master.enableSoftLimit(CANSparkBase.SoftLimitDirection.kForward, true);
+        master.enableSoftLimit(CANSparkBase.SoftLimitDirection.kReverse, true);
+
+        master.setSoftLimit(CANSparkBase.SoftLimitDirection.kForward, (float) RobotMap.Arm.PIVOT_FORWARD_SOFT_LIMIT);
+        master.setSoftLimit(CANSparkBase.SoftLimitDirection.kReverse, (float) RobotMap.Arm.PIVOT_REVERSE_SOFT_LIMIT);
+
+
         master.setIdleMode(IdleMode.kBrake); //TODO set current/voltage limits + soft position limits
         master.setInverted(RobotMap.Arm.MASTER_INVERT);
 
