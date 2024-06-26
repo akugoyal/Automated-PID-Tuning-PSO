@@ -64,8 +64,8 @@ public class Arm extends PIDSubsystem {
     private void configMotors() {
 
         
-        master.enableSoftLimit(CANSparkBase.SoftLimitDirection.kForward, true);
-        master.enableSoftLimit(CANSparkBase.SoftLimitDirection.kReverse, true);
+        // master.enableSoftLimit(CANSparkBase.SoftLimitDirection.kForward, true);
+        // master.enableSoftLimit(CANSparkBase.SoftLimitDirection.kReverse, true);
 
         master.setSoftLimit(CANSparkBase.SoftLimitDirection.kForward, (float) (RobotMap.Arm.PIVOT_FORWARD_SOFT_LIMIT / 360.0));
         master.setSoftLimit(CANSparkBase.SoftLimitDirection.kReverse, (float) (RobotMap.Arm.PIVOT_REVERSE_SOFT_LIMIT / 360.0));
@@ -146,16 +146,21 @@ public class Arm extends PIDSubsystem {
     @Override
     protected void useOutput(double output, double setpoint) { // manual voltage limiting and manual forward soft limit
         Telemetry.putNumber("pivot", "Output", output);
-        if (getInstance().getPosition() < RobotMap.Arm.PIVOT_FORWARD_SOFT_LIMIT && !getInstance().isStalling()) {
-            if(output < -RobotMap.Arm.VOLTAGE_LIMIT) {
-                master.setVoltage(-RobotMap.Arm.VOLTAGE_LIMIT);
-            } else if(output > RobotMap.Arm.VOLTAGE_LIMIT) {
-                master.setVoltage(RobotMap.Arm.VOLTAGE_LIMIT);
+        if (!getInstance().isStalling()) {
+            if ((getInstance().getPosition() < RobotMap.Arm.PIVOT_FORWARD_SOFT_LIMIT && 
+            getInstance().getPosition() > RobotMap.Arm.PIVOT_REVERSE_SOFT_LIMIT) ||
+            (getInstance().getPosition() >= RobotMap.Arm.PIVOT_FORWARD_SOFT_LIMIT && output < 0) ||
+            (getInstance().getPosition() <= RobotMap.Arm.PIVOT_REVERSE_SOFT_LIMIT && output > 0)) {
+                if(output < -RobotMap.Arm.VOLTAGE_LIMIT) {
+                    master.setVoltage(-RobotMap.Arm.VOLTAGE_LIMIT);
+                } else if(output > RobotMap.Arm.VOLTAGE_LIMIT) {
+                    master.setVoltage(RobotMap.Arm.VOLTAGE_LIMIT);
+                } else {
+                    master.setVoltage(output);
+                }
             } else {
-                master.setVoltage(output);
+                master.setVoltage(0);
             }
-        } else {
-            master.setVoltage(0);
         }
     }
 
