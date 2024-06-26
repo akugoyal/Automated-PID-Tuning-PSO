@@ -67,8 +67,8 @@ public class Arm extends PIDSubsystem {
         // master.enableSoftLimit(CANSparkBase.SoftLimitDirection.kForward, true);
         // master.enableSoftLimit(CANSparkBase.SoftLimitDirection.kReverse, true);
 
-        master.setSoftLimit(CANSparkBase.SoftLimitDirection.kForward, (float) (RobotMap.Arm.PIVOT_FORWARD_SOFT_LIMIT / 360.0));
-        master.setSoftLimit(CANSparkBase.SoftLimitDirection.kReverse, (float) (RobotMap.Arm.PIVOT_REVERSE_SOFT_LIMIT / 360.0));
+        // master.setSoftLimit(CANSparkBase.SoftLimitDirection.kForward, (float) (RobotMap.Arm.PIVOT_FORWARD_SOFT_LIMIT / 360.0));
+        // master.setSoftLimit(CANSparkBase.SoftLimitDirection.kReverse, (float) (RobotMap.Arm.PIVOT_REVERSE_SOFT_LIMIT / 360.0));
 
 
         master.setIdleMode(IdleMode.kBrake); //TODO set current/voltage limits + soft position limits
@@ -147,12 +147,14 @@ public class Arm extends PIDSubsystem {
     @Override
     protected void useOutput(double output, double setpoint) { // manual voltage limiting and manual forward soft limit
         Telemetry.putNumber("pivot", "Output", output);
-        if(output > RobotMap.Arm.VOLTAGE_LIMIT) {
-            master.setVoltage(RobotMap.Arm.VOLTAGE_LIMIT);
-        } else if (output < -RobotMap.Arm.VOLTAGE_LIMIT) {
-            master.setVoltage(-RobotMap.Arm.VOLTAGE_LIMIT);
-        } else {
-            master.setVoltage(output);
+        if (!getInstance().isStalling() && isValidOutput(output)) {
+            if(output > RobotMap.Arm.VOLTAGE_LIMIT) {
+                master.setVoltage(RobotMap.Arm.VOLTAGE_LIMIT);
+            } else if (output < -RobotMap.Arm.VOLTAGE_LIMIT) {
+                master.setVoltage(-RobotMap.Arm.VOLTAGE_LIMIT);
+            } else {
+                master.setVoltage(output);
+            }
         }
     }
 
@@ -165,8 +167,28 @@ public class Arm extends PIDSubsystem {
         useOutput(output, setpoint);
     }
 
-    public void setPercentOutput(double power) {
-        master.set(power);
+    public void setPercentOutput(double power, boolean override) {
+        // System.out.println(master.isSoftLimitEnabled(CANSparkBase.SoftLimitDirection.kForward));
+        // System.out.println(master.getSoftLimit(CANSparkBase.SoftLimitDirection.kForward));
+        // Telemetry.putNumber("pivot", "pos", getInstance().getMeasurement());
+        // master.enableSoftLimit(CANSparkBase.SoftLimitDirection.kForward, true);
+        // master.enableSoftLimit(CANSparkBase.SoftLimitDirection.kReverse, true);
+
+        // master.setSoftLimit(CANSparkBase.SoftLimitDirection.kForward, (float) (RobotMap.Arm.PIVOT_FORWARD_SOFT_LIMIT / 360.0));
+        // master.setSoftLimit(CANSparkBase.SoftLimitDirection.kReverse, (float) (RobotMap.Arm.PIVOT_REVERSE_SOFT_LIMIT / 360.0));
+        if (override || isValidOutput(power)) {
+            master.set(power);
+        } else {
+            master.set(0);
+        }
+        
+    }
+
+    private boolean isValidOutput(double output) {
+        return (getInstance().getPosition() < RobotMap.Arm.PIVOT_FORWARD_SOFT_LIMIT && 
+        getInstance().getPosition() > RobotMap.Arm.PIVOT_REVERSE_SOFT_LIMIT) ||
+        (getInstance().getPosition() >= RobotMap.Arm.PIVOT_FORWARD_SOFT_LIMIT && output < 0) ||
+        (getInstance().getPosition() <= RobotMap.Arm.PIVOT_REVERSE_SOFT_LIMIT && output > 0);
     }
 
     public void setSensorPosition(double degrees) {

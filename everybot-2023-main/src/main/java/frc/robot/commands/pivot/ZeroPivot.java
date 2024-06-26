@@ -10,7 +10,7 @@ public class ZeroPivot extends Command {
     }
 
     public void execute() {
-        Arm.getInstance().setPercentOutput(RobotMap.Arm.ZERO_SPEED);
+        Arm.getInstance().setPercentOutput(RobotMap.Arm.ZERO_SPEED, true);
     }
 
     public boolean isFinished() {
@@ -18,7 +18,7 @@ public class ZeroPivot extends Command {
     }
 
     public void end(boolean interrupted) {
-        Arm.getInstance().setPercentOutput(0);
+        Arm.getInstance().setPercentOutput(0, false);
         Arm.getInstance().setSensorPosition(0);
     }
     

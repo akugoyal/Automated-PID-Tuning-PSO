@@ -27,8 +27,8 @@ public class OI {
         driver.getButtonA().onTrue(new PivotToAngleTimed(RobotMap.Arm.Goal.SETPOINT1));
         driver.getButtonY().onTrue(new PivotToAngleTimed(RobotMap.Arm.Goal.SETPOINT2));
         driver.getButtonX().onTrue(new PivotToAngleTimed(RobotMap.Arm.Goal.SETPOINT3));
-        driver.getUpDPadButton().whileTrue(new InstantCommand(() -> Arm.getInstance().setPercentOutput(0.3)));
-        driver.getUpDPadButton().whileFalse(new InstantCommand(() -> Arm.getInstance().setPercentOutput(0)));
+        driver.getUpDPadButton().whileTrue(new InstantCommand(() -> Arm.getInstance().setPercentOutput(-0.3, false)));
+        driver.getUpDPadButton().whileFalse(new InstantCommand(() -> Arm.getInstance().setPercentOutput(0, false)));
         // driver.getButtonA().whileFalse(new InstantCommand(() -> Arm.getInstance().setPercentOutput(0)));
     }
 

@@ -55,7 +55,7 @@ public class PivotToAngleTimed extends Command {
     }
 
     public void end(boolean interrupted) {
-        Arm.getInstance().setPercentOutput(0);
+        Arm.getInstance().setPercentOutput(0, false);
     }
 
     public String getName() {
