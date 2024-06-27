@@ -26,7 +26,7 @@ public class PivotToAngleTimed extends Command {
             lastTime = System.currentTimeMillis();
             first = false;
         } else {
-            counter += (System.currentTimeMillis() - lastTime);
+            counter += (System.currentTimeMillis() - lastTime) / 1000.0;
             lastTime = System.currentTimeMillis();
         }
 

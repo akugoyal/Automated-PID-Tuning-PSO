@@ -19,7 +19,7 @@ class Particle {
      * @param beginRange    the minimum xyz values of the position (inclusive)
      * @param endRange      the maximum xyz values of the position (exclusive)
      */
-    Particle (FunctionType function, int dimensionNum, int beginRange, int endRange) {
+    Particle (FunctionType function, int dimensionNum, double beginRange, double endRange) {
         if (beginRange >= endRange) {
             throw new IllegalArgumentException("Begin range must be less than end range.");
         }
@@ -53,7 +53,7 @@ class Particle {
         }
     }
 
-    private void setRandomPosition (int beginRange, int endRange) {
+    private void setRandomPosition (double beginRange, double endRange) {
         double[] placeholderArr = new double[dimensionNum];
 
         for(int i = 0; i < dimensionNum; i++) {
@@ -70,7 +70,7 @@ class Particle {
      * @param endRange      the maximum value (exclusive)
      * @return              the randomly generated value
      */
-    private static double rand (int low, int high) {
+    private static double rand (double low, double high) {
         return (Math.random()*(high - low)) + low;
     }
 

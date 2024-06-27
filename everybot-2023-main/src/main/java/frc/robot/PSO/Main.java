@@ -31,8 +31,8 @@ public class Main implements Runnable {
         dimensionNumber = 3;
         
         // change here
-        particles = 10;
-        epochs = 100;
+        particles = 20;
+        epochs = 5;
         //TODO determine if we need to tune inertia, cognitive, social
         
         swarm = new Swarm(function, dimensionNumber, particles, epochs);

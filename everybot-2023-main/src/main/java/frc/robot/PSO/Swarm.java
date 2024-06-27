@@ -3,6 +3,7 @@ package frc.robot.PSO;
 import java.util.Random;
 
 import frc.robot.PSO.Particle.FunctionType;
+import frc.robot.util.Telemetry;
 
 /**
  * Represents a swarm of particles from the Particle Swarm Optimization algorithm.
@@ -24,9 +25,9 @@ public class Swarm {
      * If the begin range is 0 and the end range is 10 then the
      * value will be between 0 (inclusive) and 10 (exclusive).
      */
-    private int beginRange, endRange;
-    private static final int DEFAULT_BEGIN_RANGE = 0;
-    private static final int DEFAULT_END_RANGE = 1;
+    private double beginRange, endRange;
+    private static final double DEFAULT_BEGIN_RANGE = 0;
+    private static final double DEFAULT_END_RANGE = 0.05;
 
     /**
      * Construct the Swarm with default values.
@@ -77,13 +78,16 @@ public class Swarm {
         System.out.println("Global Best Evaluation (Epoch " + 0 + "):\t"  + bestEval);
 
         for (int i = 0; i < epochs; i++) {
+            Telemetry.putNumber("pivot", "epochs", i);
 
             if (bestEval < oldEval) {
                 System.out.println("Global Best Evaluation (Epoch " + (i + 1) + "):\t" + bestEval);
                 oldEval = bestEval;
             }
 
-            for (Particle p : particles) {
+            for (int j = 0; j < particles.length; j++) {
+                Particle p = particles[j];
+                Telemetry.putNumber("pivot", "particle number", j);
                 p.updatePersonalBest();
                 updateGlobalBest(p);
             }
@@ -108,6 +112,7 @@ public class Swarm {
     private Particle[] initialize () {
         Particle[] particles = new Particle[numOfParticles];
         for (int i = 0; i < numOfParticles; i++) {
+            Telemetry.putNumber("pivot", "particle number", i);
             Particle particle = new Particle(function, dimensionNum, beginRange, endRange);
             particles[i] = particle;
             updateGlobalBest(particle);

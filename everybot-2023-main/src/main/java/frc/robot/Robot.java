@@ -4,6 +4,10 @@
 
 package frc.robot;
 
+import com.revrobotics.CANSparkBase.IdleMode;
+import com.revrobotics.CANSparkLowLevel;
+import com.revrobotics.CANSparkMax;
+
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
@@ -37,6 +41,10 @@ public class Robot extends TimedRobot {
 
   private boolean firstPeriodic = false;
 
+  private CANSparkMax driveRightFwd = new CANSparkMax(5, CANSparkLowLevel.MotorType.kBrushed); 
+  private CANSparkMax driveRightBack = new CANSparkMax(8, CANSparkLowLevel.MotorType.kBrushed); 
+  private CANSparkMax driveLeftFwd = new CANSparkMax(6, CANSparkLowLevel.MotorType.kBrushed); 
+  private CANSparkMax driveLeftBack = new CANSparkMax(7, CANSparkLowLevel.MotorType.kBrushed); 
 
   frc.robot.PSO.Main pso;
 
@@ -86,6 +94,10 @@ public class Robot extends TimedRobot {
     // telemetry.autons("Current Auton", autonChooser.getSelected());
 
     telemetry.publish();
+    driveLeftFwd.setIdleMode(IdleMode.kBrake);
+    driveLeftBack.setIdleMode(IdleMode.kBrake);
+    driveRightFwd.setIdleMode(IdleMode.kBrake);
+    driveRightBack.setIdleMode(IdleMode.kBrake);
 
     // NetworkTableInstance.().flushLocal();
     // NetworkTableInstance.getDefault().flush();
@@ -125,10 +137,10 @@ public class Robot extends TimedRobot {
     // Autons.sixNotePath.cancel();
     // Drivetrain.getInstance().setYaw(0);
 
-    // pso = new frc.robot.PSO.Main();
-    // Thread thread = new Thread(pso);
+    pso = new frc.robot.PSO.Main();
+    Thread thread = new Thread(pso);
 
-    // thread.start();
+    thread.start();
   }
 
   @Override

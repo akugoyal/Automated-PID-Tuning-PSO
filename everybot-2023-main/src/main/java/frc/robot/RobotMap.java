@@ -29,7 +29,7 @@ public class RobotMap {
 
         public static final boolean MASTER_INVERT = true;
         
-        public static final double ZERO_SPEED = -0.3; //$$
+        public static final double ZERO_SPEED = -0.4; //$$
 
         public static double PIVOT_kP = 0; //TODO implement access/modify functions
         public static double PIVOT_kI = 0;
@@ -41,12 +41,12 @@ public class RobotMap {
         public static final double PIVOT_GEAR_RATIO = 64;
         public static final double PIVOT_ROT_TO_ANGLE = 360; // motor rotations to degrees
 
-        public static final double STALLING_CURRENT = 33; //$$
+        public static final double STALLING_CURRENT = 32; //$$
         
         public static final double MAX_ERROR = 1; // $$
 
         public static final double CURRENT_LIMIT = 40.0;
-        public static final double VOLTAGE_LIMIT = 2.0; //TODO
+        public static final double VOLTAGE_LIMIT = 3.0; //TODO
     
         public static final double PIVOT_FORWARD_SOFT_LIMIT = 120; //$$
         public static final double PIVOT_REVERSE_SOFT_LIMIT = 0; //$$
