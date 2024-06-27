@@ -155,6 +155,8 @@ public class Arm extends PIDSubsystem {
             } else {
                 master.setVoltage(output);
             }
+        } else {
+            master.setVoltage(0.0);
         }
     }
 
@@ -179,7 +181,7 @@ public class Arm extends PIDSubsystem {
         if (override || isValidOutput(power)) {
             master.set(power);
         } else {
-            master.set(0);
+            master.set(0.0);
         }
         
     }
