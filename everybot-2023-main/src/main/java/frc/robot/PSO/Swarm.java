@@ -133,6 +133,28 @@ public class Swarm {
             throw new RuntimeException();
         }
 
+        try {
+            bestEval = in.readDouble();
+        } catch (IOException e) {
+            bestEval = 0.0; //TODO do smth else here
+            e.printStackTrace();
+        }
+
+        double[] bPos = new double[dimensionNum];
+
+        for(int j = 0; j < dimensionNum; j++) {
+            try {
+                bPos[j] = in.readDouble();
+            } catch (IOException e) {
+                bPos[j] = 0; //TODO do smth else here
+                e.printStackTrace();
+            }
+        }
+
+        bestPosition = new Vector(bPos);
+
+
+
         Particle[] particleArr = new Particle[numOfParticles];
 
         for(int i = 0; i < numOfParticles; i++) {
@@ -193,6 +215,26 @@ public class Swarm {
         } catch (FileNotFoundException e) {
             e.printStackTrace();
             throw new RuntimeException();
+        }
+
+        try {
+            out.writeDouble(bestEval);
+        } catch (IOException e) {
+            
+            e.printStackTrace();
+            throw new RuntimeException("Saving to file has failed");
+        }
+
+        double[] bPos = new double[dimensionNum];
+
+        for(int j = 0; j < dimensionNum; j++) {
+            try {
+                out.writeDouble(bPos[j]);
+            } catch (IOException e) {
+                
+                e.printStackTrace();
+                throw new RuntimeException("Saving to file has failed");
+            }
         }
 
 
