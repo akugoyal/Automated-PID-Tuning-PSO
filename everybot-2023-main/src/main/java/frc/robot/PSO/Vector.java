@@ -3,17 +3,17 @@ package frc.robot.PSO;
 /**
  * Can represent a position as well as a velocity.
  */
-class Vector {
+public class Vector {
 
     private double[] dimensions;
     private int dimensionNumber;
     private double limit = Double.MAX_VALUE;
 
-    Vector () {
+    public Vector () {
         this(new double[] {0.0, 0.0, 0.0});
     }
 
-    Vector (int dimensionNumber) {
+    public Vector (int dimensionNumber) {
         this.dimensionNumber = dimensionNumber;
 
         dimensions = new double[dimensionNumber];
@@ -23,7 +23,7 @@ class Vector {
         }
     }
 
-    Vector (double[] dimensions) {
+    public Vector (double[] dimensions) {
 
         dimensionNumber = dimensions.length;
 
@@ -35,15 +35,15 @@ class Vector {
         
     }
 
-    double[] getDimensions() { //TODO check if this needs to be deep copied
+    public double[] getDimensions() { //TODO check if this needs to be deep copied
         return dimensions;
     }
 
-    int getDimensionNumber() {
+    public int getDimensionNumber() {
         return dimensionNumber;
     }
 
-    void set (double[] dimensions) {
+    public void set (double[] dimensions) {
 
         if (this.dimensions.length != dimensions.length) {
             throw new IllegalArgumentException("Error: dimension arrays do not have the same number of dimeonsions as vector");
@@ -53,7 +53,7 @@ class Vector {
     }
 
 
-    void add (Vector v) {
+    public void add (Vector v) {
 
         if (dimensions.length != v.getDimensionNumber()) {
             throw new IllegalArgumentException("Error: dimension arrays do not have the same number of dimeonsions as vector");
@@ -66,7 +66,7 @@ class Vector {
         limit();
     }
 
-    void sub (Vector v) {
+    public void sub (Vector v) {
 
         if (this.dimensions.length != v.getDimensionNumber()) {
             throw new IllegalArgumentException("Error: dimension arrays do not have the same number of dimeonsions as vector");
@@ -79,7 +79,7 @@ class Vector {
         limit();
     }
 
-    void mul (double s) {
+    public void mul (double s) {
 
         for (int i = 0; i < dimensionNumber; i++) {
             dimensions[i] *= s;
@@ -88,7 +88,7 @@ class Vector {
         limit();
     }
 
-    void div (double s) {
+    public void div (double s) {
         
         for (int i = 0; i < dimensionNumber; i++) {
             dimensions[i] /= s;
@@ -97,7 +97,7 @@ class Vector {
         limit();
     }
 
-    void normalize () {
+    public void normalize () {
         double m = mag();
         
         if (m > 0) div(m);
@@ -114,7 +114,7 @@ class Vector {
         return Math.sqrt(sum);
     }
 
-    void limit (double l) {
+    public void limit (double l) {
         limit = l;
         limit();
     }

@@ -5,7 +5,7 @@ import java.util.Random;
 /**
  * Represents a particle from the Particle Swarm Optimization algorithm.
  */
-class Particle {
+public class Particle {
 
     private int dimensionNum;
     private Vector position;        // Current position.
@@ -19,7 +19,7 @@ class Particle {
      * @param beginRange    the minimum xyz values of the position (inclusive)
      * @param endRange      the maximum xyz values of the position (exclusive)
      */
-    Particle (FunctionType function, int dimensionNum, double beginRange, double endRange) {
+    public Particle (FunctionType function, int dimensionNum, double beginRange, double endRange) {
         if (beginRange >= endRange) {
             throw new IllegalArgumentException("Begin range must be less than end range.");
         }
@@ -32,7 +32,7 @@ class Particle {
         bestEval = eval();
     }
 
-    Particle (FunctionType function, int dimensionNum, Vector position, Vector velocity, Vector bestPos, double bestEv) {
+    public Particle (FunctionType function, int dimensionNum, Vector position, Vector velocity, Vector bestPos, double bestEv) {
         if (position.getDimensionNumber() != dimensionNum || velocity.getDimensionNumber() != dimensionNum)
             throw new IllegalArgumentException("Position or velocity vector dimensions do not match config");
         
@@ -90,7 +90,7 @@ class Particle {
     /**
      * Update the personal best if the current evaluation is better.
      */
-    void updatePersonalBest () {
+    public void updatePersonalBest () {
         double eval = eval();
         if (eval < bestEval) {
             bestPosition = position.clone();
@@ -102,7 +102,7 @@ class Particle {
      * Get a copy of the position of the particle.
      * @return  the x position
      */
-    Vector getPosition () {
+    public Vector getPosition () {
         return position.clone();
     }
 
@@ -110,7 +110,7 @@ class Particle {
      * Get a copy of the velocity of the particle.
      * @return  the velocity
      */
-    Vector getVelocity () {
+    public Vector getVelocity () {
         return velocity.clone();
     }
 
@@ -118,7 +118,7 @@ class Particle {
      * Get a copy of the personal best solution.
      * @return  the best position
      */
-    Vector getBestPosition() {
+    public Vector getBestPosition() {
         return bestPosition.clone();
     }
 
@@ -126,14 +126,14 @@ class Particle {
      * Get the value of the personal best solution.
      * @return  the evaluation
      */
-    double getBestEval () {
+    public double getBestEval () {
         return bestEval;
     }
 
     /**
      * Update the position of a particle by adding its velocity to its position.
      */
-    void updatePosition () {
+    public void updatePosition () {
         this.position.add(velocity);
     }
 
@@ -141,7 +141,7 @@ class Particle {
      * Set the velocity of the particle.
      * @param velocity  the new velocity
      */
-    void setVelocity (Vector velocity) {
+    public void setVelocity (Vector velocity) {
         this.velocity = velocity.clone();
     }
 

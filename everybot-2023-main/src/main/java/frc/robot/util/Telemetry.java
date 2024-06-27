@@ -7,6 +7,7 @@ import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.robot.OI;
 import frc.robot.subsystems.Arm;
 import frc.robot.RobotMap;
+import frc.robot.PSO.*;
 
 public class Telemetry {
     // private NetworkTable table;
@@ -20,6 +21,8 @@ public class Telemetry {
 
     private NetworkTable _controls;
     private NetworkTable _driver;
+    private NetworkTable[] particleTables;
+    private NetworkTable _PSO;
 
     private Arm pivot = Arm.getInstance();
 
@@ -38,6 +41,12 @@ public class Telemetry {
         _debug = main.getSubTable("Debug");
         _controls = _debug.getSubTable("Controls");
         _driver = _controls.getSubTable("Driver");
+
+        _PSO = main.getSubTable("PSO");
+        particleTables = new NetworkTable[RobotMap.PSO.NUM_PARTICLES];
+        for (int i = 0; i < RobotMap.PSO.NUM_PARTICLES; i++) {
+            particleTables[i] = main.getSubTable("PSO").getSubTable("Particle " + i);
+        }
     }
 
     public void debug() {
@@ -92,20 +101,8 @@ public class Telemetry {
         NetworkTableEntry pivotSensorVelocity = _pivot.getEntry("Pivot Sensor Velocity");
         pivotSensorVelocity.setDouble(pivot.getVelocity());
 
-        NetworkTableEntry pivotVelocity = _pivot.getEntry("Pivot Velocity");
-        pivotVelocity.setDouble(pivot.getVelocity());
-
         NetworkTableEntry setPivotAngle = _pivot.getEntry("Pivot Angle");
         setPivotAngle.setDouble(pivot.getPivotSetpoint(0));
-
-        NetworkTableEntry pivotkP = _pivot.getEntry("Pivot kP");
-        // pivotkP.setDouble(RobotMap.Arm.PIVOT_kP);
-
-        NetworkTableEntry pivotkI = _pivot.getEntry("Pivot kI");
-        // pivotkI.setDouble(RobotMap.Arm.PIVOT_kI);
-
-        NetworkTableEntry pivotkD = _pivot.getEntry("Pivot kD");
-        // pivotkD.setDouble(RobotMap.Arm.PIVOT_kD);
 
         NetworkTableEntry isStalling = _pivot.getEntry("Pivot Is Stalling");
         isStalling.setBoolean(Arm.getInstance().isStalling());
@@ -115,6 +112,16 @@ public class Telemetry {
 
         NetworkTableEntry cmdBool = _pivot.getEntry("Schedule Command");
         cmdBool.setBoolean(RobotMap.Arm.scheduleCmd);
+    }
+
+    public void PSO() {
+        if (RobotMap.PSO.particles != null) {
+            for (int i = 0; i < RobotMap.PSO.NUM_PARTICLES; i++) {
+                particleTables[i].getEntry("kP").setDouble(RobotMap.PSO.particles[i].getPosition().getDimensions()[0]);
+                particleTables[i].getEntry("kI").setDouble(RobotMap.PSO.particles[i].getPosition().getDimensions()[1]);
+                particleTables[i].getEntry("kD").setDouble(RobotMap.PSO.particles[i].getPosition().getDimensions()[2]);
+            }
+        }
     }
 
     public static void putNumber(String system, String entry, double number) {
@@ -153,6 +160,7 @@ public class Telemetry {
     public void publish() {
         debug();
         pivot();
+        PSO();
 
         inst.flushLocal();
         inst.flush();

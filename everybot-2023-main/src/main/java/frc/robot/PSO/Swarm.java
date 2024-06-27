@@ -94,6 +94,8 @@ public class Swarm {
             particles = initialize();
         }
 
+        RobotMap.PSO.particles = particles;
+
         double oldEval = bestEval;
         System.out.println("--------------------------EXECUTING-------------------------");
         System.out.println("Global Best Evaluation (Epoch " + 0 + "):\t"  + bestEval);

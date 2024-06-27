@@ -2,6 +2,7 @@ package frc.robot;
 
 import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj2.command.Command;
+import frc.robot.PSO.*;
 
 public class RobotMap {
 
@@ -12,6 +13,8 @@ public class RobotMap {
 
     public static final class PSO {
         public static final double TEST_LENGTH = 5;
+        public static Particle[] particles;
+        public static final int NUM_PARTICLES = 20;
     }
 
     public static final class OI {
