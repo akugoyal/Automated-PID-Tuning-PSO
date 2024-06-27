@@ -32,7 +32,7 @@ class Particle {
         bestEval = eval();
     }
 
-    Particle (FunctionType function, int dimensionNum, Vector position, Vector velocity) {
+    Particle (FunctionType function, int dimensionNum, Vector position, Vector velocity, Vector bestPos, double bestEv) {
         if (position.getDimensionNumber() != dimensionNum || velocity.getDimensionNumber() != dimensionNum)
             throw new IllegalArgumentException("Position or velocity vector dimensions do not match config");
         

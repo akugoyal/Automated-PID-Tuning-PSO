@@ -1,5 +1,7 @@
 package frc.robot.PSO;
 
+import java.io.BufferedWriter;
+import java.io.FileWriter;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.File;
@@ -7,7 +9,9 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.InputMismatchException;
 import java.util.Random;
+import java.util.Scanner;
 
 import javax.management.RuntimeErrorException;
 
@@ -125,17 +129,17 @@ public class Swarm {
     }
 
     private Particle[] initializeFromFile() { //TODO add config checkers
-        DataInputStream in;
+        Scanner in;
         try {
-            in = new DataInputStream(new FileInputStream(new File("/home/lvuser/savefile.txt")));
+            in = new Scanner(new File("/home/lvuser/savefile.txt"));
         } catch (FileNotFoundException e) {
             e.printStackTrace();
             throw new RuntimeException();
         }
 
         try {
-            bestEval = in.readDouble();
-        } catch (IOException e) {
+            bestEval = in.nextDouble();
+        } catch (InputMismatchException e) {
             bestEval = 0.0; //TODO do smth else here
             e.printStackTrace();
         }
@@ -144,9 +148,9 @@ public class Swarm {
 
         for(int j = 0; j < dimensionNum; j++) {
             try {
-                bPos[j] = in.readDouble();
-            } catch (IOException e) {
-                bPos[j] = 0; //TODO do smth else here
+                bPos[j] = in.nextDouble();
+            } catch (InputMismatchException e) {
+                bPos[j] = 0.0; //TODO do smth else here
                 e.printStackTrace();
             }
         }
@@ -161,11 +165,11 @@ public class Swarm {
 
             double[] pos = new double[dimensionNum];
 
-            for(int j = 0; j < dimensionNum; j++) {
+            for(int j = 0; j < dimensionNum; j++) { // current position
                 try {
-                    pos[j] = in.readDouble();
-                } catch (IOException e) {
-                    pos[j] = 0; //TODO do smth else here
+                    pos[j] = in.nextDouble();
+                } catch (InputMismatchException e) {
+                    pos[j] = 0.0; //TODO do smth else here
                     e.printStackTrace();
                 }
             }
@@ -174,18 +178,39 @@ public class Swarm {
 
             double[] vel = new double[dimensionNum];
 
-            for(int j = 0; j < dimensionNum; j++) {
+            for(int j = 0; j < dimensionNum; j++) { // current velocity
                 try {
-                    vel[j] = in.readDouble();
-                } catch (IOException e) {
-                    vel[j] = 0; //TODO do smth else here
+                    vel[j] = in.nextDouble();
+                } catch (InputMismatchException e) {
+                    vel[j] = 0.0; //TODO do smth else here
                     e.printStackTrace();
                 }
             }
 
             Vector velocity = new Vector(vel);
 
-            particleArr[i] = new Particle(function, dimensionNum, position, velocity);
+            double[] bIndivPos = new double[dimensionNum];
+
+            for(int j = 0; j < dimensionNum; j++) { // best individual position
+                try {
+                    bIndivPos[j] = in.nextDouble();
+                } catch (InputMismatchException e) {
+                    bIndivPos[j] = 0.0; //TODO do smth else here
+                    e.printStackTrace();
+                }
+            }
+
+            Vector bestIndividualPosition = new Vector(bIndivPos);
+
+            double bestIndivEval;
+            try {
+                bestIndivEval = in.nextDouble();
+            } catch (InputMismatchException e) {
+                bestIndivEval = 0.0; //TODO do smth else here
+                e.printStackTrace();
+            }
+
+            particleArr[i] = new Particle(function, dimensionNum, position, velocity, bestIndividualPosition, bestIndivEval);
 
         }
 
@@ -209,16 +234,16 @@ public class Swarm {
 
     private void saveToFile(Particle[] particleArr) {
 
-        DataOutputStream out;
+        BufferedWriter out;
         try {
-            out = new DataOutputStream(new FileOutputStream(new File("/home/lvuser/savefile.txt")));
-        } catch (FileNotFoundException e) {
+            out = new BufferedWriter(new FileWriter("/home/lvuser/savefile.txt"));
+        } catch (Exception e) {
             e.printStackTrace();
             throw new RuntimeException();
         }
 
         try {
-            out.writeDouble(bestEval);
+            out.write(bestEval + "\n");
         } catch (IOException e) {
             
             e.printStackTrace();
@@ -229,7 +254,7 @@ public class Swarm {
 
         for(int j = 0; j < dimensionNum; j++) {
             try {
-                out.writeDouble(bPos[j]);
+                out.write(bPos[j] + "\n");
             } catch (IOException e) {
                 
                 e.printStackTrace();
@@ -244,7 +269,7 @@ public class Swarm {
 
             for(int j = 0; j < dimensionNum; j++) {
                 try {
-                    out.writeDouble(pos[j]);
+                    out.write(pos[j]+ "\n");
                 } catch (IOException e) {
                     // out.writeDouble(0.0);
                     e.printStackTrace();
@@ -257,7 +282,7 @@ public class Swarm {
 
             for(int j = 0; j < dimensionNum; j++) {
                 try {
-                    out.writeDouble(vel[j]);
+                    out.write(vel[j] + "\n");
                 } catch (IOException e) {
                     // out.writeDouble(0.0);
                     e.printStackTrace();
@@ -265,6 +290,32 @@ public class Swarm {
                 }
             }
 
+            double[] bIndivPos = particleArr[i].getBestPosition().getDimensions();
+
+            for(int j = 0; j < dimensionNum; j++) {
+                try {
+                    out.write(bIndivPos[j] + "\n");
+                } catch (IOException e) {
+                    // out.writeDouble(0.0);
+                    e.printStackTrace();
+                    throw new RuntimeException("Saving to file has failed");
+                }
+            }
+
+            try {
+                out.write(particleArr[i].getBestPosition() + "\n");
+            } catch (IOException e) {
+                
+                e.printStackTrace();
+                throw new RuntimeException("Saving to file has failed");
+            }
+
+        }
+        try {
+            out.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+            throw new RuntimeException("BufferedWriter failed to close");
         }
     }
 
