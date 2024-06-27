@@ -113,8 +113,11 @@ public class Swarm {
                 Telemetry.putNumber("pivot", "particle number", j);
                 p.updatePersonalBest();
                 updateGlobalBest(p);
+                
+                if (RobotMap.Arm.SAVE_SWARM) {
+                    saveToFile(particles);
+                }
 
-                saveToFile(particles);
             }
 
             for (Particle p : particles) {
@@ -229,6 +232,9 @@ public class Swarm {
             Telemetry.putNumber("pivot", "particle number", i);
             Particle particle = new Particle(function, dimensionNum, beginRange, endRange);
             particles[i] = particle;
+            if (RobotMap.Arm.SAVE_SWARM) {
+                saveToFile(particles);
+            }
             updateGlobalBest(particle);
         }
         return particles;
@@ -266,7 +272,9 @@ public class Swarm {
 
 
         for(int i = 0; i < numOfParticles; i++) {
-
+            if (particleArr[i] == null) {
+                continue;
+            }
             double[] pos = particleArr[i].getPosition().getDimensions();
 
             for(int j = 0; j < dimensionNum; j++) {
