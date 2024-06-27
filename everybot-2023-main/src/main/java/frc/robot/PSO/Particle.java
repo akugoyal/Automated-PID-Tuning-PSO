@@ -32,6 +32,19 @@ class Particle {
         bestEval = eval();
     }
 
+    Particle (FunctionType function, int dimensionNum, Vector position, Vector velocity) {
+        if (position.getDimensionNumber() != dimensionNum || velocity.getDimensionNumber() != dimensionNum)
+            throw new IllegalArgumentException("Position or velocity vector dimensions do not match config");
+        
+        this.function = function;
+        this.dimensionNum = dimensionNum;
+        this.position = position;
+        this.velocity = velocity;
+        bestPosition = velocity.clone(); //TODO not sure what this does
+        bestEval = eval();
+
+    }
+
     /**
      * The evaluation of the current position.
      * @return      the evaluation

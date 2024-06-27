@@ -25,6 +25,9 @@ public class RobotMap {
         public static final int MASTER_ID = 9;
         public static final int CANCODER_ID = 37;
 
+        public static final boolean SAVE_SWARM = true;
+        public static final boolean LOAD_SWARM = true; //TODO implement functionality for loading from mult files
+
         public static final int CANCODER_INVERT = -1;
 
         public static final boolean MASTER_INVERT = true;

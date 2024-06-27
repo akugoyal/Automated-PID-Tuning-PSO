@@ -1,7 +1,17 @@
 package frc.robot.PSO;
 
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.Random;
 
+import javax.management.RuntimeErrorException;
+
+import frc.robot.RobotMap;
 import frc.robot.PSO.Particle.FunctionType;
 import frc.robot.util.Telemetry;
 
@@ -71,7 +81,14 @@ public class Swarm {
      * Execute the algorithm.
      */
     public void run () {
-        Particle[] particles = initialize();
+
+        Particle[] particles;
+
+        if(RobotMap.Arm.LOAD_SWARM) {
+            particles = initializeFromFile();
+        } else {
+            particles = initialize();
+        }
 
         double oldEval = bestEval;
         System.out.println("--------------------------EXECUTING-------------------------");
@@ -90,6 +107,8 @@ public class Swarm {
                 Telemetry.putNumber("pivot", "particle number", j);
                 p.updatePersonalBest();
                 updateGlobalBest(p);
+
+                saveToFile(particles);
             }
 
             for (Particle p : particles) {
@@ -105,6 +124,52 @@ public class Swarm {
 
     }
 
+    private Particle[] initializeFromFile() { //TODO add config checkers
+        DataInputStream in;
+        try {
+            in = new DataInputStream(new FileInputStream(new File("/home/lvuser/savefile.txt")));
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+            throw new RuntimeException();
+        }
+
+        Particle[] particleArr = new Particle[numOfParticles];
+
+        for(int i = 0; i < numOfParticles; i++) {
+
+            double[] pos = new double[dimensionNum];
+
+            for(int j = 0; j < dimensionNum; j++) {
+                try {
+                    pos[j] = in.readDouble();
+                } catch (IOException e) {
+                    pos[j] = 0; //TODO do smth else here
+                    e.printStackTrace();
+                }
+            }
+
+            Vector position = new Vector(pos);
+
+            double[] vel = new double[dimensionNum];
+
+            for(int j = 0; j < dimensionNum; j++) {
+                try {
+                    vel[j] = in.readDouble();
+                } catch (IOException e) {
+                    vel[j] = 0; //TODO do smth else here
+                    e.printStackTrace();
+                }
+            }
+
+            Vector velocity = new Vector(vel);
+
+            particleArr[i] = new Particle(function, dimensionNum, position, velocity);
+
+        }
+
+        return particleArr;
+    }
+
     /**
      * Create a set of particles, each with random starting positions.
      * @return  an array of particles
@@ -118,6 +183,47 @@ public class Swarm {
             updateGlobalBest(particle);
         }
         return particles;
+    }
+
+    private void saveToFile(Particle[] particleArr) {
+
+        DataOutputStream out;
+        try {
+            out = new DataOutputStream(new FileOutputStream(new File("/home/lvuser/savefile.txt")));
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+            throw new RuntimeException();
+        }
+
+
+        for(int i = 0; i < numOfParticles; i++) {
+
+            double[] pos = particleArr[i].getPosition().getDimensions();
+
+            for(int j = 0; j < dimensionNum; j++) {
+                try {
+                    out.writeDouble(pos[j]);
+                } catch (IOException e) {
+                    // out.writeDouble(0.0);
+                    e.printStackTrace();
+                    throw new RuntimeException("Saving to file has failed");
+                }
+            }
+
+
+            double[] vel = particleArr[i].getVelocity().getDimensions();
+
+            for(int j = 0; j < dimensionNum; j++) {
+                try {
+                    out.writeDouble(vel[j]);
+                } catch (IOException e) {
+                    // out.writeDouble(0.0);
+                    e.printStackTrace();
+                    throw new RuntimeException("Saving to file has failed");
+                }
+            }
+
+        }
     }
 
     /**
