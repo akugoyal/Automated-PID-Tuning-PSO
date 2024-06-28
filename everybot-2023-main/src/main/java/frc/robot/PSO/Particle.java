@@ -41,7 +41,7 @@ public class Particle {
         this.position = position;
         this.velocity = velocity;
         bestPosition = velocity.clone(); //TODO not sure what this does
-        bestEval = eval();
+        bestEval = bestEv;
 
     }
 

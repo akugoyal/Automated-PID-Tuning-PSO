@@ -86,14 +86,17 @@ public class Swarm {
      */
     public void run () {
 
-        Particle[] particles;
+        Particle[] particles = new Particle[RobotMap.PSO.NUM_PARTICLES];
+        for (int i = 0; i < RobotMap.PSO.NUM_PARTICLES; i++) {
+            particles[i] = new Particle(function, dimensionNum, new Vector(), new Vector(), new Vector(), Double.POSITIVE_INFINITY);
+        }
+        RobotMap.PSO.particles = particles;
 
         if(RobotMap.Arm.LOAD_SWARM) {
             particles = initializeFromFile();
         } else {
             particles = initialize();
         }
-
         RobotMap.PSO.particles = particles;
 
         double oldEval = bestEval;
@@ -244,7 +247,7 @@ public class Swarm {
 
         BufferedWriter out;
         try {
-            out = new BufferedWriter(new FileWriter("/home/lvuser/savefile.txt"));
+            out = new BufferedWriter(new FileWriter("/U/savefile.txt"));
         } catch (Exception e) {
             e.printStackTrace();
             throw new RuntimeException();

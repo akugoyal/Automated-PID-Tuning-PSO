@@ -6,6 +6,8 @@ package frc.robot;
 
 import com.revrobotics.CANSparkBase.IdleMode;
 
+import java.io.*;
+import java.util.Arrays;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -80,12 +82,19 @@ public class Robot extends TimedRobot {
 
     telemetry = new Telemetry();
 
-    try {
-      Files.copy(Paths.get("/home", "lvuser", "savefile.txt"), Paths.get("/usb", "loc", "savefile.txt"));
-    } catch (IOException e) {
-      e.printStackTrace();
-      throw new RuntimeException("Failed to copy savefile to USB");
-    }
+    // try {
+    //   BufferedWriter out = new BufferedWriter(new FileWriter("/home/lvuser/savefile.txt"));
+    //   out.write("hi" + 1);
+    //   out.close();
+    //   Runtime r = Runtime.getRuntime();
+    //   Process p = r.exec("mv /home/lvuser/savefile.txt /U/savefile.txt");
+    //   try {p.waitFor();} catch (InterruptedException e) {}
+    //   System.out.println(Arrays.toString(File.listRoots()));
+    //   System.out.println(Arrays.toString(new File("/").listFiles()));
+    // } catch (IOException e) {
+    //   e.printStackTrace();
+    //   throw new RuntimeException("Failed to copy savefile to USB");
+    // }
 
     // CommandScheduler.getInstance().setDefaultCommand(Arm.getInstance(), )
     // telemetry.startServer();
