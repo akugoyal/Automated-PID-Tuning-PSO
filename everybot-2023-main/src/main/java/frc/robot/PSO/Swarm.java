@@ -40,7 +40,7 @@ public class Swarm {
      * value will be between 0 (inclusive) and 10 (exclusive).
      */
     private double beginRange, endRange;
-    private static final double DEFAULT_BEGIN_RANGE = 0;
+    private static final double DEFAULT_BEGIN_RANGE = 0; //TODO
     private static final double DEFAULT_END_RANGE = 0.05;
 
     /**
@@ -118,7 +118,8 @@ public class Swarm {
                 updateGlobalBest(p);
                 
                 if (RobotMap.Arm.SAVE_SWARM) {
-                    saveToFile(particles);
+                    String fName = RobotMap.Arm.SAVE_FILE_HEADER + (i + 1) + ".txt";
+                    saveToFile(particles, fName);
                 }
 
             }
@@ -177,7 +178,7 @@ public class Swarm {
                 try {
                     pos[j] = in.nextDouble();
                 } catch (InputMismatchException e) {
-                    pos[j] = 0.0; //TODO do smth else here
+                    pos[j] = Particle.rand(DEFAULT_BEGIN_RANGE, DEFAULT_END_RANGE); //TODO do smth else here
                     e.printStackTrace();
                 }
             }
@@ -190,7 +191,7 @@ public class Swarm {
                 try {
                     vel[j] = in.nextDouble();
                 } catch (InputMismatchException e) {
-                    vel[j] = 0.0; //TODO do smth else here
+                    vel[j] = Particle.rand(DEFAULT_BEGIN_RANGE, DEFAULT_END_RANGE); //TODO do smth else here
                     e.printStackTrace();
                 }
             }
@@ -236,18 +237,18 @@ public class Swarm {
             Particle particle = new Particle(function, dimensionNum, beginRange, endRange);
             particles[i] = particle;
             if (RobotMap.Arm.SAVE_SWARM) {
-                saveToFile(particles);
+                saveToFile(particles, RobotMap.Arm.SAVE_FILE_HEADER + "0.txt");
             }
             updateGlobalBest(particle);
         }
         return particles;
     }
 
-    private void saveToFile(Particle[] particleArr) {
+    private void saveToFile(Particle[] particleArr, String fName) {
 
         BufferedWriter out;
         try {
-            out = new BufferedWriter(new FileWriter("/U/savefile.txt"));
+            out = new BufferedWriter(new FileWriter(fName));
         } catch (Exception e) {
             e.printStackTrace();
             throw new RuntimeException();
@@ -261,11 +262,11 @@ public class Swarm {
             throw new RuntimeException("Saving to file has failed");
         }
 
-        double[] bPos = new double[dimensionNum];
+        double[] bPos = bestPosition.getDimensions();
 
         for(int j = 0; j < dimensionNum; j++) {
             try {
-                out.write(bPos[j] + "\n");
+                out.write(bPos[j] + "\n\n");
             } catch (IOException e) {
                 
                 e.printStackTrace();
@@ -316,7 +317,7 @@ public class Swarm {
             }
 
             try {
-                out.write(particleArr[i].getBestPosition() + "\n");
+                out.write(particleArr[i].getBestEval() + "\n\n");
             } catch (IOException e) {
                 
                 e.printStackTrace();

@@ -28,8 +28,12 @@ public class RobotMap {
         public static final int MASTER_ID = 9;
         public static final int CANCODER_ID = 37;
 
+        
+        public static final String LOAD_FILE = "/U/savefile.txt"; //TODO change to wanted file
+        public static final String SAVE_FILE_HEADER = "/U/savefile"; //use case: since it saves every epoch, if string was save, savefiles would be save1.txt, save2.txt, etc.
+
         public static final boolean SAVE_SWARM = true;
-        public static final boolean LOAD_SWARM = false; //TODO implement functionality for loading from mult files
+        public static final boolean LOAD_SWARM = false;
 
         public static final int CANCODER_INVERT = -1;
 

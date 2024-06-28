@@ -83,7 +83,7 @@ public class Particle {
      * @param endRange      the maximum value (exclusive)
      * @return              the randomly generated value
      */
-    private static double rand (double low, double high) {
+    public static double rand (double low, double high) {
         return (Math.random()*(high - low)) + low;
     }
 
