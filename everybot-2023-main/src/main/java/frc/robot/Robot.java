@@ -5,6 +5,11 @@
 package frc.robot;
 
 import com.revrobotics.CANSparkBase.IdleMode;
+
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+
 import com.revrobotics.CANSparkLowLevel;
 import com.revrobotics.CANSparkMax;
 
@@ -74,6 +79,13 @@ public class Robot extends TimedRobot {
     // test.setDouble(1072);
 
     telemetry = new Telemetry();
+
+    try {
+      Files.copy(Paths.get("/home", "lvuser", "savefile.txt"), Paths.get("/usb", "loc", "savefile.txt"));
+    } catch (IOException e) {
+      e.printStackTrace();
+      throw new RuntimeException("Failed to copy savefile to USB");
+    }
 
     // CommandScheduler.getInstance().setDefaultCommand(Arm.getInstance(), )
     // telemetry.startServer();
