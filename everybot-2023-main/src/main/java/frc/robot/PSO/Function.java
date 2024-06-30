@@ -152,8 +152,8 @@ public class Function {
                  System.out.println("WEE WOO");
              }
         } //TODO not sure if this works
-        for(double x : encoderDump) {
-            sum += Math.abs(sp2 - x);
+        for(int i = 0; i < encoderDump.size(); i++) {
+            sum += Math.abs(sp2 - encoderDump.get(i));
         }
         System.out.println("R2 sum summed");
         error += sum / encoderDump.size();
