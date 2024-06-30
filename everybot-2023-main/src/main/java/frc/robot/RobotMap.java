@@ -33,7 +33,7 @@ public class RobotMap {
         public static final String SAVE_FILE_HEADER = "/U/savefile"; //use case: since it saves every epoch, if string was save, savefiles would be save1.txt, save2.txt, etc.
 
         public static final boolean SAVE_SWARM = true;
-        public static final boolean LOAD_SWARM = false;
+        public static final boolean LOAD_SWARM = true;
 
         public static final int CANCODER_INVERT = -1;
 
@@ -48,10 +48,10 @@ public class RobotMap {
         public static boolean scheduleCmd = false;
         public static Command cmdToSchedule;
 
-        public static final double PIVOT_GEAR_RATIO = 64;
+        public static final double PIVOT_GEAR_RATIO = 128;
         public static final double PIVOT_ROT_TO_ANGLE = 360; // motor rotations to degrees
 
-        public static final double STALLING_CURRENT = 32; //$$
+        public static final double STALLING_CURRENT = 30; //$$
         
         public static final double MAX_ERROR = 1; // $$
 
