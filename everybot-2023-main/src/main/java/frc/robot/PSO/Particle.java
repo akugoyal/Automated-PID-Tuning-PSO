@@ -1,7 +1,5 @@
 package frc.robot.PSO;
 
-import java.util.Random;
-
 /**
  * Represents a particle from the Particle Swarm Optimization algorithm.
  */

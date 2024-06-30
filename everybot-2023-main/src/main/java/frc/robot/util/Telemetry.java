@@ -21,8 +21,6 @@ public class Telemetry {
 
     private NetworkTable _controls;
     private NetworkTable _driver;
-    private NetworkTable[] particleTables;
-    private NetworkTable _PSO;
 
     private Arm pivot = Arm.getInstance();
 
@@ -41,12 +39,6 @@ public class Telemetry {
         _debug = main.getSubTable("Debug");
         _controls = _debug.getSubTable("Controls");
         _driver = _controls.getSubTable("Driver");
-
-        _PSO = main.getSubTable("PSO");
-        particleTables = new NetworkTable[RobotMap.PSO.NUM_PARTICLES];
-        for (int i = 0; i < RobotMap.PSO.NUM_PARTICLES; i++) {
-            particleTables[i] = main.getSubTable("PSO").getSubTable("Particle " + i);
-        }
     }
 
     public void debug() {
@@ -117,9 +109,13 @@ public class Telemetry {
     public void PSO() {
         if (RobotMap.PSO.particles != null) {
             for (int i = 0; i < RobotMap.PSO.NUM_PARTICLES; i++) {
-                particleTables[i].getEntry("kP").setDouble(RobotMap.PSO.particles[i].getPosition().getDimensions()[0]);
-                particleTables[i].getEntry("kI").setDouble(RobotMap.PSO.particles[i].getPosition().getDimensions()[1]);
-                particleTables[i].getEntry("kD").setDouble(RobotMap.PSO.particles[i].getPosition().getDimensions()[2]);
+                if (RobotMap.PSO.particles[i] != null) {
+                    NetworkTable particleTable = main.getSubTable("PSO").getSubTable("Particle " + i);
+                    particleTable.getEntry("kP").setDouble(RobotMap.PSO.particles[i].getPosition().getDimensions()[0]);
+                    particleTable.getEntry("kI").setDouble(RobotMap.PSO.particles[i].getPosition().getDimensions()[1]);
+                    particleTable.getEntry("kD").setDouble(RobotMap.PSO.particles[i].getPosition().getDimensions()[2]);
+                    particleTable.getEntry("Best Eval").setDouble(RobotMap.PSO.particles[i].getBestEval());
+                }
             }
         }
     }

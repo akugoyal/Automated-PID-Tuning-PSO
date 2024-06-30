@@ -28,6 +28,7 @@ public class Swarm {
     private double inertia, cognitiveComponent, socialComponent;
     private Vector bestPosition;
     private double bestEval;
+    private Particle[] particles;
     private FunctionType function; // The function to search.
     public static final double DEFAULT_INERTIA = 0.729844;
     public static final double DEFAULT_COGNITIVE = 1.496180; // Cognitive component.
@@ -86,18 +87,14 @@ public class Swarm {
      */
     public void run () {
 
-        Particle[] particles = new Particle[RobotMap.PSO.NUM_PARTICLES];
-        for (int i = 0; i < RobotMap.PSO.NUM_PARTICLES; i++) {
-            particles[i] = new Particle(function, dimensionNum, new Vector(), new Vector(), new Vector(), Double.POSITIVE_INFINITY);
-        }
+        particles = new Particle[RobotMap.PSO.NUM_PARTICLES];
         RobotMap.PSO.particles = particles;
 
         if(RobotMap.Arm.LOAD_SWARM) {
-            particles = initializeFromFile();
+            initializeFromFile();
         } else {
-            particles = initialize();
+            initialize();
         }
-        RobotMap.PSO.particles = particles;
 
         double oldEval = bestEval;
         System.out.println("--------------------------EXECUTING-------------------------");
@@ -134,10 +131,9 @@ public class Swarm {
         System.out.println(bestPosition.toString());
         System.out.println("Final Best Evaluation: " + bestEval);
         System.out.println("---------------------------COMPLETE-------------------------");
-
     }
 
-    private Particle[] initializeFromFile() { //TODO add config checkers
+    private void initializeFromFile() { //TODO add config checkers
         Scanner in;
         try {
             in = new Scanner(new File("/home/lvuser/savefile.txt"));
@@ -165,10 +161,6 @@ public class Swarm {
         }
 
         bestPosition = new Vector(bPos);
-
-
-
-        Particle[] particleArr = new Particle[numOfParticles];
 
         for(int i = 0; i < numOfParticles; i++) {
 
@@ -219,19 +211,16 @@ public class Swarm {
                 e.printStackTrace();
             }
 
-            particleArr[i] = new Particle(function, dimensionNum, position, velocity, bestIndividualPosition, bestIndivEval);
+            particles[i] = new Particle(function, dimensionNum, position, velocity, bestIndividualPosition, bestIndivEval);
 
         }
-
-        return particleArr;
     }
 
     /**
      * Create a set of particles, each with random starting positions.
      * @return  an array of particles
      */
-    private Particle[] initialize () {
-        Particle[] particles = new Particle[numOfParticles];
+    private void initialize () {
         for (int i = 0; i < numOfParticles; i++) {
             Telemetry.putNumber("pivot", "particle number", i);
             Particle particle = new Particle(function, dimensionNum, beginRange, endRange);
@@ -241,7 +230,6 @@ public class Swarm {
             }
             updateGlobalBest(particle);
         }
-        return particles;
     }
 
     private void saveToFile(Particle[] particleArr, String fName) {

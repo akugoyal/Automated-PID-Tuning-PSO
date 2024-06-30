@@ -170,14 +170,6 @@ public class Arm extends PIDSubsystem {
     }
 
     public void setPercentOutput(double power, boolean override) {
-        // System.out.println(master.isSoftLimitEnabled(CANSparkBase.SoftLimitDirection.kForward));
-        // System.out.println(master.getSoftLimit(CANSparkBase.SoftLimitDirection.kForward));
-        // Telemetry.putNumber("pivot", "pos", getInstance().getMeasurement());
-        // master.enableSoftLimit(CANSparkBase.SoftLimitDirection.kForward, true);
-        // master.enableSoftLimit(CANSparkBase.SoftLimitDirection.kReverse, true);
-
-        // master.setSoftLimit(CANSparkBase.SoftLimitDirection.kForward, (float) (RobotMap.Arm.PIVOT_FORWARD_SOFT_LIMIT / 360.0));
-        // master.setSoftLimit(CANSparkBase.SoftLimitDirection.kReverse, (float) (RobotMap.Arm.PIVOT_REVERSE_SOFT_LIMIT / 360.0));
         if (override || isValidOutput(power)) {
             master.set(power);
         } else {
