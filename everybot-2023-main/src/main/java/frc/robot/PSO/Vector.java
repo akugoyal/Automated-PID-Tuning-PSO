@@ -100,7 +100,7 @@ public class Vector {
     public void normalize () {
         double m = mag();
         
-        if (m > 0) div(m);
+        if (m > 0.0) div(m);
     }
 
     private double mag () {

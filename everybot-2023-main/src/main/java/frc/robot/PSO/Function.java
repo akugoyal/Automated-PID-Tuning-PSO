@@ -130,7 +130,7 @@ public class Function {
             sum += Math.abs(sp1 - encoderDump.get(i));
         }
         System.out.println("R1 sum calculated");
-        error += sum / encoderDump.size();
+        error += sum / ((double) encoderDump.size());
         System.out.println("R1 error added");
 
         // round 2
@@ -156,7 +156,7 @@ public class Function {
             sum += Math.abs(sp2 - encoderDump.get(i));
         }
         System.out.println("R2 sum summed");
-        error += sum / encoderDump.size();
+        error += sum / ((double) encoderDump.size());
         System.out.println("R2 error calculated");
 
         // round 3
@@ -187,7 +187,7 @@ public class Function {
             sum += Math.abs(sp3 - encoderDump.get(i));
         }
         System.out.println("R3 sum summed");
-        error += sum / encoderDump.size();
+        error += sum / ((double) encoderDump.size());
         System.out.println("R3 error added");
         Telemetry.putNumber("pivot", "Particle error", error);
         Telemetry.putNumber("pivot", "Cmd", 30);
