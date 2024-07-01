@@ -126,8 +126,8 @@ public class Function {
         //     System.out.println("R1 INTERRUPTED");
         // }
         System.out.println("R1 thread slept");
-        for(double x : encoderDump) {
-            sum += Math.abs(sp1 - x);
+        for(int i = 0; i < encoderDump.size(); i++) {
+            sum += Math.abs(sp1 - encoderDump.get(i));
         }
         System.out.println("R1 sum calculated");
         error += sum / encoderDump.size();
@@ -183,8 +183,8 @@ public class Function {
 
 
         System.out.println("R3 Thread slept");
-        for(double x : encoderDump) {
-            sum += Math.abs(sp3 - x);
+        for(int i = 0; i < encoderDump.size(); i++) {
+            sum += Math.abs(sp3 - encoderDump.get(i));
         }
         System.out.println("R3 sum summed");
         error += sum / encoderDump.size();
