@@ -136,7 +136,7 @@ public class Swarm {
     private void initializeFromFile() { //TODO add config checkers
         Scanner in;
         try {
-            in = new Scanner(new File("/home/lvuser/savefile.txt"));
+            in = new Scanner(new File(RobotMap.Arm.LOAD_FILE));
         } catch (FileNotFoundException e) {
             e.printStackTrace();
             throw new RuntimeException();
@@ -233,7 +233,7 @@ public class Swarm {
     }
 
     private void saveToFile(Particle[] particleArr, String fName) {
-
+        Telemetry.putString("pivot", "fileName", fName);
         BufferedWriter out;
         try {
             out = new BufferedWriter(new FileWriter(fName));
