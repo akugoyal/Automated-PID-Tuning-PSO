@@ -38,7 +38,7 @@ public class Particle {
         this.dimensionNum = dimensionNum;
         this.position = position;
         this.velocity = velocity;
-        bestPosition = velocity.clone(); //TODO not sure what this does
+        bestPosition = bestPos;
         bestEval = bestEv;
 
     }

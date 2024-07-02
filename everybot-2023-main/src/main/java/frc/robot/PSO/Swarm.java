@@ -343,9 +343,8 @@ public class Swarm {
         Vector gBest = bestPosition.clone();
         Vector pos = particle.getPosition();
 
-        Random random = new Random();
-        double r1 = random.nextDouble();
-        double r2 = random.nextDouble();
+        double r1 = Math.random();
+        double r2 = Math.random();
 
         // The first product of the formula.
         Vector newVelocity = oldVelocity.clone();
