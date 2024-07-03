@@ -9,6 +9,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.InputMismatchException;
 import java.util.Random;
 import java.util.Scanner;
@@ -109,6 +110,9 @@ public class Swarm {
             }
 
             for (int j = 0; j < particles.length; j++) {
+                Telemetry.putNumber("pivot", "bPos0", bestPosition.getDimensions()[0]);
+                Telemetry.putNumber("pivot", "bPos1", bestPosition.getDimensions()[1]);
+                Telemetry.putNumber("pivot", "bPos2", bestPosition.getDimensions()[2]);
                 Particle p = particles[j];
                 Telemetry.putNumber("pivot", "particle number", j);
                 p.updatePersonalBest();
@@ -223,6 +227,9 @@ public class Swarm {
     private void initialize () {
         for (int i = 0; i < numOfParticles; i++) {
             Telemetry.putNumber("pivot", "particle number", i);
+            Telemetry.putNumber("pivot", "bPos0", bestPosition.getDimensions()[0]);
+            Telemetry.putNumber("pivot", "bPos1", bestPosition.getDimensions()[1]);
+            Telemetry.putNumber("pivot", "bPos2", bestPosition.getDimensions()[2]);
             Particle particle = new Particle(function, dimensionNum, beginRange, endRange);
             particles[i] = particle;
             if (RobotMap.Arm.SAVE_SWARM) {

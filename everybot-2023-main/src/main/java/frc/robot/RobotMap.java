@@ -29,8 +29,8 @@ public class RobotMap {
         public static final int CANCODER_ID = 37;
 
         
-        public static final String LOAD_FILE = "/U/savefile2.txt"; //TODO change to wanted file
-        public static final String SAVE_FILE_HEADER = "/U/savefile"; //use case: since it saves every epoch, if string was save, savefiles would be save1.txt, save2.txt, etc.
+        public static final String LOAD_FILE = "/U/savefileB4.txt"; //TODO change to wanted file
+        public static final String SAVE_FILE_HEADER = "/U/savefileB_cont"; //use case: since it saves every epoch, if string was save, savefiles would be save1.txt, save2.txt, etc.
 
         public static final boolean SAVE_SWARM = true;
         public static final boolean LOAD_SWARM = true;

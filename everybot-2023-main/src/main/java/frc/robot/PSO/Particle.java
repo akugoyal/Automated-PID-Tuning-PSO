@@ -1,5 +1,7 @@
 package frc.robot.PSO;
 
+import java.util.Arrays;
+
 /**
  * Represents a particle from the Particle Swarm Optimization algorithm.
  */
@@ -27,7 +29,8 @@ public class Particle {
         velocity = new Vector(dimensionNum);
         setRandomPosition(beginRange, endRange);
         bestPosition = velocity.clone();
-        bestEval = eval();
+        bestEval = Double.POSITIVE_INFINITY;
+        updatePersonalBest();
     }
 
     public Particle (FunctionType function, int dimensionNum, Vector position, Vector velocity, Vector bestPos, double bestEv) {

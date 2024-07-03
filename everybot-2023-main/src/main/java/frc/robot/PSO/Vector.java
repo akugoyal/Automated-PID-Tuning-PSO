@@ -23,14 +23,14 @@ public class Vector {
         }
     }
 
-    public Vector (double[] dimensions) {
+    public Vector (double[] dims) {
 
-        dimensionNumber = dimensions.length;
+        dimensionNumber = dims.length;
 
-        this.dimensions = new double[dimensionNumber];
+        dimensions = new double[dimensionNumber];
         
         for (int i = 0; i < dimensionNumber; i++) {
-            this.dimensions[i] = dimensions[i];
+            dimensions[i] = dims[i];
         }
         
     }
