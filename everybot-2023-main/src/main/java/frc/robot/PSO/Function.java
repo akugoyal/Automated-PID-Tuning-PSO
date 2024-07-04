@@ -105,7 +105,7 @@ public class Function {
         System.out.println("\n\n\n\n\nRound 1");
         Arm.getInstance().getController().reset();
         System.out.println("R1 controller reset");
-        PivotToAngleTimed pivotCommand = new PivotToAngleTimed(RobotMap.Arm.Goal.SETPOINT1);
+        PivotToAngleTimed pivotCommand = new PivotToAngleTimed(sp1);
         ZeroPivot zeroCommand = new ZeroPivot();
         Command zeroThenPivot = zeroCommand.andThen(pivotCommand);
         RobotMap.Arm.scheduleCmd = true;
@@ -138,7 +138,7 @@ public class Function {
         Arm.getInstance().getController().reset();
         encoderDump.clear();
         sum = 0.0;
-        pivotCommand = new PivotToAngleTimed(RobotMap.Arm.Goal.SETPOINT2);
+        pivotCommand = new PivotToAngleTimed(sp2);
         zeroCommand = new ZeroPivot();
         zeroThenPivot = zeroCommand.andThen(pivotCommand);
         RobotMap.Arm.scheduleCmd = true;
@@ -166,7 +166,7 @@ public class Function {
         encoderDump.clear();
         System.out.println("R3 encoderdump cleared");
         sum = 0.0;
-        pivotCommand = new PivotToAngleTimed(RobotMap.Arm.Goal.SETPOINT3);
+        pivotCommand = new PivotToAngleTimed(sp3);
         zeroCommand = new ZeroPivot();
         zeroThenPivot = zeroCommand.andThen(pivotCommand);
         RobotMap.Arm.scheduleCmd = true;

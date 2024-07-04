@@ -47,7 +47,7 @@ public class Arm extends PIDSubsystem {
 
     private Arm() {
         
-        super(new PIDController(RobotMap.Arm.PIVOT_kP, RobotMap.Arm.PIVOT_kI, RobotMap.Arm.PIVOT_kD));
+        super(new PIDController(0, 0, 0));
 
         master = new CANSparkMax(RobotMap.Arm.MASTER_ID, CANSparkLowLevel.MotorType.kBrushed);
         

@@ -29,8 +29,8 @@ public class RobotMap {
         public static final int CANCODER_ID = 37;
 
         
-        public static final String LOAD_FILE = "/U/savefileB4.txt"; //TODO change to wanted file
-        public static final String SAVE_FILE_HEADER = "/U/savefileB_cont"; //use case: since it saves every epoch, if string was save, savefiles would be save1.txt, save2.txt, etc.
+        public static final String LOAD_FILE = "/U/savefileB_contcontcont2.txt"; //TODO change to wanted file
+        public static final String SAVE_FILE_HEADER = "/U/savefileB_contcontcontcont"; //use case: since it saves every epoch, if string was save, savefiles would be save1.txt, save2.txt, etc.
 
         public static final boolean SAVE_SWARM = true;
         public static final boolean LOAD_SWARM = true;
@@ -41,9 +41,9 @@ public class RobotMap {
         
         public static final double ZERO_SPEED = -0.4; //$$
 
-        public static double PIVOT_kP = 0; //TODO implement access/modify functions
-        public static double PIVOT_kI = 0;
-        public static double PIVOT_kD = 0;
+        public static double PIVOT_kP = 0.07250318043022665;
+        public static double PIVOT_kI = 0.10716938060041942;
+        public static double PIVOT_kD = 4.4820412815789034E-4;
 
         public static boolean scheduleCmd = false;
         public static Command cmdToSchedule;
@@ -60,12 +60,5 @@ public class RobotMap {
     
         public static final double PIVOT_FORWARD_SOFT_LIMIT = 120; //$$
         public static final double PIVOT_REVERSE_SOFT_LIMIT = 0; //$$
-
-        public static enum Goal {
-            ZERO,
-            SETPOINT1,
-            SETPOINT2,
-            SETPOINT3
-        }
     }
 }

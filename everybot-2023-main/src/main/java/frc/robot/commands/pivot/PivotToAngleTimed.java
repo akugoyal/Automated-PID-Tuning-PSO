@@ -7,22 +7,25 @@ import frc.robot.util.Telemetry;
 import frc.robot.PSO.Function;
 
 public class PivotToAngleTimed extends Command {
-    private RobotMap.Arm.Goal setpoint;
-
     private double counter;
     private double ref;
     private boolean first;
     private double lastTime;
 
-    public PivotToAngleTimed(RobotMap.Arm.Goal goal) {
+    public PivotToAngleTimed(double goal) {
+        Arm.getInstance().getController().reset();
+        Arm.getInstance().getController().setP(RobotMap.Arm.PIVOT_kP);
+        Arm.getInstance().getController().setI(RobotMap.Arm.PIVOT_kI);
+        Arm.getInstance().getController().setD(RobotMap.Arm.PIVOT_kD);
         counter = 0;
-        setpoint = goal;
+        ref = goal;
         first = true;
         addRequirements(Arm.getInstance());
     }
 
     public void execute() {
         if (first) {
+            counter = 0;
             lastTime = System.currentTimeMillis();
             first = false;
         } else {
@@ -30,23 +33,8 @@ public class PivotToAngleTimed extends Command {
             lastTime = System.currentTimeMillis();
         }
 
-        switch (setpoint) {
-            case ZERO:
-                ref = 0;
-                break;
-            case SETPOINT1:
-                ref = 30.0;
-                break;
-            case SETPOINT2:
-                ref = 60.0;
-                break;
-            case SETPOINT3:
-                ref = 90.0;
-                break;
-        }
-
         Telemetry.putNumber("pivot", "counter", counter);
-        Function.encoderDump.add(Arm.getInstance().getPosition());
+        // Function.encoderDump.add(Arm.getInstance().getPosition());
         Arm.getInstance().moveToPosition(ref);
     }
 
@@ -56,20 +44,15 @@ public class PivotToAngleTimed extends Command {
 
     public void end(boolean interrupted) {
         Arm.getInstance().setPercentOutput(0, false);
+        Arm.getInstance().getController().reset();
+        Arm.getInstance().getController().setP(RobotMap.Arm.PIVOT_kP);
+        Arm.getInstance().getController().setI(RobotMap.Arm.PIVOT_kI);
+        Arm.getInstance().getController().setD(RobotMap.Arm.PIVOT_kD);
+        counter = 0;
+        first = true;
     }
 
     public String getName() {
-        switch (setpoint) {
-            case ZERO:
-                return "Zero";
-            case SETPOINT1:
-                return "30";
-            case SETPOINT2:
-                return "60";
-            case SETPOINT3:
-                return "90";
-            default:
-                return "Error";
-        }
+        return Double.toString(ref);
     }
 }
