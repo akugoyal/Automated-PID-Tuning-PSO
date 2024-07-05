@@ -111,12 +111,14 @@ public class Function {
         //round 1
 
         try {
-            writer = new BufferedWriter(new FileWriter("/U/encoderDump_" + Swarm.currentEpoch + ".txt")); //TODO modify file path if necessary
+            writer = new BufferedWriter(new FileWriter(DumpData.currentSaveFile)); //TODO modify file path if necessary
         } catch (IOException e1) {
             e1.printStackTrace();
             throw new RuntimeException();
         }
         String output = "";
+
+        output += kP + "\n" + kI + "\n" + kD + "\n";
 
         System.out.println("\n\n\n\n\nRound 1");
         Arm.getInstance().getController().reset();

@@ -156,6 +156,10 @@ public class Robot extends TimedRobot {
     // pso = new frc.robot.PSO.Main();
     // Thread thread = new Thread(pso);
 
+    DumpData dump = new DumpData();
+    Thread thread = new Thread(dump);
+    thread.start();
+
     // thread.start();
   }
 

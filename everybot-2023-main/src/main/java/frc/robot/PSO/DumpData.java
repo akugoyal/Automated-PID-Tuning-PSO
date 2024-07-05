@@ -1,0 +1,146 @@
+package frc.robot.PSO;
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.InputMismatchException;
+import java.util.Scanner;
+
+import frc.robot.RobotMap;
+import frc.robot.PSO.Particle.FunctionType;
+
+public class DumpData implements Runnable {
+
+   private static final double DEFAULT_BEGIN_RANGE = 0; //TODO
+   private static final double DEFAULT_END_RANGE = 0; //TODO
+
+   public Particle[] particles;
+   public FunctionType function = FunctionType.Error;
+
+   public int dimensionNum = 3;
+   public int numOfParticles = 10; //TODO
+
+   public static String currentSaveFile;
+   
+
+
+   public void run() {
+
+      for(int i = 0; i < RobotMap.Arm.loadFiles.length; i++) {
+
+         currentSaveFile = RobotMap.Arm.loadFiles[i][1];
+
+         initializeFromFile(RobotMap.Arm.loadFiles[i][0]);
+
+         for(int j = 0; j < particles.length; j++) {
+
+            double[] position = particles[j].getPosition().getDimensions();
+
+            Function.errorFunction(position[0], position[1], position[2]);
+
+         }
+         
+      }
+
+      Swarm swarm;
+      Particle.FunctionType function;
+      int particles, epochs, dimensionNumber;
+      double inertia, cognitive, social;
+
+      function = Particle.FunctionType.Error; //TODO check if vals work, modify if dont
+      dimensionNumber = 3;
+      
+      // change here
+      particles = 20;
+      epochs = 5;
+      //TODO determine if we need to tune inertia, cognitive, social
+      
+      swarm = new Swarm(function, dimensionNumber, particles, epochs);
+      swarm.run();
+   }
+
+   private void initializeFromFile(String fileToLoad) { //TODO add config checkers
+      Scanner in;
+      try {
+          in = new Scanner(new File(fileToLoad));
+      } catch (FileNotFoundException e) {
+          e.printStackTrace();
+          throw new RuntimeException();
+      }
+
+      try {
+          in.nextDouble();
+      } catch (InputMismatchException e) {
+          
+          e.printStackTrace();
+      }
+
+
+/** This part is redundant */
+
+      double[] bPos = new double[dimensionNum];
+
+      for(int j = 0; j < dimensionNum; j++) {
+          try {
+              bPos[j] = in.nextDouble();
+          } catch (InputMismatchException e) {
+              bPos[j] = 0.0; //TODO do smth else here
+              e.printStackTrace();
+          }
+      }
+
+      // bestPosition = new Vector(bPos);
+
+      for(int i = 0; i < numOfParticles; i++) {
+
+          double[] pos = new double[dimensionNum];
+
+          for(int j = 0; j < dimensionNum; j++) { // current position
+              try {
+                  pos[j] = in.nextDouble();
+              } catch (InputMismatchException e) {
+                  pos[j] = Particle.rand(DEFAULT_BEGIN_RANGE, DEFAULT_END_RANGE); //TODO do smth else here
+                  e.printStackTrace();
+              }
+          }
+
+          Vector position = new Vector(pos);
+
+          double[] vel = new double[dimensionNum];
+
+          for(int j = 0; j < dimensionNum; j++) { // current velocity
+              try {
+                  vel[j] = in.nextDouble();
+              } catch (InputMismatchException e) {
+                  vel[j] = Particle.rand(DEFAULT_BEGIN_RANGE, DEFAULT_END_RANGE); //TODO do smth else here
+                  e.printStackTrace();
+              }
+          }
+
+          Vector velocity = new Vector(vel);
+
+          double[] bIndivPos = new double[dimensionNum];
+
+          for(int j = 0; j < dimensionNum; j++) { // best individual position
+              try {
+                  bIndivPos[j] = in.nextDouble();
+              } catch (InputMismatchException e) {
+                  bIndivPos[j] = 0.0; //TODO do smth else here
+                  e.printStackTrace();
+              }
+          }
+
+          Vector bestIndividualPosition = new Vector(bIndivPos);
+
+          double bestIndivEval;
+          try {
+              bestIndivEval = in.nextDouble();
+          } catch (InputMismatchException e) {
+              bestIndivEval = 0.0; //TODO do smth else here
+              e.printStackTrace();
+          }
+
+          particles[i] = new Particle(function, dimensionNum, position, velocity, bestIndividualPosition, bestIndivEval);
+
+      }
+  }
+}
