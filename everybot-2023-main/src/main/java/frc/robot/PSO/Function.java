@@ -1,6 +1,10 @@
 package frc.robot.PSO;
 
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
@@ -85,6 +89,9 @@ public class Function {
     /**
      * Setpoints (can be modified to suit your needs)
      */
+
+        BufferedWriter writer;
+
         double sp1 = 30.0;
         double sp2 = 60.0;
         double sp3 = 90.0;
@@ -102,6 +109,15 @@ public class Function {
 
 
         //round 1
+
+        try {
+            writer = new BufferedWriter(new FileWriter("/U/encoderDump_" + Swarm.currentEpoch + "_" + Swarm.currentParticle + ".txt")); //TODO modify file path if necessary
+        } catch (IOException e1) {
+            e1.printStackTrace();
+            throw new RuntimeException();
+        }
+        String output = "";
+
         System.out.println("\n\n\n\n\nRound 1");
         Arm.getInstance().getController().reset();
         System.out.println("R1 controller reset");
@@ -128,10 +144,14 @@ public class Function {
         System.out.println("R1 thread slept");
         for(int i = 0; i < encoderDump.size(); i++) {
             sum += Math.abs(sp1 - encoderDump.get(i));
+            output += encoderDump.get(i) + " ";
         }
         System.out.println("R1 sum calculated");
         error += sum / ((double) encoderDump.size());
         System.out.println("R1 error added");
+
+
+        output += "\n";
 
         // round 2
         System.out.println("\n\n\n\n\n\n\n\n\n\n\n\nRound 2");
@@ -154,10 +174,14 @@ public class Function {
         } //TODO not sure if this works
         for(int i = 0; i < encoderDump.size(); i++) {
             sum += Math.abs(sp2 - encoderDump.get(i));
+            output += encoderDump.get(i) + " ";
         }
         System.out.println("R2 sum summed");
         error += sum / ((double) encoderDump.size());
         System.out.println("R2 error calculated");
+
+
+        output += "\n";
 
         // round 3
         System.out.println("Round 3");
@@ -185,12 +209,25 @@ public class Function {
         System.out.println("R3 Thread slept");
         for(int i = 0; i < encoderDump.size(); i++) {
             sum += Math.abs(sp3 - encoderDump.get(i));
+            output += encoderDump.get(i) + " ";
         }
         System.out.println("R3 sum summed");
         error += sum / ((double) encoderDump.size());
         System.out.println("R3 error added");
         Telemetry.putNumber("pivot", "Particle error", error);
         Telemetry.putNumber("pivot", "Cmd", 30);
+
+        output += "\n\n\n";
+
+        try {
+            writer.write(output);
+            writer.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+            throw new RuntimeException();
+        }
+
+
         return error;
     }
     

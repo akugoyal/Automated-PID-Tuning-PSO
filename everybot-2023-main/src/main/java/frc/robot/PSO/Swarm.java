@@ -35,6 +35,9 @@ public class Swarm {
     public static final double DEFAULT_COGNITIVE = 1.496180; // Cognitive component.
     public static final double DEFAULT_SOCIAL = 1.496180; // Social component.
 
+    public static int currentEpoch;
+    public static int currentParticle;
+
     /**
      * When Particles are created they are given a random position.
      * The random position is selected from a specified range.
@@ -103,6 +106,7 @@ public class Swarm {
 
         for (int i = 0; i < epochs; i++) {
             Telemetry.putNumber("pivot", "epochs", i);
+            currentEpoch = i + 1;
 
             if (bestEval < oldEval) {
                 System.out.println("Global Best Evaluation (Epoch " + (i + 1) + "):\t" + bestEval);
@@ -113,6 +117,9 @@ public class Swarm {
                 Telemetry.putNumber("pivot", "bPos0", bestPosition.getDimensions()[0]);
                 Telemetry.putNumber("pivot", "bPos1", bestPosition.getDimensions()[1]);
                 Telemetry.putNumber("pivot", "bPos2", bestPosition.getDimensions()[2]);
+
+                currentParticle = j + 1;
+
                 Particle p = particles[j];
                 Telemetry.putNumber("pivot", "particle number", j);
                 p.updatePersonalBest();
