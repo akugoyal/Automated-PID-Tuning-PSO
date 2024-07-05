@@ -182,7 +182,7 @@ public class Robot extends TimedRobot {
     for(int i = 0; i < numFiles; i++) {
 
       RobotMap.Arm.loadFiles[i][0] = in.next();
-      RobotMap.Arm.loadFiles[i][1] = "/U/DumpFile" + i + ".txt";
+      RobotMap.Arm.loadFiles[i][1] = RobotMap.Arm.loadFiles[i][0].split(".")[0]+"_LOG.txt";
     }
   }
 
