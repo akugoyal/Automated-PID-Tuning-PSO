@@ -111,7 +111,7 @@ public class Function {
         //round 1
 
         try {
-            writer = new BufferedWriter(new FileWriter(DumpData.currentSaveFile)); //TODO modify file path if necessary
+            writer = new BufferedWriter(new FileWriter(DumpData.currentSaveFile, true)); //TODO modify file path if necessary
         } catch (IOException e1) {
             e1.printStackTrace();
             throw new RuntimeException();

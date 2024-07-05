@@ -34,7 +34,7 @@ public class PivotToAngleTimed extends Command {
         }
 
         Telemetry.putNumber("pivot", "counter", counter);
-        // Function.encoderDump.add(Arm.getInstance().getPosition());
+        Function.encoderDump.add(Arm.getInstance().getPosition());
         Arm.getInstance().moveToPosition(ref);
     }
 
@@ -48,7 +48,7 @@ public class PivotToAngleTimed extends Command {
         Arm.getInstance().getController().setP(RobotMap.Arm.PIVOT_kP);
         Arm.getInstance().getController().setI(RobotMap.Arm.PIVOT_kI);
         Arm.getInstance().getController().setD(RobotMap.Arm.PIVOT_kD);
-        counter = 0;
+        // counter = 0;
         first = true;
     }
 

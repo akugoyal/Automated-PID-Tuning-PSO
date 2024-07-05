@@ -170,7 +170,7 @@ public class Robot extends TimedRobot {
     Scanner in;
     int numFiles;
     try {
-        in = new Scanner(new File("FileList.txt")); //TODO
+        in = new Scanner(new File("/U/FileList.txt")); //TODO
         numFiles = in.nextInt();
     } catch (FileNotFoundException e) {
         e.printStackTrace();
@@ -180,9 +180,12 @@ public class Robot extends TimedRobot {
     RobotMap.Arm.loadFiles = new String[numFiles][2];
 
     for(int i = 0; i < numFiles; i++) {
-
-      RobotMap.Arm.loadFiles[i][0] = in.next();
-      RobotMap.Arm.loadFiles[i][1] = RobotMap.Arm.loadFiles[i][0].split(".")[0]+"_LOG.txt";
+      RobotMap.Arm.loadFiles[i] = new String[2];
+      RobotMap.Arm.loadFiles[i][0] = ("U" + in.next().split(":")[1]).replaceAll("\\\\", "/");
+      // System.out.println(RobotMap.Arm.loadFiles[i][0]);
+      // System.out.println(RobotMap.Arm.loadFiles[i][0].indexOf("."));
+      // System.out.println(Arrays.toString(RobotMap.Arm.loadFiles[i][0].split("[.]")));
+      RobotMap.Arm.loadFiles[i][1] = RobotMap.Arm.loadFiles[i][0].split("[.]")[0]+"_LOG.txt";
     }
   }
 

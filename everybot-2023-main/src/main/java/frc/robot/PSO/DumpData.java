@@ -24,9 +24,10 @@ public class DumpData implements Runnable {
 
 
    public void run() {
-
+        particles = new Particle[20];
       for(int i = 0; i < RobotMap.Arm.loadFiles.length; i++) {
 
+         System.out.println(RobotMap.Arm.loadFiles[i][0]);
          currentSaveFile = RobotMap.Arm.loadFiles[i][1];
 
          initializeFromFile(RobotMap.Arm.loadFiles[i][0]);
