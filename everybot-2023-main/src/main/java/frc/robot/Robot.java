@@ -8,6 +8,7 @@ import com.revrobotics.CANSparkBase.IdleMode;
 
 import java.io.*;
 import java.util.Arrays;
+import java.util.Scanner;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -156,11 +157,33 @@ public class Robot extends TimedRobot {
     // pso = new frc.robot.PSO.Main();
     // Thread thread = new Thread(pso);
 
+    parseFileList();
+
     DumpData dump = new DumpData();
     Thread thread = new Thread(dump);
     thread.start();
 
     // thread.start();
+  }
+
+  public void parseFileList() {
+    Scanner in;
+    int numFiles;
+    try {
+        in = new Scanner(new File("FileList.txt")); //TODO
+        numFiles = in.nextInt();
+    } catch (FileNotFoundException e) {
+        e.printStackTrace();
+        throw new RuntimeException();
+    }
+
+    RobotMap.Arm.loadFiles = new String[numFiles][2];
+
+    for(int i = 0; i < numFiles; i++) {
+
+      RobotMap.Arm.loadFiles[i][0] = in.next();
+      RobotMap.Arm.loadFiles[i][1] = "/U/DumpFile" + i + ".txt";
+    }
   }
 
   @Override
