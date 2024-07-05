@@ -40,22 +40,6 @@ public class DumpData implements Runnable {
          }
          
       }
-
-      Swarm swarm;
-      Particle.FunctionType function;
-      int particles, epochs, dimensionNumber;
-      double inertia, cognitive, social;
-
-      function = Particle.FunctionType.Error; //TODO check if vals work, modify if dont
-      dimensionNumber = 3;
-      
-      // change here
-      particles = 20;
-      epochs = 5;
-      //TODO determine if we need to tune inertia, cognitive, social
-      
-      swarm = new Swarm(function, dimensionNumber, particles, epochs);
-      swarm.run();
    }
 
    private void initializeFromFile(String fileToLoad) { //TODO add config checkers
