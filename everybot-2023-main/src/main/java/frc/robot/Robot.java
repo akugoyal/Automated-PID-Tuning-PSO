@@ -83,6 +83,11 @@ public class Robot extends TimedRobot {
 
     telemetry = new Telemetry();
 
+    driveRightFwd.setIdleMode(IdleMode.kBrake);
+    driveRightBack.setIdleMode(IdleMode.kBrake);
+    driveLeftFwd.setIdleMode(IdleMode.kBrake);
+    driveLeftBack.setIdleMode(IdleMode.kBrake);
+
     // try {
     //   BufferedWriter out = new BufferedWriter(new FileWriter("/home/lvuser/savefile.txt"));
     //   out.write("hi" + 1);
