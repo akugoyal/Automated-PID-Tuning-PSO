@@ -9,7 +9,6 @@ import com.revrobotics.CANSparkBase.IdleMode;
 import java.io.*;
 import java.util.Arrays;
 import java.util.Scanner;
-import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
@@ -53,7 +52,7 @@ public class Robot extends TimedRobot {
   private CANSparkMax driveRightBack = new CANSparkMax(8, CANSparkLowLevel.MotorType.kBrushed); 
   private CANSparkMax driveLeftFwd = new CANSparkMax(6, CANSparkLowLevel.MotorType.kBrushed); 
   private CANSparkMax driveLeftBack = new CANSparkMax(7, CANSparkLowLevel.MotorType.kBrushed); 
-
+  BufferedWriter writer;
   frc.robot.PSO.Main pso;
 
   @Override
@@ -162,11 +161,18 @@ public class Robot extends TimedRobot {
     // pso = new frc.robot.PSO.Main();
     // Thread thread = new Thread(pso);
 
-    parseFileList();
+    // parseFileList();
 
-    DumpData dump = new DumpData();
-    Thread thread = new Thread(dump);
-    thread.start();
+    // DumpData dump = new DumpData();
+    // Thread thread = new Thread(dump);
+    // thread.start();
+
+    try {
+      writer = new BufferedWriter(new FileWriter("U/vels.txt", true)); //TODO modify file path if necessary
+    } catch (IOException e1) {
+      e1.printStackTrace();
+      throw new RuntimeException();
+    }
 
     // thread.start();
   }
@@ -194,14 +200,27 @@ public class Robot extends TimedRobot {
     }
   }
 
+  public static double initTime;
+  public static boolean go = false;
   @Override
   public void teleopPeriodic() {
     if (firstPeriodic) {
       CommandScheduler.getInstance().cancelAll();
+      initTime = System.currentTimeMillis();
       firstPeriodic = false;
       System.out.println("Canceled");
     }
-
+    
+    if (go) {
+      initTime = System.currentTimeMillis();
+      go = false;
+    }
+    try {
+      writer.write("" + (System.currentTimeMillis() - initTime) + ", " + Double.toString(Arm.getInstance().getPosition())+"\n");
+    } catch (IOException e) {
+      // TODO Auto-generated catch block
+      e.printStackTrace();
+    }
     if(RobotMap.Arm.scheduleCmd) {
       RobotMap.Arm.scheduleCmd = false;
       CommandScheduler.getInstance().schedule(RobotMap.Arm.cmdToSchedule);
@@ -217,6 +236,14 @@ public class Robot extends TimedRobot {
 
   @Override
   public void disabledInit() {
+    try {
+      if (writer != null) {
+        writer.close();
+      }
+    } catch (IOException e) {
+      // TODO Auto-generated catch block
+      e.printStackTrace();
+    }
     // telemetry.closeServer();
   }
 

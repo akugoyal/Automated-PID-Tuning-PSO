@@ -90,8 +90,8 @@ public class Telemetry {
         NetworkTableEntry pivotSensorPosition = _pivot.getEntry("Pivot Sensor Position");
         pivotSensorPosition.setDouble(pivot.getPosition());
 
-        // NetworkTableEntry pivotSensorVelocity = _pivot.getEntry("Pivot Sensor Velocity");
-        // pivotSensorVelocity.setDouble(pivot.getVelocity());
+        NetworkTableEntry pivotSensorVelocity = _pivot.getEntry("Pivot Sensor Velocity");
+        pivotSensorVelocity.setDouble(pivot.getVelocity());
 
         // NetworkTableEntry setPivotAngle = _pivot.getEntry("Pivot Angle");
         // setPivotAngle.setDouble(pivot.getPivotSetpoint(0));
