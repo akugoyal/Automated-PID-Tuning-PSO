@@ -13,10 +13,10 @@ public class PivotToAngleTimed extends Command {
     private double lastTime;
 
     public PivotToAngleTimed(double goal) {
-        Arm.getInstance().getController().reset();
-        Arm.getInstance().getController().setP(RobotMap.Arm.PIVOT_kP);
-        Arm.getInstance().getController().setI(RobotMap.Arm.PIVOT_kI);
-        Arm.getInstance().getController().setD(RobotMap.Arm.PIVOT_kD);
+        // Arm.getInstance().getController().reset();
+        // Arm.getInstance().getController().setP(RobotMap.Arm.PIVOT_kP);
+        // Arm.getInstance().getController().setI(RobotMap.Arm.PIVOT_kI);
+        // Arm.getInstance().getController().setD(RobotMap.Arm.PIVOT_kD);
         counter = 0;
         ref = goal;
         first = true;
@@ -44,12 +44,12 @@ public class PivotToAngleTimed extends Command {
 
     public void end(boolean interrupted) {
         Arm.getInstance().setPercentOutput(0, false);
-        Arm.getInstance().getController().reset();
-        Arm.getInstance().getController().setP(RobotMap.Arm.PIVOT_kP);
-        Arm.getInstance().getController().setI(RobotMap.Arm.PIVOT_kI);
-        Arm.getInstance().getController().setD(RobotMap.Arm.PIVOT_kD);
+        // Arm.getInstance().getController().reset();
+        // Arm.getInstance().getController().setP(RobotMap.Arm.PIVOT_kP);
+        // Arm.getInstance().getController().setI(RobotMap.Arm.PIVOT_kI);
+        // Arm.getInstance().getController().setD(RobotMap.Arm.PIVOT_kD);
         // counter = 0;
-        first = true;
+        // first = true;
     }
 
     public String getName() {

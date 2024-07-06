@@ -41,9 +41,9 @@ public class RobotMap {
         
         public static final double ZERO_SPEED = -0.4; //$$
 
-        public static double PIVOT_kP = 0.07250318043022665;
-        public static double PIVOT_kI = 0.10716938060041942;
-        public static double PIVOT_kD = 4.4820412815789034E-4;
+        // public static double PIVOT_kP = 0.07250318043022665;
+        // public static double PIVOT_kI = 0.10716938060041942;
+        // public static double PIVOT_kD = 4.4820412815789034E-4;
 
         public static boolean scheduleCmd = false;
         public static Command cmdToSchedule;

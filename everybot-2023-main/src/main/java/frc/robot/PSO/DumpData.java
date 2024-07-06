@@ -6,6 +6,7 @@ import java.util.InputMismatchException;
 import java.util.Scanner;
 
 import frc.robot.RobotMap;
+import frc.robot.util.Telemetry;
 import frc.robot.PSO.Particle.FunctionType;
 
 public class DumpData implements Runnable {
@@ -17,7 +18,7 @@ public class DumpData implements Runnable {
    public FunctionType function = FunctionType.Error;
 
    public int dimensionNum = 3;
-   public int numOfParticles = 10; //TODO
+   public int numOfParticles = 20; //TODO
 
    public static String currentSaveFile;
    
@@ -27,13 +28,14 @@ public class DumpData implements Runnable {
         particles = new Particle[20];
       for(int i = 0; i < RobotMap.Arm.loadFiles.length; i++) {
 
-         System.out.println(RobotMap.Arm.loadFiles[i][0]);
+         Telemetry.putString("pivot", "loadfile", RobotMap.Arm.loadFiles[i][0]);
          currentSaveFile = RobotMap.Arm.loadFiles[i][1];
 
          initializeFromFile(RobotMap.Arm.loadFiles[i][0]);
 
          for(int j = 0; j < particles.length; j++) {
-
+            Telemetry.putNumber("pivot", "particleNum", j);
+         
             double[] position = particles[j].getPosition().getDimensions();
 
             Function.errorFunction(position[0], position[1], position[2]);
