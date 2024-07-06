@@ -22,17 +22,17 @@ public class OI {
     }
 
     private void initBindings() {
-        driver.getButtonB().onTrue(new ZeroPivot());
+        // driver.getButtonB().onTrue(new ZeroPivot());
         // driver.getButtonA().whileTrue(new PivotToAngle(RobotMap.Arm.Goal.ZERO));
-        driver.getButtonA().onTrue(new PivotToAngleTimed(30));
-        driver.getButtonY().onTrue(new PivotToAngleTimed(60));
-        driver.getButtonX().onTrue(new PivotToAngleTimed(90));
-        driver.getRightDPadButton().onTrue(new PivotToAngleTimed(15));
-        driver.getLeftDPadButton().onTrue(new PivotToAngleTimed(45));
-        driver.getRightBumper().onTrue(new PivotToAngleTimed(75));
-        driver.getLeftBumper().onTrue(new PivotToAngleTimed(105));
-        driver.getUpDPadButton().whileTrue(new InstantCommand(() -> Arm.getInstance().setPercentOutput(-0.3, false)));
-        driver.getUpDPadButton().whileFalse(new InstantCommand(() -> Arm.getInstance().setPercentOutput(0, false)));
+        // driver.getButtonA().onTrue(new PivotToAngleTimed(30));
+        // driver.getButtonY().onTrue(new PivotToAngleTimed(60));
+        // driver.getButtonX().onTrue(new PivotToAngleTimed(90));
+        // driver.getRightDPadButton().onTrue(new PivotToAngleTimed(15));
+        // driver.getLeftDPadButton().onTrue(new PivotToAngleTimed(45));
+        // driver.getRightBumper().onTrue(new PivotToAngleTimed(75));
+        // driver.getLeftBumper().onTrue(new PivotToAngleTimed(105));
+        // driver.getUpDPadButton().whileTrue(new InstantCommand(() -> Arm.getInstance().setPercentOutput(-0.3, false)));
+        // driver.getUpDPadButton().whileFalse(new InstantCommand(() -> Arm.getInstance().setPercentOutput(0, false)));
         // driver.getButtonA().whileFalse(new InstantCommand(() -> Arm.getInstance().setPercentOutput(0)));
     }
 
