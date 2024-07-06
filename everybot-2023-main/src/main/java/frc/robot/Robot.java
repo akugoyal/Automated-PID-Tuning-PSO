@@ -121,10 +121,10 @@ public class Robot extends TimedRobot {
     // telemetry.autons("Current Auton", autonChooser.getSelected());
 
     telemetry.publish();
-    driveLeftFwd.setIdleMode(IdleMode.kBrake);
-    driveLeftBack.setIdleMode(IdleMode.kBrake);
-    driveRightFwd.setIdleMode(IdleMode.kBrake);
-    driveRightBack.setIdleMode(IdleMode.kBrake);
+    // driveLeftFwd.setIdleMode(IdleMode.kBrake);
+    // driveLeftBack.setIdleMode(IdleMode.kBrake);
+    // driveRightFwd.setIdleMode(IdleMode.kBrake);
+    // driveRightBack.setIdleMode(IdleMode.kBrake);
 
     // NetworkTableInstance.().flushLocal();
     // NetworkTableInstance.getDefault().flush();

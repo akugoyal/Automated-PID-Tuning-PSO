@@ -51,11 +51,11 @@ public class RobotMap {
         public static final double PIVOT_GEAR_RATIO = 128;
         public static final double PIVOT_ROT_TO_ANGLE = 360; // motor rotations to degrees
 
-        public static final double STALLING_CURRENT = 30; //$$
+        public static final double STALLING_CURRENT = 40; //$$
         
         public static final double MAX_ERROR = 1; // $$
 
-        public static final double CURRENT_LIMIT = 40.0;
+        public static final double CURRENT_LIMIT = 41.0;
         public static final double VOLTAGE_LIMIT = 3.0; //TODO
     
         public static final double PIVOT_FORWARD_SOFT_LIMIT = 120; //$$

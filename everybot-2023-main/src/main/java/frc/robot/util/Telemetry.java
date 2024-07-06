@@ -90,20 +90,20 @@ public class Telemetry {
         NetworkTableEntry pivotSensorPosition = _pivot.getEntry("Pivot Sensor Position");
         pivotSensorPosition.setDouble(pivot.getPosition());
 
-        NetworkTableEntry pivotSensorVelocity = _pivot.getEntry("Pivot Sensor Velocity");
-        pivotSensorVelocity.setDouble(pivot.getVelocity());
+        // NetworkTableEntry pivotSensorVelocity = _pivot.getEntry("Pivot Sensor Velocity");
+        // pivotSensorVelocity.setDouble(pivot.getVelocity());
 
-        NetworkTableEntry setPivotAngle = _pivot.getEntry("Pivot Angle");
-        setPivotAngle.setDouble(pivot.getPivotSetpoint(0));
+        // NetworkTableEntry setPivotAngle = _pivot.getEntry("Pivot Angle");
+        // setPivotAngle.setDouble(pivot.getPivotSetpoint(0));
 
-        NetworkTableEntry isStalling = _pivot.getEntry("Pivot Is Stalling");
-        isStalling.setBoolean(Arm.getInstance().isStalling());
+        // NetworkTableEntry isStalling = _pivot.getEntry("Pivot Is Stalling");
+        // isStalling.setBoolean(Arm.getInstance().isStalling());
         
         NetworkTableEntry pivotCurrent = _pivot.getEntry("Pivot Current");
         pivotCurrent.setDouble(Arm.getInstance().getOutputCurrent());
 
-        NetworkTableEntry cmdBool = _pivot.getEntry("Schedule Command");
-        cmdBool.setBoolean(RobotMap.Arm.scheduleCmd);
+        // NetworkTableEntry cmdBool = _pivot.getEntry("Schedule Command");
+        // cmdBool.setBoolean(RobotMap.Arm.scheduleCmd);
     }
 
     public void PSO() {
@@ -154,9 +154,9 @@ public class Telemetry {
     }
 
     public void publish() {
-        debug();
+        // debug();
         pivot();
-        PSO();
+        // PSO();
 
         inst.flushLocal();
         inst.flush();
