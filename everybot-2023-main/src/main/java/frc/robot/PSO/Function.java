@@ -111,6 +111,7 @@ public class Function {
         //round 1
 
         try {
+            System.out.println(RobotMap.Arm.currentSaveFile_Log);
             writer = new BufferedWriter(new FileWriter(RobotMap.Arm.currentSaveFile_Log, true)); //TODO modify file path if necessary
         } catch (IOException e1) {
             e1.printStackTrace();

@@ -158,13 +158,13 @@ public class Robot extends TimedRobot {
 
     CommandScheduler.getInstance().cancelAll();
 
-    // pso = new frc.robot.PSO.Main();
-    // Thread thread = new Thread(pso);
+    pso = new frc.robot.PSO.Main();
+    Thread thread = new Thread(pso);
 
-    parseFileList();
+    // parseFileList();
 
-    DumpData dump = new DumpData();
-    Thread thread = new Thread(dump);
+    // DumpData dump = new DumpData();
+    // Thread thread = new Thread(dump);
     thread.start();
 
     // try {

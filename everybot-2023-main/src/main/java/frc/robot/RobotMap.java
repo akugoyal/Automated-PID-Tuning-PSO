@@ -30,9 +30,9 @@ public class RobotMap {
 
         
         public static final String LOAD_FILE = "/U/Bs/savefileB_contcontcont2.txt"; //TODO change to wanted file
-        public static final String SAVE_FILE_HEADER = "/U/savefileB_contcontcontcont"; //use case: since it saves every epoch, if string was save, savefiles would be save1.txt, save2.txt, etc.
+        public static final String SAVE_FILE_HEADER = "/U/savefileC"; //use case: since it saves every epoch, if string was save, savefiles would be save1.txt, save2.txt, etc.
 
-        public static final boolean SAVE_SWARM = false;
+        public static final boolean SAVE_SWARM = true;
         public static final boolean LOAD_SWARM = false;
 
         public static final int CANCODER_INVERT = -1;
