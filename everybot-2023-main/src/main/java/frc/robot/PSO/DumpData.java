@@ -19,19 +19,17 @@ public class DumpData implements Runnable {
 
    public int dimensionNum = 3;
    public int numOfParticles = 20; //TODO
-
-   public static String currentSaveFile;
    
 
 
    public void run() {
         particles = new Particle[20];
-      for(int i = 0; i < RobotMap.Arm.loadFiles.length; i++) {
+      for(int i = 0; i < RobotMap.Arm.loadFiles_Log.length; i++) {
 
-         Telemetry.putString("pivot", "loadfile", RobotMap.Arm.loadFiles[i][0]);
-         currentSaveFile = RobotMap.Arm.loadFiles[i][1];
+         Telemetry.putString("pivot", "loadfile", RobotMap.Arm.loadFiles_Log[i]);
+         RobotMap.Arm.currentSaveFile_Log = RobotMap.Arm.saveFiles_Log[i];
 
-         initializeFromFile(RobotMap.Arm.loadFiles[i][0]);
+         initializeFromFile(RobotMap.Arm.loadFiles_Log[i]);
 
          for(int j = 0; j < particles.length; j++) {
             Telemetry.putNumber("pivot", "particleNum", j);

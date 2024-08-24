@@ -114,6 +114,9 @@ public class Swarm {
             }
 
             for (int j = 0; j < particles.length; j++) {
+
+                if (RobotMap.Arm.SAVE_SWARM) RobotMap.Arm.currentSaveFile_Log = RobotMap.Arm.SAVE_FILE_HEADER + (i + 1) + "_LOG.txt";
+
                 Telemetry.putNumber("pivot", "bPos0", bestPosition.getDimensions()[0]);
                 Telemetry.putNumber("pivot", "bPos1", bestPosition.getDimensions()[1]);
                 Telemetry.putNumber("pivot", "bPos2", bestPosition.getDimensions()[2]);
@@ -127,6 +130,7 @@ public class Swarm {
                 
                 if (RobotMap.Arm.SAVE_SWARM) {
                     String fName = RobotMap.Arm.SAVE_FILE_HEADER + (i + 1) + ".txt";
+                    
                     saveToFile(particles, fName);
                 }
 

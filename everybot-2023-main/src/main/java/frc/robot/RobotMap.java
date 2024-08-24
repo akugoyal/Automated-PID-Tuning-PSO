@@ -61,6 +61,8 @@ public class RobotMap {
         public static final double PIVOT_FORWARD_SOFT_LIMIT = 120; //$$
         public static final double PIVOT_REVERSE_SOFT_LIMIT = 0; //$$
 
-        public static String[][] loadFiles;
+        public static String[] loadFiles_Log;
+        public static String[] saveFiles_Log;
+        public static String currentSaveFile_Log;
     }
 }

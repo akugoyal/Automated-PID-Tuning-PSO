@@ -188,9 +188,11 @@ public class Robot extends TimedRobot {
     //     throw new RuntimeException();
     // }
 
-    RobotMap.Arm.loadFiles = new String[1][2];
-    RobotMap.Arm.loadFiles[0][0] = "/U/Bs/savefileB0.txt";
-    RobotMap.Arm.loadFiles[0][1] = "/U/Bs/savefileB0_overrun_LOG.txt";
+    RobotMap.Arm.loadFiles_Log = new String[1];
+    RobotMap.Arm.saveFiles_Log = new String[1];
+
+    RobotMap.Arm.loadFiles_Log[0] = "/U/Bs/savefileB0.txt";
+    RobotMap.Arm.saveFiles_Log[0] = "/U/Bs/savefileB0_overrun_LOG.txt";
 
     // for(int i = 0; i < numFiles; i++) {
     //   RobotMap.Arm.loadFiles[i] = new String[2];
