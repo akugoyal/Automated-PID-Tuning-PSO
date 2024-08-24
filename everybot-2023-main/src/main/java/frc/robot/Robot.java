@@ -161,43 +161,45 @@ public class Robot extends TimedRobot {
     // pso = new frc.robot.PSO.Main();
     // Thread thread = new Thread(pso);
 
-    // parseFileList();
+    parseFileList();
 
-    // DumpData dump = new DumpData();
-    // Thread thread = new Thread(dump);
-    // thread.start();
+    DumpData dump = new DumpData();
+    Thread thread = new Thread(dump);
+    thread.start();
 
-    try {
-      writer = new BufferedWriter(new FileWriter("U/vels.txt", true)); //TODO modify file path if necessary
-    } catch (IOException e1) {
-      e1.printStackTrace();
-      throw new RuntimeException();
-    }
+    // try {
+    //   writer = new BufferedWriter(new FileWriter("U/vels.txt", true)); //TODO modify file path if necessary
+    // } catch (IOException e1) {
+    //   e1.printStackTrace();
+    //   throw new RuntimeException();
+    // }
 
     // thread.start();
   }
 
   public void parseFileList() {
-    Scanner in;
-    int numFiles;
-    try {
-        in = new Scanner(new File("/U/FileList.txt")); //TODO
-        numFiles = in.nextInt();
-    } catch (FileNotFoundException e) {
-        e.printStackTrace();
-        throw new RuntimeException();
-    }
+    // Scanner in;
+    // int numFiles;
+    // try {
+    //     in = new Scanner(new File("/U/FileList.txt")); //TODO
+    //     numFiles = in.nextInt();
+    // } catch (FileNotFoundException e) {
+    //     e.printStackTrace();
+    //     throw new RuntimeException();
+    // }
 
-    RobotMap.Arm.loadFiles = new String[numFiles][2];
+    RobotMap.Arm.loadFiles = new String[1][2];
+    RobotMap.Arm.loadFiles[0][0] = "/U/Bs/savefileB0.txt";
+    RobotMap.Arm.loadFiles[0][1] = "/U/Bs/savefileB0_overrun_LOG.txt";
 
-    for(int i = 0; i < numFiles; i++) {
-      RobotMap.Arm.loadFiles[i] = new String[2];
-      RobotMap.Arm.loadFiles[i][0] = ("U" + in.next().split(":")[1]).replaceAll("\\\\", "/");
-      // System.out.println(RobotMap.Arm.loadFiles[i][0]);
-      // System.out.println(RobotMap.Arm.loadFiles[i][0].indexOf("."));
-      // System.out.println(Arrays.toString(RobotMap.Arm.loadFiles[i][0].split("[.]")));
-      RobotMap.Arm.loadFiles[i][1] = RobotMap.Arm.loadFiles[i][0].split("[.]")[0]+"_LOG.txt";
-    }
+    // for(int i = 0; i < numFiles; i++) {
+    //   RobotMap.Arm.loadFiles[i] = new String[2];
+    //   RobotMap.Arm.loadFiles[i][0] = ("U" + in.next().split(":")[1]).replaceAll("\\\\", "/");
+    //   // System.out.println(RobotMap.Arm.loadFiles[i][0]);
+    //   // System.out.println(RobotMap.Arm.loadFiles[i][0].indexOf("."));
+    //   // System.out.println(Arrays.toString(RobotMap.Arm.loadFiles[i][0].split("[.]")));
+    //   RobotMap.Arm.loadFiles[i][1] = RobotMap.Arm.loadFiles[i][0].split("[.]")[0]+"_LOG.txt";
+    // }
   }
 
   public static double initTime;
@@ -215,12 +217,12 @@ public class Robot extends TimedRobot {
       initTime = System.currentTimeMillis();
       go = false;
     }
-    try {
-      writer.write("" + (System.currentTimeMillis() - initTime) + ", " + Double.toString(Arm.getInstance().getPosition())+"\n");
-    } catch (IOException e) {
-      // TODO Auto-generated catch block
-      e.printStackTrace();
-    }
+    // try {
+    //   writer.write("" + (System.currentTimeMillis() - initTime) + ", " + Double.toString(Arm.getInstance().getPosition())+"\n");
+    // } catch (IOException e) {
+    //   // TODO Auto-generated catch block
+    //   e.printStackTrace();
+    // }
     if(RobotMap.Arm.scheduleCmd) {
       RobotMap.Arm.scheduleCmd = false;
       CommandScheduler.getInstance().schedule(RobotMap.Arm.cmdToSchedule);
