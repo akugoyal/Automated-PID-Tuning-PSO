@@ -29,11 +29,11 @@ public class RobotMap {
         public static final int CANCODER_ID = 37;
 
         
-        public static final String LOAD_FILE = "/U/Bs/savefileB_contcontcont2.txt"; //TODO change to wanted file
-        public static final String SAVE_FILE_HEADER = "/U/savefileC"; //use case: since it saves every epoch, if string was save, savefiles would be save1.txt, save2.txt, etc.
+        public static final String LOAD_FILE = "/U/Cs/savefileC4.txt"; //TODO change to wanted file
+        public static final String SAVE_FILE_HEADER = "/U/Cs/savefileC_cont"; //use case: since it saves every epoch, if string was save, savefiles would be save1.txt, save2.txt, etc.
 
         public static final boolean SAVE_SWARM = true;
-        public static final boolean LOAD_SWARM = false;
+        public static final boolean LOAD_SWARM = true;
 
         public static final int CANCODER_INVERT = -1;
 
@@ -51,7 +51,7 @@ public class RobotMap {
         public static final double PIVOT_GEAR_RATIO = 128;
         public static final double PIVOT_ROT_TO_ANGLE = 360; // motor rotations to degrees
 
-        public static final double STALLING_CURRENT = 40; //$$
+        public static final double STALLING_CURRENT = 39; //$$
         
         public static final double MAX_ERROR = 1; // $$
 

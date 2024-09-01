@@ -236,6 +236,9 @@ public class Swarm {
      * @return  an array of particles
      */
     private void initialize () {
+        if (RobotMap.Arm.SAVE_SWARM) {
+                RobotMap.Arm.currentSaveFile_Log = RobotMap.Arm.SAVE_FILE_HEADER + "0" + "_LOG.txt";
+            }
         for (int i = 0; i < numOfParticles; i++) {
             Telemetry.putNumber("pivot", "particle number", i);
             Telemetry.putNumber("pivot", "bPos0", bestPosition.getDimensions()[0]);

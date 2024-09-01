@@ -5,7 +5,9 @@ import frc.robot.*;
 import frc.robot.subsystems.Arm;
 
 public class ZeroPivot extends Command {
+    double initTime;
     public ZeroPivot() {
+        initTime = System.currentTimeMillis();
         addRequirements(Arm.getInstance());
     }
 
@@ -14,7 +16,7 @@ public class ZeroPivot extends Command {
     }
 
     public boolean isFinished() {
-        return Arm.getInstance().isStalling();
+        return Arm.getInstance().isStalling() && System.currentTimeMillis() - initTime > 500;
     }
 
     public void end(boolean interrupted) {
