@@ -110,13 +110,12 @@ public class Function {
 
         //round 1
 
-        try {
-            System.out.println(RobotMap.Arm.currentSaveFile_Log);
-            writer = new BufferedWriter(new FileWriter(RobotMap.Arm.currentSaveFile_Log, true)); //TODO modify file path if necessary
-        } catch (IOException e1) {
-            e1.printStackTrace();
-            throw new RuntimeException();
-        }
+        // try {
+        //     writer = new BufferedWriter(new FileWriter(RobotMap.Arm.currentSaveFile_LOG), true)); //TODO modify file path if necessary
+        // } catch (IOException e1) {
+        //     e1.printStackTrace();
+        //     throw new RuntimeException();
+        // }
         String output = "";
 
         output += kP + "\n" + kI + "\n" + kD + "\n";
@@ -146,7 +145,7 @@ public class Function {
         // }
         System.out.println("R1 thread slept");
         for(int i = 0; i < encoderDump.size(); i++) {
-            sum += Math.abs(sp1 - encoderDump.get(i));
+            sum += Math.pow(Math.abs(sp1 - encoderDump.get(i)), 2) + Math.pow(Math.abs(sp1 - encoderDump.get(i)), 0.5) + Math.abs(sp1 - encoderDump.get(i)) * (i * 100 / encoderDump.size());
             output += encoderDump.get(i) + " ";
         }
         System.out.println("R1 sum calculated");
@@ -176,7 +175,7 @@ public class Function {
              }
         } //TODO not sure if this works
         for(int i = 0; i < encoderDump.size(); i++) {
-            sum += Math.abs(sp2 - encoderDump.get(i));
+            sum += Math.pow(Math.abs(sp2 - encoderDump.get(i)), 2) + Math.pow(Math.abs(sp2 - encoderDump.get(i)), 0.5) + Math.abs(sp1 - encoderDump.get(i)) * (i * 100 / encoderDump.size());
             output += encoderDump.get(i) + " ";
         }
         System.out.println("R2 sum summed");
@@ -211,7 +210,7 @@ public class Function {
 
         System.out.println("R3 Thread slept");
         for(int i = 0; i < encoderDump.size(); i++) {
-            sum += Math.abs(sp3 - encoderDump.get(i));
+            sum += Math.pow(Math.abs(sp3 - encoderDump.get(i)), 2) + Math.pow(Math.abs(sp2 - encoderDump.get(i)), 0.5) + Math.abs(sp1 - encoderDump.get(i)) * (i * 100 / encoderDump.size());
             output += encoderDump.get(i) + " ";
         }
         System.out.println("R3 sum summed");
@@ -222,13 +221,13 @@ public class Function {
 
         output += "\n\n\n";
 
-        try {
-            writer.write(output);
-            writer.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-            throw new RuntimeException();
-        }
+        // try {
+        //     writer.write(output);
+        //     writer.close();
+        // } catch (IOException e) {
+        //     e.printStackTrace();
+        //     throw new RuntimeException();
+        // }
 
 
         return error;

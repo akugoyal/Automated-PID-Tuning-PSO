@@ -168,13 +168,13 @@ public class Robot extends TimedRobot {
     thread.start();
 
     // try {
-    //   writer = new BufferedWriter(new FileWriter("U/vels.txt", true)); //TODO modify file path if necessary
+    //   writer = new BufferedWriter(new FileWriter("U/velsNew.txt", true)); //TODO modify file path if necessary
     // } catch (IOException e1) {
     //   e1.printStackTrace();
     //   throw new RuntimeException();
     // }
 
-    // thread.start();
+    thread.start();
   }
 
   public void parseFileList() {

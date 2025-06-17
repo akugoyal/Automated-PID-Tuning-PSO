@@ -29,11 +29,11 @@ public class RobotMap {
         public static final int CANCODER_ID = 37;
 
         
-        public static final String LOAD_FILE = "/U/Cs/savefileC4.txt"; //TODO change to wanted file
-        public static final String SAVE_FILE_HEADER = "/U/Cs/savefileC_cont"; //use case: since it saves every epoch, if string was save, savefiles would be save1.txt, save2.txt, etc.
+        public static final String LOAD_FILE = "/U/May2nd2025/ErrorSquareSqrt/Trial1/iteration_rst1_7.txt"; //TODO change to wanted file
+        public static final String SAVE_FILE_HEADER = "/U/May2nd2025/ErrorSqSqrtT/Trial1/iteration"; //use case: since it saves every epoch, if string was save, savefiles would be save1.txt, save2.txt, etc.
 
         public static final boolean SAVE_SWARM = true;
-        public static final boolean LOAD_SWARM = true;
+        public static final boolean LOAD_SWARM = false;
 
         public static final int CANCODER_INVERT = -1;
 
