@@ -158,8 +158,8 @@ public class Robot extends TimedRobot {
 
     CommandScheduler.getInstance().cancelAll();
 
-    // pso = new frc.robot.PSO.Main();
-    // Thread thread = new Thread(pso);
+    pso = new frc.robot.PSO.Main();
+    Thread thread = new Thread(pso);
 
     // parseFileList();
 
@@ -167,14 +167,14 @@ public class Robot extends TimedRobot {
     // Thread thread = new Thread(dump);
     // thread.start();
 
-    try {
-      writer = new BufferedWriter(new FileWriter("U/vels.txt", true)); //TODO modify file path if necessary
-    } catch (IOException e1) {
-      e1.printStackTrace();
-      throw new RuntimeException();
-    }
+    // try {
+    //   writer = new BufferedWriter(new FileWriter("U/velsNew.txt", true)); //TODO modify file path if necessary
+    // } catch (IOException e1) {
+    //   e1.printStackTrace();
+    //   throw new RuntimeException();
+    // }
 
-    // thread.start();
+    thread.start();
   }
 
   public void parseFileList() {
@@ -215,12 +215,12 @@ public class Robot extends TimedRobot {
       initTime = System.currentTimeMillis();
       go = false;
     }
-    try {
-      writer.write("" + (System.currentTimeMillis() - initTime) + ", " + Double.toString(Arm.getInstance().getPosition())+"\n");
-    } catch (IOException e) {
-      // TODO Auto-generated catch block
-      e.printStackTrace();
-    }
+    // try {
+    //   writer.write("" + (System.currentTimeMillis() - initTime) + ", " + Double.toString(Arm.getInstance().getPosition())+"\n");
+    // } catch (IOException e) {
+    //   // TODO Auto-generated catch block
+    //   e.printStackTrace();
+    // }
     if(RobotMap.Arm.scheduleCmd) {
       RobotMap.Arm.scheduleCmd = false;
       CommandScheduler.getInstance().schedule(RobotMap.Arm.cmdToSchedule);
